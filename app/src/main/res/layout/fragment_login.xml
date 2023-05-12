@@ -12,7 +12,7 @@
     tools:context=".ui.login.LoginFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/loginTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
@@ -38,7 +38,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/loginTV" />
 
     <EditText
         android:id="@+id/editPasswordLogin"
@@ -48,7 +48,6 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
-        android:autofillHints="@string/prompt_password"
         android:hint="@string/prompt_password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
