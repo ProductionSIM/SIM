@@ -8,21 +8,26 @@
     <string name="title_Login">Einloggen</string>
     <string name="title_new_list">Neue Liste</string>
     <string name="title_new_product">Neues Produkt</string>
-    <string name="title_register">Registrieren</string>
     <string name="action_profile">Profil</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Passwort</string>
-    <string name="prompt_password_confirm">Passwort bestätigen</string>
-    <string name="action_sign_in">Einloggen</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_stay_logged_in">Eingeloggt bleiben</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings related to Registration and Login-->
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="title_register">Registrieren</string>
     <string name="registration">Registrieren</string>
-    <string name="action_stay_logged_in">Eingeloggt bleiben</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prompt_password_confirm">Passwort bestätigen</string>
+    <string name="action_sign_in">Einloggen</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Passwort</string>
+    <!--Strings related to add Product -->
+    <string name="prompt_brand">Marke</string>
+    <string name="prompt_product_designation">Produktbezeichnung</string>
+    <string name="prompt_expire_date">Ablaufdatum</string>
+    <string name="prompt_number_of_pieces">Menge</string>
 </resources>
