@@ -46,8 +46,8 @@ private FragmentLoginBinding binding;
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = binding.username;
-        final EditText passwordEditText = binding.password;
+        final EditText usernameEditText = binding.editEmailLogIn;
+        final EditText passwordEditText = binding.editPasswordLogin;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
 
