@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sim.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements View.OnClickListener{
 
     private FragmentDashboardBinding binding;
 
@@ -33,5 +33,10 @@ public class DashboardFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
