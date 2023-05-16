@@ -26,7 +26,7 @@
         android:id="@+id/loginFragment"
         android:name="com.example.sim.ui.login.LoginFragment"
         android:label="@string/title_Login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.sim.registerFragment"
