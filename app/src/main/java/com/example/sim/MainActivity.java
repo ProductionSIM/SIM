@@ -40,4 +40,18 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.profile_menu_nav, menu);
         return true;
     }
+
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+//
+//
+//        switch (item.getItemId()){
+//            case R.id.action_profile: {
+//
+//                return true;
+//            }
+//            default:
+//                return true;
+//        }
+//    }
+
 }
