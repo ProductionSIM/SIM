@@ -23,8 +23,8 @@
         android:label="@string/title_Listen"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.sim.ui.login.LoginFragment"
+        android:id="@+id/loginActivity"
+        android:name="com.example.sim.LoginActivity"
         android:label="@string/title_Login"
         tools:layout="@layout/activity_login" />
     <fragment

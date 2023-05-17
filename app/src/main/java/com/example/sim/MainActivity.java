@@ -1,7 +1,9 @@
 package com.example.sim;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -34,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    public void loadLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -41,17 +49,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-//
-//
-//        switch (item.getItemId()){
-//            case R.id.action_profile: {
-//
-//                return true;
-//            }
-//            default:
-//                return true;
-//        }
-//    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.action_profile) {
+            loadLoginActivity();
+        }
+        return true;
+    }
 
 }
