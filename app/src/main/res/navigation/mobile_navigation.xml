@@ -31,7 +31,7 @@
         android:id="@+id/registerFragment"
         android:name="com.example.sim.registerFragment"
         android:label="@string/title_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/activity_register" />
     <fragment
         android:id="@+id/productFragment"
         android:name="com.example.sim.ProductFragment"

@@ -72,7 +72,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="110dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="164dp"
         android:text="@string/action_sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,5 +92,29 @@
         app:layout_constraintStart_toStartOf="@+id/editPasswordLogin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/registerLoginTV"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/questionRegister"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <Button
+        android:id="@+id/btnLoginRegister"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/registration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerLoginTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
