@@ -21,6 +21,14 @@
             android:exported="true"
             android:label="@string/app_name"/>
         <activity
+            android:name=".ProductActivity"
+            android:exported="true"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ListActivity"
+            android:exported="true"
+            android:label="@string/app_name"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
