@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.sim.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {
-//test
+
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

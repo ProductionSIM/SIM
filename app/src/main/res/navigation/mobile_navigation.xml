@@ -6,40 +6,40 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/activity_home"
         android:name="com.example.sim.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.sim.ui.dashboard.DashboardFragment"
+        android:id="@+id/ProductOverview"
+        android:name="com.example.sim.ui.dashboard.ProductOverviewFragment"
         android:label="@string/title_produkte"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.sim.ui.notifications.NotificationsFragment"
+        android:id="@+id/ListOverview"
+        android:name="com.example.sim.ui.notifications.ListOverviewFragment"
         android:label="@string/title_Listen"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/activity_products" />
     <fragment
         android:id="@+id/loginActivity"
         android:name="com.example.sim.LoginActivity"
         android:label="@string/title_Login"
         tools:layout="@layout/activity_login" />
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.sim.registerFragment"
-        android:label="@string/title_register"
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.sim.RegisterActivity"
+        android:label="activity_register"
         tools:layout="@layout/activity_register" />
-    <fragment
-        android:id="@+id/productFragment"
-        android:name="com.example.sim.ProductFragment"
-        android:label="@string/title_new_product"
-        tools:layout="@layout/fragment_product" />
-    <fragment
-        android:id="@+id/listFragment"
-        android:name="com.example.sim.ListFragment"
-        android:label="@string/title_new_list"
-        tools:layout="@layout/fragment_list" />
+    <activity
+        android:id="@+id/listActivity"
+        android:name="com.example.sim.ListActivity"
+        android:label="activity_add_list"
+        tools:layout="@layout/activity_add_list" />
+    <activity
+        android:id="@+id/productActivity"
+        android:name="com.example.sim.ProductActivity"
+        android:label="activity_add_product"
+        tools:layout="@layout/activity_add_product" />
 </navigation>

@@ -9,9 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sim.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment implements View.OnClickListener{
+public class ProductOverviewFragment extends Fragment implements View.OnClickListener{
 
     private FragmentDashboardBinding binding;
 
