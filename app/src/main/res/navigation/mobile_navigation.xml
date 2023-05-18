@@ -32,14 +32,14 @@
         android:name="com.example.sim.ProductFragment"
         android:label="@string/title_new_product"
         tools:layout="@layout/fragment_product" />
-    <fragment
-        android:id="@+id/listFragment"
-        android:name="com.example.sim.ListFragment"
-        android:label="@string/title_new_list"
-        tools:layout="@layout/fragment_list" />
     <activity
         android:id="@+id/registerActivity"
         android:name="com.example.sim.RegisterActivity"
         android:label="activity_register"
         tools:layout="@layout/activity_register" />
+    <fragment
+        android:id="@+id/listActivity"
+        android:name="com.example.sim.ListActivity"
+        android:label="activity_list"
+        tools:layout="@layout/activity_list" />
 </navigation>

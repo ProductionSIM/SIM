@@ -43,10 +43,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        //if (view.getId() == R.id.btnLogOut) {
-        //    setStayLoggedIn();
-        //    loadMainActivity();
-        //}
         if (view.getId() == R.id.btnLogin){
             setStayLoggedIn();
             loadHomeFragment();
