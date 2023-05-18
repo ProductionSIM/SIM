@@ -1,4 +1,4 @@
-package com.example.sim.ui.notifications;
+package com.example.sim.ui.dashboard;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,19 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sim.databinding.FragmentNotificationsBinding;
+import com.example.sim.databinding.FragmentDashboardBinding;
 
-public class ListOverviewFragment extends Fragment {
+public class DashboardFragment extends Fragment implements View.OnClickListener{
 
-    private FragmentNotificationsBinding binding;
+    private FragmentDashboardBinding binding;
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        DashboardViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
 
         return root;
     }
@@ -30,5 +33,10 @@ public class ListOverviewFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
