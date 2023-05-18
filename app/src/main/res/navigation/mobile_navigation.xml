@@ -28,11 +28,6 @@
         android:label="@string/title_Login"
         tools:layout="@layout/activity_login" />
     <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.sim.registerFragment"
-        android:label="@string/title_register"
-        tools:layout="@layout/activity_register" />
-    <fragment
         android:id="@+id/productFragment"
         android:name="com.example.sim.ProductFragment"
         android:label="@string/title_new_product"
@@ -42,4 +37,9 @@
         android:name="com.example.sim.ListFragment"
         android:label="@string/title_new_list"
         tools:layout="@layout/fragment_list" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.sim.RegisterActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" />
 </navigation>
