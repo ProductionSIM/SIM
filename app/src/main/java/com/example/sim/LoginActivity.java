@@ -12,7 +12,7 @@ import com.example.sim.ui.home.HomeFragment;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnLogOut, btnLogin;
+    Button btnLogin;
 
     final String databaseName = "/data/data/de.codeyourapp.myapplication/databases/meinedb.db";
 
