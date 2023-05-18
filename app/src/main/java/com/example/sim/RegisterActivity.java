@@ -72,8 +72,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         databaseUser.close();
     }
 
-    public void loadMainActivity(){
-        Intent inten = new Intent(this, MainActivity.class);
+    public void loadLoginActivity(){
+        Intent inten = new Intent(this, LoginActivity.class);
         startActivity(inten);
         this.finish();
     }
@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         if (view.getId() == R.id.register) {
             registration(emailRegister.getText().toString(), pwRegister.getText().toString(), pwConfRegister.getText().toString());
-            loadMainActivity();
+            loadLoginActivity();
         }
     }
 }
