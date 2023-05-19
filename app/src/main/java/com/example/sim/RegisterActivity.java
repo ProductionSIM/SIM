@@ -16,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     Button register;
 
-    final String databaseName = "/data/data/de.codeyourapp.myapplication/databases/meinedb.db";
+    final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         pwConfRegister = (EditText) findViewById(R.id.pwConfRegister);
 
         register = (Button) findViewById(R.id.register);
-
         register.setOnClickListener(this);
     }
 
