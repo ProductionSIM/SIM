@@ -36,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             createAccount(username, password);
         } else if (checkUserNameIsOkay(username)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (passwordConfirmation(password, passwordC)) {
             Toast.makeText(getApplicationContext(), "Das Passwort stimmt nicht überein!", Toast.LENGTH_SHORT).show();
         }
         emailRegister.setText("");
@@ -51,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         cursorUser.moveToFirst();
         if (cursorUser.getInt(0) == 0) {
             okay = true;
+        } else{
+            return false;
         }
         cursorUser.close();
         databaseUser.close();
