@@ -16,6 +16,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     Button register;
 
+    String KEY_username, KEY_password, TABLE_Name="user";
+
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
     @Override

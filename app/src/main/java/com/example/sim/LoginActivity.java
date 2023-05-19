@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.btnLogin){
             setStayLoggedIn();
             loadMainActivity();
+            //Toast.makeText(getApplicationContext(), "Erfolgreich Angemeldet", Toast.LENGTH_SHORT).show();
         } else if(view.getId() == R.id.btnLoginRegister){
             loadRegisterActivity();
         }
