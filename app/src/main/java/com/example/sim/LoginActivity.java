@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void loadMainActivity(){
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
+        Toast.makeText(getApplicationContext(), "Erfolgreich angemeldet", Toast.LENGTH_SHORT).show();
         this.finish();
     }
 
@@ -62,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.btnLogin){
             setStayLoggedIn();
             loadMainActivity();
-            //Toast.makeText(getApplicationContext(), "Erfolgreich Angemeldet", Toast.LENGTH_SHORT).show();
         } else if(view.getId() == R.id.btnLoginRegister){
             loadRegisterActivity();
         }
