@@ -12,7 +12,7 @@ import com.example.sim.ui.home.HomeFragment;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnLogOut, btnLogin;
+    Button btnLoginRegister, btnLogin;
 
     final String databaseName = "/data/data/de.codeyourapp.myapplication/databases/meinedb.db";
 
@@ -24,8 +24,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
-      //  btnLogOut = (Button) findViewById(R.id.btnLogOut);
-      //  btnLogOut.setOnClickListener(this);
+        btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
+        btnLoginRegister.setOnClickListener(this);
+
     }
 
     public void setStayLoggedIn(){
@@ -41,11 +42,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.finish();
     }
 
+    public void loadRegisterActivity(){
+        Intent inten = new Intent(this, RegisterActivity.class);
+        startActivity(inten);
+        this.finish();
+    }
+
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogin){
             setStayLoggedIn();
             loadHomeFragment();
+        } else if(view.getId() == R.id.btnLoginRegister){
+            loadRegisterActivity();
         }
     }
 }
