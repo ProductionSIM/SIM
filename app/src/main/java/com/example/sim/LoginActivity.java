@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     CheckBox cBstayLoggedIn;
 
-    EditText editEmailLogIn;
+    EditText editEmailLogIn, editPasswordLogin;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loadMainActivity(){
+        Toast.makeText(getApplicationContext(), "Erfolgreich Eingeloggt", Toast.LENGTH_SHORT).show();
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         Toast.makeText(getApplicationContext(), "Erfolgreich angemeldet", Toast.LENGTH_SHORT).show();
