@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -123,10 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText
-                                (MainActivity
-                                                .this, "Product Added",
-                                        Toast.LENGTH_SHORT).show();
+                        loadProductActivity();
                     }
                 });
         // below is the sample action to handle add list
@@ -137,16 +133,25 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText
-                                (MainActivity
-                                                .this, "List Added",
-                                        Toast.LENGTH_SHORT).show();
+                        loadListActivity();
                     }
                 });
     }
 
     public void loadLoginActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    public void loadProductActivity(){
+        Intent intent = new Intent(this, ProductActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    public void loadListActivity(){
+        Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
         this.finish();
     }

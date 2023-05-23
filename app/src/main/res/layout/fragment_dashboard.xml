@@ -7,17 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="177dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="16dp"
-
-        android:text="@string/action_create_product"
-        app:cornerRadius="180dp"
-        app:icon="@drawable/ic_add_shopping_cart_black_24dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="374dp"
+        android:layout_height="83dp"
+        android:text="This is the Product View!!"
+        android:textAlignment="center"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.97"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
