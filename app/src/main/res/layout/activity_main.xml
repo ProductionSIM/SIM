@@ -1,39 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize"
-    >
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#2E2E2E"
-        android:backgroundTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/bottom_nav_menu" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize"
+        tools:context=".MainActivity"
+        tools:ignore ="HardcodedText">
 
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="410dp"
-        android:layout_height="600dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.831"
-        app:navGraph="@navigation/mobile_navigation" />
+        <!--This will be the parent Floating Action Button-->
+        <!--After the implementation the Floating Action Button at
+             the bottom right corner as we have constrained accordingly-->
+        <!--After clicking the above button the
+            following two buttons will pop up.
+             So this button is considered as parent FAB-->
+        <!--After opening the application it looks like regular
+            FAB but after user clicks it, it extends-->
+        <!--This functionality has been handled in the MainActivity.java-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--Floating action button for add alarm-->
+        <!--Make sure that you are constraining this
+            button to the parent button-->
+        <!--Make sure to add backgroundTint attribute to match
+             the entire application color-->
+        <!--because after changing the base application theme the color
+             of the FAB is set Blue as default-->
+
+        <!--Action name text for the add alarm button-->
+        <!--Make sure that you are constraining this
+            Text to the add Alarm FAB button-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#2E2E2E"
+            android:backgroundTintMode="add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:menu="@menu/bottom_nav_menu" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_list_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/purple_500"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/add_fab"
+            app:layout_constraintEnd_toEndOf="@+id/add_fab"
+            app:srcCompat="@drawable/ic_format_list_bulleted_black_24"
+            app:elevation="5dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_product_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/purple_500"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/add_list_fab"
+            app:layout_constraintEnd_toEndOf="@+id/add_list_fab"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/add_list_fab"
+            app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp"
+            app:elevation="5dp"/>
+
+        <TextView
+            android:id="@+id/add_product_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="Add Product"
+            app:layout_constraintBottom_toBottomOf="@+id/add_product_fab"
+            app:layout_constraintEnd_toStartOf="@+id/add_product_fab"
+            app:layout_constraintTop_toTopOf="@+id/add_product_fab"
+            app:layout_constraintVertical_bias="0.54" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/add_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="76dp"
+            android:backgroundTint="@color/purple_500"
+            android:text="Actions"
+            app:icon="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:elevation="5dp"/>
+
+        <!--Floating action button for add person-->
+        <!--Make sure that you are constraining this button
+            to the add List FAB button-->
+        <!--Make sure to add backgroundTint attribute to match
+             the entire application color-->
+        <!--because after changing the base application theme
+             the color of the FAB is set Blue as default-->
+
+        <!--Action name text for the add person button-->
+        <!--Make sure that you are constraining this Text
+             to the add Person FAB button-->
+
+
+        <TextView
+            android:id="@+id/add_list_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="Add List"
+            app:layout_constraintBottom_toBottomOf="@+id/add_list_fab"
+            app:layout_constraintEnd_toStartOf="@+id/add_list_fab"
+            app:layout_constraintTop_toTopOf="@+id/add_list_fab"
+            app:layout_constraintVertical_bias="0.378" />
+
+        <fragment
+            android:id="@+id/nav_host_fragment_activity_main"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="410dp"
+            android:layout_height="600dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/nav_view"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.831"
+            app:navGraph="@navigation/mobile_navigation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
