@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         emailRegister = (EditText) findViewById(R.id.emailRegister);
         pwRegister = (EditText) findViewById(R.id.pwRegister);
@@ -79,6 +81,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent inten = new Intent(this, LoginActivity.class);
         startActivity(inten);
         this.finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            loadLoginActivity();
+        } return true;
     }
 
     @Override

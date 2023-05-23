@@ -22,24 +22,24 @@
         android:name="com.example.sim.ui.notifications.NotificationsFragment"
         android:label="@string/title_Listen"
         tools:layout="@layout/fragment_notifications" />
-    <fragment
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.sim.RegisterActivity"
+        android:label="@string/title_register"
+        tools:layout="@layout/activity_register" />
+    <activity
+        android:id="@+id/productActivity"
+        android:name="com.example.sim.ProductActivity"
+        android:label="@string/title_new_product"
+        tools:layout="@layout/activity_product" />
+    <activity
+        android:id="@+id/listActivity"
+        android:name="com.example.sim.ListActivity"
+        android:label="@string/title_new_list"
+        tools:layout="@layout/activity_list" />
+    <activity
         android:id="@+id/loginActivity"
         android:name="com.example.sim.LoginActivity"
         android:label="@string/title_Login"
         tools:layout="@layout/activity_login" />
-    <activity
-        android:id="@+id/registerActivity"
-        android:name="com.example.sim.RegisterActivity"
-        android:label="activity_register"
-        tools:layout="@layout/activity_register" />
-    <fragment
-        android:id="@+id/listActivity"
-        android:name="com.example.sim.ListActivity"
-        android:label="activity_list"
-        tools:layout="@layout/activity_list" />
-    <activity
-        android:id="@+id/productActivity"
-        android:name="com.example.sim.ProductActivity"
-        android:label="activity_product"
-        tools:layout="@layout/activity_product" />
 </navigation>

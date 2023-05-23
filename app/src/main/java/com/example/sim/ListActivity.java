@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editListName = (EditText) findViewById(R.id.editListName);
         editCreationDate = (EditText) findViewById(R.id.editCreationDate);
@@ -67,6 +69,21 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         Intent inten = new Intent(this, NotificationsFragment.class);
         startActivity(inten);
         this.finish();
+    }
+
+    public void loadMainActivity(){
+        Intent inten = new Intent(this, MainActivity.class);
+        startActivity(inten);
+        this.finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            loadMainActivity();
+        } return true;
     }
 
     @Override

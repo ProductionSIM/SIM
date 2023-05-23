@@ -2,9 +2,8 @@ package com.example.sim;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -12,8 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.sim.ui.home.HomeFragment;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,12 +26,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
         btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
+
 
     }
 
@@ -49,7 +48,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(getApplicationContext(), "Erfolgreich Eingeloggt", Toast.LENGTH_SHORT).show();
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
-        Toast.makeText(getApplicationContext(), "Erfolgreich angemeldet", Toast.LENGTH_SHORT).show();
+        this.finish();
+    }
+
+    public void loadMainActivityUp(){
+        Intent inten = new Intent(this, MainActivity.class);
+        startActivity(inten);
         this.finish();
     }
 
@@ -57,6 +61,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent inten = new Intent(this, RegisterActivity.class);
         startActivity(inten);
         this.finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            loadMainActivityUp();
+        } return true;
     }
 
     @Override
