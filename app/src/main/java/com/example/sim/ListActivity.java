@@ -65,11 +65,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         databaseList.close();
     }
 
-    public void loadNotificationFragment(){
-        Intent inten = new Intent(this, NotificationsFragment.class);
-        startActivity(inten);
-        this.finish();
-    }
+   // public void loadNotificationFragment(){
+   //     Intent inten = new Intent(this, NotificationsFragment.class);
+   //     startActivity(inten);
+   //     this.finish();
+   // }
 
     public void loadMainActivity(){
         Intent inten = new Intent(this, MainActivity.class);
@@ -90,7 +90,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.btnCreateList) {
             addList(editListName.getText().toString(),editCreationDate.getText().toString(),editStorageLocation.getText().toString());
-            loadNotificationFragment();
+            loadMainActivity();
         }
     }
 }
