@@ -1,6 +1,8 @@
 package com.example.sim;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     TextView addListActionText, addProductActionText;
     // to check whether sub FABs are visible or not
     Boolean isAllFabsVisible;
+    boolean ret=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
