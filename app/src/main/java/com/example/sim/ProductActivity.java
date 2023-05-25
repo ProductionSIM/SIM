@@ -68,12 +68,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         databaseProduct.close();
     }
 
-    public void loadDashboardFragment(){
-        Intent inten = new Intent(this, DashboardFragment.class);
-        startActivity(inten);
-        this.finish();
-    }
-
     public void loadMainActivity(){
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
@@ -93,7 +87,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view.getId() == R.id.btnCreateProduct) {
             addProduct(editBrand.getText().toString(), editProductTitle.getText().toString(),editExpireDate.getText().toString(),editPieceNumber.getText().toString());
-            loadDashboardFragment();
+            loadMainActivity();
         }
     }
 }

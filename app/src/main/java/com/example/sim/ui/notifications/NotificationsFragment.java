@@ -2,7 +2,6 @@ package com.example.sim.ui.notifications;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sim.DatabaseHelper;
 import com.example.sim.R;
@@ -34,7 +31,7 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        listViewItems = view.findViewById(R.id.listViewItems);
+        listViewItems = view.findViewById(R.id.productViewItems);
         itemList = new ArrayList<>();
         itemAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
         listViewItems.setAdapter(itemAdapter);
@@ -48,7 +45,7 @@ public class NotificationsFragment extends Fragment {
     private void updateItemList(){
         itemList.clear();
 
-        Cursor cursor = databaseHelper.getAllData();
+        Cursor cursor = databaseHelper.getAllDataList();
         if (cursor.moveToFirst()){
             do{
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_LIST));

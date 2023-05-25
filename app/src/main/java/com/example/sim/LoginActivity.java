@@ -33,8 +33,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
-
-
     }
 
     public void setStayLoggedIn(){
@@ -77,8 +75,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (view.getId() == R.id.btnLogin){
             setStayLoggedIn();
             loadMainActivity();
-        } else if(view.getId() == R.id.btnLoginRegister){
-            loadRegisterActivity();
+        } else if(view.getId() == R.id.btnLoginRegister) {
+                loadRegisterActivity();
         }
     }
 }
