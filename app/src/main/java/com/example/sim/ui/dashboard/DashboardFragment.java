@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.sim.DatabaseHelper;
+import com.example.sim.MainActivity;
 import com.example.sim.R;
 import com.example.sim.databinding.FragmentDashboardBinding;
 
@@ -35,7 +38,6 @@ public class DashboardFragment extends Fragment{
         itemAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
         listViewItems.setAdapter(itemAdapter);
 
-        databaseHelper = new DatabaseHelper(requireContext());
         updateItemList();
 
         return view;

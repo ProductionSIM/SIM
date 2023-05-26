@@ -25,6 +25,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Neue Liste erstellen");
 
         editListName = (EditText) findViewById(R.id.editListName);
         editCreationDate = (EditText) findViewById(R.id.editCreationDate);
@@ -64,12 +65,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         databaseList.execSQL("INSERT INTO list VALUES ('"+listenname+"','" +erstelldatum+"','"+lagerort+"')");
         databaseList.close();
     }
-
-   // public void loadNotificationFragment(){
-   //     Intent inten = new Intent(this, NotificationsFragment.class);
-   //     startActivity(inten);
-   //     this.finish();
-   // }
 
     public void loadMainActivity(){
         Intent inten = new Intent(this, MainActivity.class);

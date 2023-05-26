@@ -26,6 +26,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Neues Produkt erstellen");
 
         editBrand = (EditText) findViewById(R.id.editBrand);
         editProductTitle = (EditText) findViewById(R.id.editProductTitle);
