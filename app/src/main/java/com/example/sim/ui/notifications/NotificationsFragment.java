@@ -36,7 +36,7 @@ public class NotificationsFragment extends Fragment {
         itemAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
         listViewItems.setAdapter(itemAdapter);
 
-        //databaseHelper = new DatabaseHelper(requireContext());
+        databaseHelper = new DatabaseHelper(requireContext());
         updateItemList();
 
         return view;
