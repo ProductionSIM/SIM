@@ -44,10 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
 
-        SharedPreferences prefStayLoggedIn = getSharedPreferences("loggedin", MODE_PRIVATE);
-        if (prefStayLoggedIn.getBoolean("loggedin", false)) {
-            loadMainActivity();
-        }
     }
 
     public void login(String username, String password) {
@@ -86,12 +82,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
     }
 
-    public void loadMainActivity(){
-        Toast.makeText(getApplicationContext(), "Erfolgreich Eingeloggt", Toast.LENGTH_SHORT).show();
-        Intent inten = new Intent(this, MainActivity.class);
-        startActivity(inten);
-        this.finish();
-    }
+    //public void loadMainActivity(){
+    //    Toast.makeText(getApplicationContext(), "Erfolgreich Eingeloggt", Toast.LENGTH_SHORT).show();
+    //    Intent inten = new Intent(this, MainActivity.class);
+    //    startActivity(inten);
+    //    this.finish();
+    //}
 
     public void loadMainActivityUp(){
         Intent inten = new Intent(this, MainActivity.class);
@@ -107,6 +103,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void loadPersonalActivity(){
         Intent inten = new Intent(this, PersonalActivity.class);
+        inten.putExtra("email", editEmailLogIn.getText().toString());
+        inten.putExtra("passwort", editPasswordLogin.getText().toString());
         startActivity(inten);
         this.finish();
     }

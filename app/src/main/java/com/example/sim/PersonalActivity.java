@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class PersonalActivity extends AppCompatActivity {
     TextView showInfosUsername, showInfosPassword;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
+   // LoginActivity loginActivity = new LoginActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,10 @@ public class PersonalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
-        showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
+        //showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
+
+        showInfosUsername.setText(getIntent().getStringExtra("email"));
+        //showInfosPassword.setText(getIntent().getStringExtra("password"));
     }
 
     @Override

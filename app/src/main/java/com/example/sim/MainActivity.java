@@ -2,6 +2,7 @@ package com.example.sim;
 
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     TextView addListActionText, addProductActionText;
     // to check whether sub FABs are visible or not
     Boolean isAllFabsVisible;
+
+   // PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +162,12 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+    public void loadPersonalActivity(){
+        Intent intent = new Intent(this, PersonalActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -167,6 +177,14 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.action_profile) {
+            /*if(preferenceManager.isLoggedIn()){
+                // User is already logged in, display user data
+                loadLoginActivity();
+            } else {
+                // simulate login process
+                preferenceManager.setLoggedIn(true);
+                loadPersonalActivity();
+            }*/
             loadLoginActivity();
         }
         return true;
