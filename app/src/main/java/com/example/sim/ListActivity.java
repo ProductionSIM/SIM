@@ -42,6 +42,22 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(), "Diese Liste existiert bereits!", Toast.LENGTH_SHORT).show();
         }
 
+       // if(editListName.getText().toString().matches("")){
+       //     Toast.makeText(this, "Kein Listenname eingegeben", Toast.LENGTH_LONG).show();
+       // } else if(editCreationDate.getText().toString().matches("")){
+       //     Toast.makeText(this, "Kein Erstelldatum eingegeben", Toast.LENGTH_LONG).show();
+       // } else if(editStorageLocation.getText().toString().matches("")){
+       //     Toast.makeText(this, "Kein Lagerort eingegeben", Toast.LENGTH_LONG).show();
+       // }else if(editListName.getText().toString().matches("") && editCreationDate.getText().toString().matches("")){
+       //     Toast.makeText(this, "Kein Listenname und kein Erstelldatum eingegeben", Toast.LENGTH_LONG).show();
+       // } else if(editListName.getText().toString().matches("") && editStorageLocation.getText().toString().matches("")){
+       //     Toast.makeText(this, "Kein Listenname und keinen Lagerort eingegeben", Toast.LENGTH_LONG).show();
+       // } else if(editCreationDate.getText().toString().matches("") && editStorageLocation.getText().toString().matches("")){
+       //     Toast.makeText(this, "Kein Erstelldatum und keinen Lagerort eingegeben", Toast.LENGTH_LONG).show();
+       // } else if(editListName.getText().toString().matches("") && editCreationDate.getText().toString().matches("") && editStorageLocation.getText().toString().matches("")){
+       //     Toast.makeText(this, "Keine Eingabe getätigt", Toast.LENGTH_LONG).show();
+       // }
+
         editListName.setText("");
         editCreationDate.setText("");
         editStorageLocation.setText("");
@@ -84,8 +100,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnCreateList) {
-            addList(editListName.getText().toString(),editCreationDate.getText().toString(),editStorageLocation.getText().toString());
-            loadMainActivity();
+                addList(editListName.getText().toString(),editCreationDate.getText().toString(),editStorageLocation.getText().toString());
+                loadMainActivity();
         }
     }
 }

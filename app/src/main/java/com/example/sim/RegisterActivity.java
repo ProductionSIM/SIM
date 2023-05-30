@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+
+/* This Class will create an Account if the inserted Email isn't already in use */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     EditText emailRegister, pwRegister, pwConfRegister;
 
@@ -19,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
+    // Method tells what is happening while creating this Class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void registration(String username, String password, String passwordC) {
         if (checkUserNameIsOkay(username) && passwordConfirmation(password, passwordC)) {
             createAccount(username, password);
+            // createAccount(username, hashPassword());
         } else if (checkUserNameIsOkay(username)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
         } else if (passwordConfirmation(password, passwordC)) {
@@ -46,6 +52,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         pwConfRegister.setText("");
     }
 
+    // Method for hashing the Password
+    public String hashPassword (){
+        String hashedPassword = BCrypt.hashpw(pwRegister.getText().toString(), BCrypt.gensalt());
+        return hashedPassword;
+    }
+
+    // Method for checking if username is already registered
     public boolean checkUserNameIsOkay(String username) {
         boolean okay = false;
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
@@ -61,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return okay;
     }
 
+    // Method for checking if password is equal to password confirmation
     public boolean passwordConfirmation(String password, String passwordC) {
         boolean confirm = false;
         if (password.equals(passwordC)) {
@@ -69,18 +83,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return confirm;
     }
 
+    // Method for creating account and Inserting Values into database
     public void createAccount(String username, String password) {
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseUser.execSQL("INSERT INTO user VALUES ('" + username + "','" + password + "')");
         databaseUser.close();
     }
 
+    // Method for loading Login Activity
     public void loadLoginActivity(){
         Intent inten = new Intent(this, LoginActivity.class);
         startActivity(inten);
         this.finish();
     }
 
+    // Method for AppBar Buttons
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -90,6 +107,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } return true;
     }
 
+    // Method for clicking on Buttons
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.register) {
