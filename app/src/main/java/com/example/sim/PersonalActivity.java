@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PersonalActivity extends AppCompatActivity {
+public class PersonalActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView showInfosUsername, showInfosPassword;
+
+    Button btnLogOut;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
-   // LoginActivity loginActivity = new LoginActivity();
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,14 @@ public class PersonalActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
-        //showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
-
         showInfosUsername.setText(getIntent().getStringExtra("email"));
-        //showInfosPassword.setText(getIntent().getStringExtra("password"));
-    }
 
+        btnLogOut = (Button) findViewById(R.id.btnLogOut);
+        btnLogOut.setOnClickListener(this);
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
+
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -46,5 +50,19 @@ public class PersonalActivity extends AppCompatActivity {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
+    }
+
+    public void loadLoginActivity(){
+        Intent inten = new Intent(this, LoginActivity.class);
+        startActivity(inten);
+        this.finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.btnLogOut){
+            preferenceManager.setLoggedIn(false);
+            loadLoginActivity();
+        }
     }
 }

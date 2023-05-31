@@ -30,6 +30,8 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Passwort</string>
     <string name="questionRegister">Noch nicht Registriert?</string>
+    <string name="sirname">Vorname</string>
+    <string name="lastname">Nachname</string>
     <!--Strings related to add Product and add List-->
     <string name="prompt_brand">Marke</string>
     <string name="prompt_product_designation">Produktbezeichnung</string>

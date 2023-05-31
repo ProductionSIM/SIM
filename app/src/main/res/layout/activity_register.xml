@@ -27,52 +27,70 @@
             android:id="@+id/emailRegister"
             android:layout_width="317dp"
             android:layout_height="49dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
-            android:inputType="text"
             android:hint="@string/prompt_email"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editLastname" />
+
+        <EditText
+            android:id="@+id/editFirstname"
+            android:layout_width="317dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="@string/sirname"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registerTV" />
 
         <EditText
-            android:id="@+id/pwRegister"
+            android:id="@+id/editLastname"
             android:layout_width="317dp"
             android:layout_height="49dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/prompt_password"
+            android:hint="@string/lastname"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
+            app:layout_constraintTop_toBottomOf="@+id/editFirstname" />
 
         <EditText
             android:id="@+id/pwConfRegister"
             android:layout_width="317dp"
             android:layout_height="49dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
-            android:inputType="textPassword"
             android:hint="@string/prompt_password_confirm"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pwRegister" />
+
+        <EditText
+            android:id="@+id/pwRegister"
+            android:layout_width="317dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailRegister" />
 
         <Button
             android:id="@+id/register"
             android:layout_width="175dp"
             android:layout_height="48dp"
-            android:layout_marginStart="110dp"
-            android:layout_marginEnd="110dp"
-            android:layout_marginBottom="168dp"
             android:text="@string/registration"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pwConfRegister" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

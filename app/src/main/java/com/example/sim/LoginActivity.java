@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
+    PreferenceManager preferenceManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +46,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
 
+        preferenceManager = new PreferenceManager(getApplicationContext());
+
     }
 
     public void login(String username, String password) {
         if (checkLogIn(username, password)) {
-            if (cBstayLoggedIn.isActivated()) {
-                setStayLoggedIn();
+            if (cBstayLoggedIn.isChecked()) {
+                preferenceManager.setLoggedIn(true);
             }
             loadPersonalActivity();
         } else {
@@ -74,20 +78,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         databaseUser.close();
         return okay;
     }
-
-    public void setStayLoggedIn(){
-        SharedPreferences prefStayLoggedIn = getSharedPreferences("loggedin", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefStayLoggedIn.edit();
-        editor.putBoolean("loggedin", true);
-        editor.commit();
-    }
-
-    //public void loadMainActivity(){
-    //    Toast.makeText(getApplicationContext(), "Erfolgreich Eingeloggt", Toast.LENGTH_SHORT).show();
-    //    Intent inten = new Intent(this, MainActivity.class);
-    //    startActivity(inten);
-    //    this.finish();
-    //}
 
     public void loadMainActivityUp(){
         Intent inten = new Intent(this, MainActivity.class);
@@ -121,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogin){
             login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
+            //preferenceManager.setLoggedIn(true);
         } else if(view.getId() == R.id.btnLoginRegister) {
                 loadRegisterActivity();
         }

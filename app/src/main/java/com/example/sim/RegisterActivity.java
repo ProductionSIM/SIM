@@ -17,7 +17,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 /* This Class will create an Account if the inserted Email isn't already in use */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText emailRegister, pwRegister, pwConfRegister;
+    EditText emailRegister, pwRegister, pwConfRegister, editFirstname, editLastname;
 
     Button register;
 
@@ -33,16 +33,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         emailRegister = (EditText) findViewById(R.id.emailRegister);
         pwRegister = (EditText) findViewById(R.id.pwRegister);
         pwConfRegister = (EditText) findViewById(R.id.pwConfRegister);
+        editFirstname = (EditText) findViewById(R.id.editFirstname);
+        editLastname = (EditText) findViewById(R.id.editLastname);
 
         register = (Button) findViewById(R.id.register);
         register.setOnClickListener(this);
     }
 
-    public void registration(String username, String password, String passwordC) {
-        if (checkUserNameIsOkay(username) && passwordConfirmation(password, passwordC)) {
-            createAccount(username, password);
+    public void registration(String username, String password, String passwordC/*, String firstname, String lastname*/) {
+        if (checkUserNameIsOkay(username/*, firstname, lastname*/) && passwordConfirmation(password, passwordC)) {
+            createAccount(/*firstname, lastname, */username, password);
             // createAccount(username, hashPassword());
-        } else if (checkUserNameIsOkay(username)) {
+        } else if (checkUserNameIsOkay(username/*, firstname, lastname*/)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
         } else if (passwordConfirmation(password, passwordC)) {
             Toast.makeText(getApplicationContext(), "Das Passwort stimmt nicht überein!", Toast.LENGTH_SHORT).show();
@@ -50,6 +52,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         emailRegister.setText("");
         pwRegister.setText("");
         pwConfRegister.setText("");
+        editFirstname.setText("");
+        editLastname.setText("");
     }
 
     // Method for hashing the Password
@@ -59,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // Method for checking if username is already registered
-    public boolean checkUserNameIsOkay(String username) {
+    public boolean checkUserNameIsOkay(String username/*, String firstname, String lastname*/) {
         boolean okay = false;
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         Cursor cursorUser = databaseUser.rawQuery("SELECT COUNT (*) FROM user WHERE username = '" + username +"'", null);
@@ -84,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // Method for creating account and Inserting Values into database
-    public void createAccount(String username, String password) {
+    public void createAccount(String username, String password/*, String firstname, String lastname*/) {
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseUser.execSQL("INSERT INTO user VALUES ('" + username + "','" + password + "')");
         databaseUser.close();
@@ -111,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.register) {
-            registration(emailRegister.getText().toString(), pwRegister.getText().toString(), pwConfRegister.getText().toString());
+            registration(/*editFirstname.getText().toString(), editLastname.getText().toString(),*/ emailRegister.getText().toString(), pwRegister.getText().toString(), pwConfRegister.getText().toString());
             loadLoginActivity();
         }
     }

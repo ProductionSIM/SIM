@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     // to check whether sub FABs are visible or not
     Boolean isAllFabsVisible;
 
-   // PreferenceManager preferenceManager = new PreferenceManager(getApplicationContext());
+    PreferenceManager preferenceManager;
 
 
     @Override
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -177,15 +179,14 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.action_profile) {
-            /*if(preferenceManager.isLoggedIn()){
-                // User is already logged in, display user data
-                loadLoginActivity();
-            } else {
-                // simulate login process
-                preferenceManager.setLoggedIn(true);
-                loadPersonalActivity();
-            }*/
-            loadLoginActivity();
+           if(preferenceManager.isLoggedIn() == false){
+               // User is already logged in, display user data
+               loadLoginActivity();
+           } else if(preferenceManager.isLoggedIn() == true){
+               // simulate login process
+               loadPersonalActivity();
+           }
+            //loadLoginActivity();
         }
         return true;
     }
