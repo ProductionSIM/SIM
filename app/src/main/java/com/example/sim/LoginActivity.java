@@ -117,7 +117,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogin){
-            login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
+            if(preferenceManager.isEmailUser() == editEmailLogIn.getText().toString()){
+                login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
+            }
             //preferenceManager.setLoggedIn(true);
         } else if(view.getId() == R.id.btnLoginRegister) {
                 loadRegisterActivity();

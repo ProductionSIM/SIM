@@ -1,5 +1,6 @@
 package com.example.sim;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setTitle("Profil");
 
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
-        showInfosUsername.setText(getIntent().getStringExtra("email"));
+        //showInfosUsername.setText(preferenceManager.isEmailUser());
 
         //showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
         //showInfosPassword.setText(getIntent().getStringExtra("password"));
