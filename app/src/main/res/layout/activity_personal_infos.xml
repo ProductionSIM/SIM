@@ -8,50 +8,119 @@
 
     <TextView
         android:id="@+id/personalInfos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="54dp"
         android:layout_marginTop="56dp"
         android:text="Persönliche Daten"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/showInfosUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="testUserName"
-        android:textAlignment="center"
-        android:textSize="30sp"
+        android:id="@+id/LabelFirstName"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="12dp"
+        android:text="Vorname"
+        android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/showInfosFirstName"
+        app:layout_constraintStart_toStartOf="@+id/showInfosFirstName" />
+
+    <TextView
+        android:id="@+id/showInfosFirstName"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="87dp"
+        android:text="testFirstName"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personalInfos" />
 
     <TextView
-        android:id="@+id/showInfosPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="testUserPassword"
-        android:textAlignment="center"
-        android:textSize="30sp"
+        android:id="@+id/labelLastName"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="12dp"
+        android:text="Nachname"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/showInfosLastName"
+        app:layout_constraintStart_toStartOf="@+id/showInfosLastName" />
+
+    <TextView
+        android:id="@+id/showInfosLastName"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="52dp"
+        android:text="testLastName"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/showInfosFirstName"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="@+id/showInfosFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/showInfosFirstName" />
+
+    <TextView
+        android:id="@+id/labelUserName"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="12dp"
+        android:text="E-Mail"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/showInfosUsername"
+        app:layout_constraintStart_toStartOf="@+id/showInfosUsername" />
+
+    <TextView
+        android:id="@+id/showInfosUsername"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="52dp"
+        android:text="testUserName"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/showInfosLastName"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="@+id/showInfosLastName"
+        app:layout_constraintTop_toBottomOf="@+id/showInfosLastName" />
+
+    <TextView
+        android:id="@+id/labelPassword"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="12dp"
+        android:text="Passwort"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/showInfosPassword"
+        app:layout_constraintStart_toStartOf="@+id/showInfosPassword" />
+
+    <TextView
+        android:id="@+id/showInfosPassword"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="52dp"
+        android:text="testUserPassword"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/showInfosUsername"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="@+id/showInfosUsername"
         app:layout_constraintTop_toBottomOf="@+id/showInfosUsername" />
 
     <Button
         android:id="@+id/btnLogOut"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_width="364dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="32dp"
         android:text="Abmelden"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
