@@ -65,7 +65,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     public void createProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl){
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("INSERT INTO product VALUES ('" + marke + "','" + bezeichnung + "','" + ablaufdatum + "','" + stückzahl + "')");
+        databaseProduct.execSQL("INSERT INTO product (marke, produktbezeichnung, ablaufdatum, stückzahl) VALUES ('" + marke + "','" + bezeichnung + "','" + ablaufdatum + "','" + stückzahl + "')");
         databaseProduct.close();
     }
 

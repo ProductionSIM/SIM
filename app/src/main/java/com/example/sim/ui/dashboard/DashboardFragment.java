@@ -49,12 +49,13 @@ public class DashboardFragment extends Fragment{
         Cursor cursor = databaseHelper.getAllDataProduct();
         if (cursor.moveToFirst()){
             do{
+                @SuppressLint("Range") Integer rowid = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID_PRODUCT));
                 @SuppressLint("Range") String brand = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_BRAND_PRODUCT));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_PRODUCT));
                 @SuppressLint("Range") String expireDate = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_EXPIRE_DATE_PRODUCT));
                 @SuppressLint("Range") String count = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_COUNT_PRODUCT));
 
-                itemList.add(brand + " - " + name + " - " + expireDate + " - " + count);
+                itemList.add(rowid + " - " + brand + " - " + name + " - " + expireDate + " - " + count);
             } while (cursor.moveToNext());
         }
 

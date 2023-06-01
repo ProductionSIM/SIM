@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.mindrot.jbcrypt.BCrypt;
 
 
-/* This Class will create an Account if the inserted Email isn't already in use */
+//This Class will create an Account if the inserted Email isn't already in use
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     EditText emailRegister, pwRegister, pwConfRegister, editFirstname, editLastname;
 
@@ -40,11 +40,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         register.setOnClickListener(this);
     }
 
-    public void registration(String username, String password, String passwordC/*, String firstname, String lastname*/) {
-        if (checkUserNameIsOkay(username/*, firstname, lastname*/) && passwordConfirmation(password, passwordC)) {
-            createAccount(/*firstname, lastname, */username, password);
-            // createAccount(username, hashPassword());
-        } else if (checkUserNameIsOkay(username/*, firstname, lastname*/)) {
+    public void registration(String firstname, String lastname, String username, String password, String passwordC) {
+        if (checkUserNameIsOkay(username) && passwordConfirmation(password, passwordC)) {
+            createAccount(firstname, lastname, username, password);
+            //createAccount(username, hashPassword());
+        } else if (checkUserNameIsOkay(username)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
         } else if (passwordConfirmation(password, passwordC)) {
             Toast.makeText(getApplicationContext(), "Das Passwort stimmt nicht überein!", Toast.LENGTH_SHORT).show();
@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // Method for checking if username is already registered
-    public boolean checkUserNameIsOkay(String username/*, String firstname, String lastname*/) {
+    public boolean checkUserNameIsOkay(String username) {
         boolean okay = false;
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         Cursor cursorUser = databaseUser.rawQuery("SELECT COUNT (*) FROM user WHERE username = '" + username +"'", null);
@@ -88,9 +88,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // Method for creating account and Inserting Values into database
-    public void createAccount(String username, String password/*, String firstname, String lastname*/) {
+    public void createAccount(String firstname, String lastname, String username, String password) {
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseUser.execSQL("INSERT INTO user VALUES ('" + username + "','" + password + "')");
+        databaseUser.execSQL("INSERT INTO user (firstname, lastname, username, password) VALUES ('" + firstname + "','" + lastname + "','" + username + "','" + password + "')");
         databaseUser.close();
     }
 
@@ -105,7 +105,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == android.R.id.home) {
             loadLoginActivity();
         } return true;
@@ -115,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.register) {
-            registration(/*editFirstname.getText().toString(), editLastname.getText().toString(),*/ emailRegister.getText().toString(), pwRegister.getText().toString(), pwConfRegister.getText().toString());
+            registration(editFirstname.getText().toString(), editLastname.getText().toString(), emailRegister.getText().toString(), pwRegister.getText().toString(), pwConfRegister.getText().toString());
             loadLoginActivity();
         }
     }

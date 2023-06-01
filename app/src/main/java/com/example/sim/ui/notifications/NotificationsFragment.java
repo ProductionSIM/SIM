@@ -48,11 +48,12 @@ public class NotificationsFragment extends Fragment {
         Cursor cursor = databaseHelper.getAllDataList();
         if (cursor.moveToFirst()){
             do{
+                @SuppressLint("Range") Integer rowid = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID_LIST));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_LIST));
                 @SuppressLint("Range") String creation = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CREATION_LIST));
                 @SuppressLint("Range") String storage = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_STORAGE_LIST));
 
-                itemList.add(name + " - " + creation + " - " + storage);
+                itemList.add(rowid + " - " + name + " - " + creation + " - " + storage);
             } while (cursor.moveToNext());
         }
 

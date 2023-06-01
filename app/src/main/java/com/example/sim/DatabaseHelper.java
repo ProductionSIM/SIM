@@ -46,20 +46,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CATEGORY_NAME = "kategoriename";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER + "("
-           // + COLUMN_ID_USER + " INTEGER PRIMARY KEY,"
-           // + COLUMN_FIRSTNAME + " TEXT,"
-           // + COLUMN_LASTNAME + " TEXT,"
+            + COLUMN_ID_USER + " INTEGER PRIMARY KEY,"
+            + COLUMN_FIRSTNAME + " TEXT,"
+            + COLUMN_LASTNAME + " TEXT,"
             + COLUMN_USERNAME + " TEXT,"
             + COLUMN_PASSWORD + " TEXT)";
 
     private static final String CREATE_TABLE_LIST = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_LIST + "("
-           // + COLUMN_ID_LIST + " INTEGER PRIMARY KEY,"
+            + COLUMN_ID_LIST + " INTEGER PRIMARY KEY,"
             + COLUMN_NAME_LIST + " TEXT,"
             + COLUMN_CREATION_LIST + " TEXT,"
             + COLUMN_STORAGE_LIST + " TEXT)";
 
     private static final String CREATE_TABLE_PRODUCT = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_PRODUCT + "("
-           // + COLUMN_ID_PRODUCT + " INTEGER PRIMARY KEY,"
+            + COLUMN_ID_PRODUCT + " INTEGER PRIMARY KEY,"
             + COLUMN_BRAND_PRODUCT + " TEXT,"
             + COLUMN_NAME_PRODUCT + " TEXT,"
             + COLUMN_EXPIRE_DATE_PRODUCT + " TEXT,"

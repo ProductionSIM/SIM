@@ -32,6 +32,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
         showInfosUsername.setText(getIntent().getStringExtra("email"));
 
+        //showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
+        //showInfosPassword.setText(getIntent().getStringExtra("password"));
+
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(this);
 

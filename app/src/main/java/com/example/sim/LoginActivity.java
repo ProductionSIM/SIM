@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLoginRegister, btnLogin;
@@ -46,12 +48,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
 
+
+
         preferenceManager = new PreferenceManager(getApplicationContext());
 
     }
 
     public void login(String username, String password) {
-        if (checkLogIn(username, password)) {
+        if(checkLogIn(username, password)){
             if (cBstayLoggedIn.isChecked()) {
                 preferenceManager.setLoggedIn(true);
             }
@@ -92,9 +96,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loadPersonalActivity(){
+        //SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        //Cursor cursorUser = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + editEmailLogIn.getText().toString() + "'", null);
+        //String pw = cursorUser.toString();
         Intent inten = new Intent(this, PersonalActivity.class);
         inten.putExtra("email", editEmailLogIn.getText().toString());
-        inten.putExtra("passwort", editPasswordLogin.getText().toString());
+        //inten.putExtra("passwort", pw);
         startActivity(inten);
         this.finish();
     }
