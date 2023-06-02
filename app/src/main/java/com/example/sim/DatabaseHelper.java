@@ -1,7 +1,5 @@
 package com.example.sim;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -124,5 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(TABLE_NAME_USER, null, null, null, null, null, null);
     }
+
+
 
 }

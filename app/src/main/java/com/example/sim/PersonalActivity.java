@@ -20,9 +20,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
     PreferenceManager preferenceManager;
-    public String getString, text;
-    public static final String SHARED_PREF = "shared";
-    public static final String TEXT = "text";
+    public static final String SHARED_PREF = "MyPreferences";
+    public static final String KEY_EMAIL_USER = "emailUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,6 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
         showInfosPassword.setText(cursorUser.toString());
         showInfosFirstname.setText(cursorUserFirstname.toString());
-
     }
 
     @Override
@@ -76,14 +74,14 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
     private void update(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
-        text = sharedPreferences.getString(TEXT, "");
-        showInfosUsername.setText(text);
+        showInfosUsername.setText(sharedPreferences.getString(KEY_EMAIL_USER, ""));
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogOut){
             preferenceManager.setLoggedIn(false);
+            preferenceManager.setMomentLoggedIn(false);
             loadLoginActivity();
         }
     }

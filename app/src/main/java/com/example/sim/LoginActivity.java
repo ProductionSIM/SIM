@@ -21,8 +21,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText editEmailLogIn, editPasswordLogin;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
     PreferenceManager preferenceManager;
-    public static final String SHARED_PREF = "shared";
-    public static final String KEY_EMAIL_USER = "text";
+    public static final String SHARED_PREF = "MyPreferences";
+    public static final String SHARED_PREFER="MomentLogged";
+    public static final String KEY_EMAIL_USER = "emailUser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (cBstayLoggedIn.isChecked()) {
                 preferenceManager.setLoggedIn(true);
             }
+            preferenceManager.setMomentLoggedIn(true);
             loadPersonalActivity();
         } else {
             Toast.makeText(getApplicationContext(), "Benutzername oder Passwort sind falsch!", Toast.LENGTH_SHORT).show();
@@ -108,9 +110,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(KEY_EMAIL_USER, editEmailLogIn.getText().toString());
             editor.apply();
-
-            loadPersonalActivity();
-            //preferenceManager.setLoggedIn(true);
         } else if(view.getId() == R.id.btnLoginRegister) {
                 loadRegisterActivity();
         }

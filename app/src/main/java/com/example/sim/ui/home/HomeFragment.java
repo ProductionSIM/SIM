@@ -1,7 +1,5 @@
 package com.example.sim.ui.home;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -58,12 +55,10 @@ public class HomeFragment extends Fragment {
         Cursor cursor = databaseHelper.getAllDataUser();
         if (cursor.moveToFirst()){
             do{
-                //@SuppressLint("Range") String firstname = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_FIRSTNAME));
-                //@SuppressLint("Range") String lastname = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_LASTNAME));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_USERNAME));
                 @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_PASSWORD));
 
-                itemListHome.add(/*firstname + " - " + lastname + " - " +*/ name + " - " + password);
+                itemListHome.add(name + " - " + password);
             } while (cursor.moveToNext());
         }
 

@@ -1,8 +1,5 @@
 package com.example.sim;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,7 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.example.sim.DatabaseHelper;
+
 import com.example.sim.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -31,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
     Boolean isAllFabsVisible;
 
     PreferenceManager preferenceManager;
-
+    public static final String SHARED_PREF = "MyPreferences";
+    public static final String SHARED_PREFER = "MomentLogged";
+    // for checkbox (set false if button Abmelden was clicked)
+    private static final String KEY_LOGGED_IN = "isLoggedIn";
+    // while using app (set false when app was closed)
+    private static final String KEY_STAY_LOGGED_IN = "momentLoggedIn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(getApplicationContext());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-      //   menu should be considered as top level destinations.
+        // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
@@ -63,69 +64,48 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.add_list_action_text);
         addProductActionText =
                 findViewById(R.id.add_product_action_text);
-        // Now set all the FABs and all the action name
-        // texts as GONE
+        // Now set all the FABs and all the action name texts as GONE
         mAddListFab.setVisibility(View.GONE);
         mAddProductFab.setVisibility(View.GONE);
         addListActionText.setVisibility(View.GONE);
         addProductActionText.setVisibility(View.GONE);
-        // make the boolean variable as false, as all the
-        // action name texts and all the sub FABs are
-        // invisible
+        // make the boolean variable as false, as all the action name texts and all the sub FABs are invisible
         isAllFabsVisible = false;
-        // Set the Extended floating action button to
-        // shrinked state initially
+        // Set the Extended floating action button to shrinked state initially
         mAddFab.shrink();
-        // We will make all the FABs and action name texts
-        // visible only when Parent FAB button is clicked So
-        // we have to handle the Parent FAB button first, by
-        // using setOnClickListener you can see below
+        // We will make all the FABs and action name texts visible only when Parent FAB button is clicked So we have to handle the Parent FAB button first, by using setOnClickListener you can see below
         mAddFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (!isAllFabsVisible) {
-                            // when isAllFabsVisible becomes
-                            // true make all the action name
-                            // texts and FABs VISIBLE.
+                            // when isAllFabsVisible becomes true make all the action name texts and FABs VISIBLE.
                             mAddListFab.show();
                             mAddProductFab.show();
                             addListActionText
                                     .setVisibility(View.VISIBLE);
                             addProductActionText
                                     .setVisibility(View.VISIBLE);
-                            // Now extend the parent FAB, as
-                            // user clicks on the shrinked
-                            // parent FAB
+                            // Now extend the parent FAB, as user clicks on the shrinked parent FAB
                             mAddFab.extend();
-                            // make the boolean variable true as
-                            // we have set the sub FABs
-                            // visibility to GONE
+                            // make the boolean variable true as we have set the sub FABs visibility to GONE
                             isAllFabsVisible = true;
                         } else {
-                            // when isAllFabsVisible becomes
-                            // true make all the action name
-                            // texts and FABs GONE.
+                            // when isAllFabsVisible becomes true make all the action name texts and FABs GONE.
                             mAddListFab.hide();
                             mAddProductFab.hide();
                             addListActionText
                                     .setVisibility(View.GONE);
                             addProductActionText
                                     .setVisibility(View.GONE);
-                            // Set the FAB to shrink after user
-                            // closes all the sub FABs
+                            // Set the FAB to shrink after user closes all the sub FABs
                             mAddFab.shrink();
-                            // make the boolean variable false
-                            // as we have set the sub FABs
-                            // visibility to GONE
+                            // make the boolean variable false as we have set the sub FABs visibility to GONE
                             isAllFabsVisible = false;
                         }
                     }
                 });
-        // below is the sample action to handle add product
-        // FAB. Here it shows simple Toast msg. The Toast
-        // will be shown only when they are visible and only
-        // when user clicks on them
+        // below is the sample action to handle add product FAB. Here it shows simple Toast msg. The Toast will be shown only when they are visible and only when user clicks on them
         mAddProductFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -133,10 +113,7 @@ public class MainActivity extends AppCompatActivity {
                         loadProductActivity();
                     }
                 });
-        // below is the sample action to handle add list
-        // FAB. Here it shows simple Toast msg The Toast
-        // will be shown only when they are visible and only
-        // when user clicks on them
+        // below is the sample action to handle add list FAB. Here it shows simple Toast msg The Toast will be shown only when they are visible and only when user clicks on them
         mAddListFab.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -144,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
                         loadListActivity();
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        preferenceManager.setMomentLoggedIn(false);
     }
 
     public void loadLoginActivity(){
@@ -179,10 +162,10 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.action_profile) {
-           if(preferenceManager.isLoggedIn() == false){
+           if(preferenceManager.isLoggedIn() == false || preferenceManager.isMomentLoggedIn() == false){
                // User is already logged in, display user data
                loadLoginActivity();
-           } else if(preferenceManager.isLoggedIn() == true){
+           } else if(preferenceManager.isLoggedIn() == true || preferenceManager.isMomentLoggedIn() == true){
                // simulate login process
                loadPersonalActivity();
            }
