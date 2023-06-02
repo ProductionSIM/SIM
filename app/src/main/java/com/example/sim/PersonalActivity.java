@@ -1,7 +1,9 @@
 package com.example.sim;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,12 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PersonalActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView showInfosUsername, showInfosPassword;
+    TextView showInfosUsername, showInfosPassword, showInfosFirstname, showInfosLastname;
 
     Button btnLogOut;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
     PreferenceManager preferenceManager;
+    public String getString, text;
+    public static final String SHARED_PREF = "shared";
+    public static final String TEXT = "text";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +32,28 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setTitle("Profil");
 
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
-        //showInfosUsername.setText(preferenceManager.isEmailUser());
+        //showInfosUsername.setText(pref.getString("EMAIL", "test"));
+        update();
+        showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
+        showInfosPassword.setText(getIntent().getStringExtra("password"));
 
-        //showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
-        //showInfosPassword.setText(getIntent().getStringExtra("password"));
+        showInfosFirstname = (TextView) findViewById(R.id.showInfosFirstName);
+
 
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(this);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        Cursor cursorUser = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + showInfosUsername.getText().toString() + "'", null);
+        Cursor cursorUserFirstname = databaseUser.rawQuery("SELECT firstname FROM user WHERE username = '" + showInfosUsername.getText().toString() + "'", null);
+
+        showInfosPassword.setText(cursorUser.toString());
+        showInfosFirstname.setText(cursorUserFirstname.toString());
+
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -56,6 +72,12 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         Intent inten = new Intent(this, LoginActivity.class);
         startActivity(inten);
         this.finish();
+    }
+
+    private void update(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        text = sharedPreferences.getString(TEXT, "");
+        showInfosUsername.setText(text);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.sim;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -15,21 +14,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLoginRegister, btnLogin;
-
     CheckBox cBstayLoggedIn;
-
     EditText editEmailLogIn, editPasswordLogin;
-
-    boolean eingeloggt = false;
-
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
-
     PreferenceManager preferenceManager;
+    public static final String SHARED_PREF = "shared";
+    public static final String KEY_EMAIL_USER = "text";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
 
-
-
         preferenceManager = new PreferenceManager(getApplicationContext());
-
     }
 
     public void login(String username, String password) {
@@ -96,12 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void loadPersonalActivity(){
-        //SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        //Cursor cursorUser = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + editEmailLogIn.getText().toString() + "'", null);
-        //String pw = cursorUser.toString();
         Intent inten = new Intent(this, PersonalActivity.class);
-        inten.putExtra("email", editEmailLogIn.getText().toString());
-        //inten.putExtra("passwort", pw);
         startActivity(inten);
         this.finish();
     }
@@ -117,12 +102,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogin){
-            if(preferenceManager.isEmailUser() == editEmailLogIn.getText().toString()){
-                login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
-            }
+            login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
+     //TEST
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_EMAIL_USER, editEmailLogIn.getText().toString());
+            editor.apply();
+
+            loadPersonalActivity();
             //preferenceManager.setLoggedIn(true);
         } else if(view.getId() == R.id.btnLoginRegister) {
                 loadRegisterActivity();
         }
     }
+
+
 }

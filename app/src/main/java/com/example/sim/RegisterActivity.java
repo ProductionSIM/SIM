@@ -1,7 +1,6 @@
 package com.example.sim;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -48,10 +47,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void registration(String firstname, String lastname, String username, String password, String passwordC) {
         if (checkUserNameIsOkay(username) && passwordConfirmation(password, passwordC)) {
             createAccount(firstname, lastname, username, password);
-            preferenceManager.setFirstname(editFirstname.getText().toString());
-            preferenceManager.setLastname(editLastname.getText().toString());
-            preferenceManager.setEmail(emailRegister.getText().toString());
-            preferenceManager.setPassword(pwRegister.getText().toString());
+            //preferenceManager.setFirstname(editFirstname.getText().toString());
+            //preferenceManager.setLastname(editLastname.getText().toString());
+            //preferenceManager.setEmail(emailRegister.getText().toString());
+            //preferenceManager.setPassword(pwRegister.getText().toString());
             //createAccount(username, hashPassword());
         } else if (checkUserNameIsOkay(username)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
