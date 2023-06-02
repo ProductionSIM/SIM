@@ -77,14 +77,27 @@
 
         <TextView
             android:id="@+id/add_product_action_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:text="Add Product"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="10dp"
+            android:text="Produkt Hinzufügen"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/add_product_fab"
             app:layout_constraintEnd_toStartOf="@+id/add_product_fab"
             app:layout_constraintTop_toTopOf="@+id/add_product_fab"
             app:layout_constraintVertical_bias="0.54" />
+
+        <TextView
+            android:id="@+id/add_list_action_text"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="10dp"
+            android:text="Liste Hinzufügen"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/add_list_fab"
+            app:layout_constraintEnd_toStartOf="@+id/add_list_fab"
+            app:layout_constraintTop_toTopOf="@+id/add_list_fab"
+            app:layout_constraintVertical_bias="0.378" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add_fab"
@@ -94,7 +107,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="76dp"
             android:backgroundTint="@color/purple_500"
-            android:text="Actions"
+            android:text="Hinzufügen"
             app:icon="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,17 +125,6 @@
         <!--Make sure that you are constraining this Text
              to the add Person FAB button-->
 
-
-        <TextView
-            android:id="@+id/add_list_action_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:text="Add List"
-            app:layout_constraintBottom_toBottomOf="@+id/add_list_fab"
-            app:layout_constraintEnd_toStartOf="@+id/add_list_fab"
-            app:layout_constraintTop_toTopOf="@+id/add_list_fab"
-            app:layout_constraintVertical_bias="0.378" />
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_main"
