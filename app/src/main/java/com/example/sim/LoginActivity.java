@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogin){
             login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
-     //TEST
+            //Save Username using shared Preferences
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(KEY_EMAIL_USER, editEmailLogIn.getText().toString());

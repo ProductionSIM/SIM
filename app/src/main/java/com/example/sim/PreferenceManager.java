@@ -31,7 +31,5 @@ public class PreferenceManager {
         editor.apply();
     }
 
-    public boolean isMomentLoggedIn(){
-        return mySharedPreferences.getBoolean(KEY_STAY_LOGGED_IN, false);
-    }
+    public boolean isMomentLoggedIn(){return mySharedPreferences.getBoolean(KEY_STAY_LOGGED_IN, false);}
 }

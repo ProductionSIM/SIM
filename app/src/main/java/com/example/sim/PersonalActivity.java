@@ -31,8 +31,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         getSupportActionBar().setTitle("Profil");
 
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
-        //showInfosUsername.setText(pref.getString("EMAIL", "test"));
-        update();
+        showUsername();
         showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
         showInfosPassword.setText(getIntent().getStringExtra("password"));
 
@@ -72,7 +71,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         this.finish();
     }
 
-    private void update(){
+    private void showUsername(){
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
         showInfosUsername.setText(sharedPreferences.getString(KEY_EMAIL_USER, ""));
     }

@@ -60,10 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mAddFab = findViewById(R.id.add_fab);
         mAddListFab = findViewById(R.id.add_list_fab);
         mAddProductFab = findViewById(R.id.add_product_fab);
-        addListActionText =
-                findViewById(R.id.add_list_action_text);
-        addProductActionText =
-                findViewById(R.id.add_product_action_text);
+        addListActionText = findViewById(R.id.add_list_action_text);
+        addProductActionText = findViewById(R.id.add_product_action_text);
         // Now set all the FABs and all the action name texts as GONE
         mAddListFab.setVisibility(View.GONE);
         mAddProductFab.setVisibility(View.GONE);
@@ -82,10 +80,8 @@ public class MainActivity extends AppCompatActivity {
                             // when isAllFabsVisible becomes true make all the action name texts and FABs VISIBLE.
                             mAddListFab.show();
                             mAddProductFab.show();
-                            addListActionText
-                                    .setVisibility(View.VISIBLE);
-                            addProductActionText
-                                    .setVisibility(View.VISIBLE);
+                            addListActionText.setVisibility(View.VISIBLE);
+                            addProductActionText.setVisibility(View.VISIBLE);
                             // Now extend the parent FAB, as user clicks on the shrinked parent FAB
                             mAddFab.extend();
                             // make the boolean variable true as we have set the sub FABs visibility to GONE
@@ -94,10 +90,8 @@ public class MainActivity extends AppCompatActivity {
                             // when isAllFabsVisible becomes true make all the action name texts and FABs GONE.
                             mAddListFab.hide();
                             mAddProductFab.hide();
-                            addListActionText
-                                    .setVisibility(View.GONE);
-                            addProductActionText
-                                    .setVisibility(View.GONE);
+                            addListActionText.setVisibility(View.GONE);
+                            addProductActionText.setVisibility(View.GONE);
                             // Set the FAB to shrink after user closes all the sub FABs
                             mAddFab.shrink();
                             // make the boolean variable false as we have set the sub FABs visibility to GONE
@@ -123,30 +117,33 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        preferenceManager.setMomentLoggedIn(false);
-    }
+    //@Override
+    //protected void onDestroy(){
+    //    super.onDestroy();
+    //    preferenceManager.setMomentLoggedIn(false);
+    //}
 
+    // Methode für den Aufruf der LoginActivity
     public void loadLoginActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         this.finish();
     }
-
+    // Methode für den Aufruf der ProductActivity
     public void loadProductActivity(){
         Intent intent = new Intent(this, ProductActivity.class);
         startActivity(intent);
         this.finish();
     }
 
+    // Methode für den Aufruf der ListActivity
     public void loadListActivity(){
         Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
         this.finish();
     }
 
+    // Methode für den Aufruf der PersonalActivity
     public void loadPersonalActivity(){
         Intent intent = new Intent(this, PersonalActivity.class);
         startActivity(intent);
@@ -162,14 +159,17 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.action_profile) {
-           if(preferenceManager.isLoggedIn() == false || preferenceManager.isMomentLoggedIn() == false){
+           if(preferenceManager.isLoggedIn() == false && preferenceManager.isMomentLoggedIn() == false){
                // User is already logged in, display user data
                loadLoginActivity();
-           } else if(preferenceManager.isLoggedIn() == true || preferenceManager.isMomentLoggedIn() == true){
+           } else if(preferenceManager.isLoggedIn() == true && preferenceManager.isMomentLoggedIn() == true){
                // simulate login process
                loadPersonalActivity();
+           } else if(preferenceManager.isMomentLoggedIn() == false && preferenceManager.isLoggedIn() == true){
+               loadPersonalActivity();
+           } else if(preferenceManager.isMomentLoggedIn() == true && preferenceManager.isLoggedIn() == false){
+               loadPersonalActivity();
            }
-            //loadLoginActivity();
         }
         return true;
     }
