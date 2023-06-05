@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             //preferenceManager.setLastname(editLastname.getText().toString());
             //preferenceManager.setEmail(emailRegister.getText().toString());
             //preferenceManager.setPassword(pwRegister.getText().toString());
-            //createAccount(username, hashPassword());
+            //createAccount(firstname, lastname, username, hashPassword());
         } else if (checkUserNameIsOkay(username)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
         } else if (passwordConfirmation(password, passwordC)) {
