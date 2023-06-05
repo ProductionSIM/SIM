@@ -20,8 +20,14 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
     PreferenceManager preferenceManager;
+    DatabaseHelper databaseHelper;
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_EMAIL_USER = "emailUser";
+    String valueFirstname, valueLastname, valuePassword, getUsername;
+    StringBuilder dataFirstname, dataLastname, dataPassword;
+    Cursor cursorUserFirstname, cursorUserLastname, cursorUserPassword;
+    SQLiteDatabase databaseUser;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +39,40 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         showInfosUsername = (TextView) findViewById(R.id.showInfosUsername);
         showUsername();
         showInfosPassword = (TextView) findViewById(R.id.showInfosPassword);
-        showInfosPassword.setText(getIntent().getStringExtra("password"));
-
         showInfosFirstname = (TextView) findViewById(R.id.showInfosFirstName);
-
+        showInfosLastname = (TextView) findViewById(R.id.showInfosLastName);
 
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(this);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-        SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursorUser = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + showInfosUsername.getText().toString() + "'", null);
-        Cursor cursorUserFirstname = databaseUser.rawQuery("SELECT firstname FROM user WHERE username = '" + showInfosUsername.getText().toString() + "'", null);
+        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
 
-        showInfosPassword.setText(cursorUser.toString());
-        showInfosFirstname.setText(cursorUserFirstname.toString());
+        databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+
+        cursorUserFirstname = databaseUser.rawQuery("SELECT firstname FROM user WHERE username = '" + getUsername + "'", null);
+        cursorUserLastname = databaseUser.rawQuery("SELECT lastname FROM user WHERE username = '" + getUsername + "'", null);
+        cursorUserPassword = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + getUsername + "'", null);
+
+        dataFirstname = new StringBuilder();
+        dataLastname = new StringBuilder();
+        dataPassword = new StringBuilder();
+
+        while(cursorUserFirstname.moveToNext() && cursorUserLastname.moveToNext() && cursorUserPassword.moveToNext()){
+            valueFirstname = cursorUserFirstname.getString(cursorUserFirstname.getColumnIndexOrThrow("firstname"));
+            valueLastname = cursorUserLastname.getString(cursorUserLastname.getColumnIndexOrThrow("lastname"));
+            valuePassword = cursorUserPassword.getString(cursorUserPassword.getColumnIndexOrThrow("password"));
+
+            dataFirstname.append(valueFirstname);
+            dataLastname.append(valueLastname);
+            dataPassword.append(valuePassword);
+        }
+        showInfosFirstname.setText(dataFirstname.toString());
+        showInfosLastname.setText(dataLastname.toString());
+        showInfosPassword.setText(dataPassword.toString());
     }
 
     @Override
