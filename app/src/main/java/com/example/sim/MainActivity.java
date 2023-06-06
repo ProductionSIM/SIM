@@ -130,11 +130,11 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        preferenceManager.setMomentLoggedIn(false);
-    }
+    //@Override
+    //protected void onPause() {
+    //    super.onPause();
+    //    preferenceManager.setMomentLoggedIn(false);
+    //}
 
     /**
      * Loads the login activity.
