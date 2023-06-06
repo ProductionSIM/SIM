@@ -12,14 +12,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sim.ui.notifications.NotificationsFragment;
-
+/**
+ * The ListActivity class represents the activity for creating a new list.
+ * It allows the user to enter information about the list and creates it in the database.
+ */
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText editListName, editCreationDate, editStorageLocation;
     Button btnCreateList;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +38,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         btnCreateList.setOnClickListener(this);
     }
 
-    public void addList(String listenname, String erstelldatum, String lagerort){
-        if(checkList(listenname, lagerort)){
+    /**
+     * Adds a new list to the database.
+     *
+     * @param listenname    The name of the list.
+     * @param erstelldatum  The creation date of the list.
+     * @param lagerort      The storage location of the list.
+     */
+    public void addList(String listenname, String erstelldatum, String lagerort) {
+        if (checkList(listenname, lagerort)) {
             createList(listenname, erstelldatum, lagerort);
         } else {
             Toast.makeText(getApplicationContext(), "Diese Liste existiert bereits!", Toast.LENGTH_SHORT).show();
@@ -47,12 +57,19 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         editStorageLocation.setText("");
     }
 
-    public boolean checkList(String listenname, String lagerort){
+    /**
+     * Checks if a list with the given name and storage location already exists in the database.
+     *
+     * @param listenname  The name of the list.
+     * @param lagerort    The storage location of the list.
+     * @return True if the list does not exist in the database, false otherwise.
+     */
+    public boolean checkList(String listenname, String lagerort) {
         boolean okay = false;
-        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName,MODE_PRIVATE,null);
-        Cursor cursorList = databaseList.rawQuery("SELECT COUNT (*) FROM list WHERE listenname= '"+listenname+"' AND lagerort='"+lagerort+"'", null);
+        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        Cursor cursorList = databaseList.rawQuery("SELECT COUNT (*) FROM list WHERE listenname= '" + listenname + "' AND lagerort='" + lagerort + "'", null);
         cursorList.moveToFirst();
-        if(cursorList.getInt(0) == 0){
+        if (cursorList.getInt(0) == 0) {
             okay = true;
         }
         cursorList.close();
@@ -60,13 +77,23 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         return okay;
     }
 
-    public void createList(String listenname, String erstelldatum, String lagerort){
-        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName,MODE_PRIVATE,null);
-        databaseList.execSQL("INSERT INTO list (listenname, erstelldatum, lagerort) VALUES ('"+listenname+"','" +erstelldatum+"','"+lagerort+"')");
+    /**
+     * Creates a new list in the database.
+     *
+     * @param listenname    The name of the list.
+     * @param erstelldatum  The creation date of the list.
+     * @param lagerort      The storage location of the list.
+     */
+    public void createList(String listenname, String erstelldatum, String lagerort) {
+        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        databaseList.execSQL("INSERT INTO list (listenname, erstelldatum, lagerort) VALUES ('" + listenname + "','" + erstelldatum + "','" + lagerort + "')");
         databaseList.close();
     }
 
-    public void loadMainActivity(){
+    /**
+     * Loads the main activity.
+     */
+    public void loadMainActivity() {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
@@ -78,14 +105,15 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == android.R.id.home) {
             loadMainActivity();
-        } return true;
+        }
+        return true;
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnCreateList) {
-                addList(editListName.getText().toString(),editCreationDate.getText().toString(),editStorageLocation.getText().toString());
-                loadMainActivity();
+            addList(editListName.getText().toString(), editCreationDate.getText().toString(), editStorageLocation.getText().toString());
+            loadMainActivity();
         }
     }
 }

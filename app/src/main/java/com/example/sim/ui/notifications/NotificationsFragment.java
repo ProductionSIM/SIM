@@ -17,18 +17,21 @@ import com.example.sim.databinding.FragmentNotificationsBinding;
 
 import java.util.ArrayList;
 
+/**
+ * The NotificationsFragment class represents the fragment for the List screen.
+ * It displays a list of lists retrieved from the database.
+ */
 public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
-
     private ListView listViewItems;
 
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
     private DatabaseHelper databaseHelper;
 
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         listViewItems = view.findViewById(R.id.productViewItems);
@@ -42,12 +45,15 @@ public class NotificationsFragment extends Fragment {
         return view;
     }
 
-    private void updateItemList(){
+    /**
+     * Updates the list of items displayed in the List Fragment.
+     */
+    private void updateItemList() {
         itemList.clear();
 
         Cursor cursor = databaseHelper.getAllDataList();
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 @SuppressLint("Range") Integer rowid = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID_LIST));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_LIST));
                 @SuppressLint("Range") String creation = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CREATION_LIST));
@@ -60,6 +66,7 @@ public class NotificationsFragment extends Fragment {
         cursor.close();
         itemAdapter.notifyDataSetChanged();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

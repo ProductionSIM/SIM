@@ -14,6 +14,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The LoginActivity class handles the user login functionality.
+ * It allows users to log in with their credentials and provides options for staying logged in.
+ */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLoginRegister, btnLogin;
@@ -31,22 +35,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editEmailLogIn = (EditText) findViewById(R.id.editEmailLogIn);
-        editPasswordLogin = (EditText) findViewById(R.id.editPasswordLogin);
+        // Initialize UI elements
+        editEmailLogIn = findViewById(R.id.editEmailLogIn);
+        editPasswordLogin = findViewById(R.id.editPasswordLogin);
 
-        btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
-        cBstayLoggedIn = (CheckBox) findViewById(R.id.cBstayLoggedIn);
+        cBstayLoggedIn = findViewById(R.id.cBstayLoggedIn);
 
-        btnLoginRegister = (Button) findViewById(R.id.btnLoginRegister);
+        btnLoginRegister = findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
     }
 
+    /**
+     * Handles the login process.<br>
+     * It sets flags using shared preferences to know if you logged in, and if you checked the CheckBox to stay logged in.
+     *
+     * @param username The username entered by the user.
+     * @param password The password entered by the user.
+     */
     public void login(String username, String password) {
-        if(checkLogIn(username, password)){
+        if (checkLogIn(username, password)) {
             if (cBstayLoggedIn.isChecked()) {
                 preferenceManager.setLoggedIn(true);
             }
@@ -58,6 +70,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editPasswordLogin.setText("");
     }
 
+    /**
+     * Checks if the entered login credentials are valid.
+     *
+     * @param username The username entered by the user.
+     * @param password The password entered by the user.
+     * @return True if the login credentials are valid, false otherwise.
+     */
     public boolean checkLogIn(String username, String password) {
         boolean okay = false;
 
@@ -75,45 +94,69 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return okay;
     }
 
+    /**
+     * Loads the MainActivity when navigating up from the LoginActivity.
+     */
     public void loadMainActivityUp(){
-        Intent inten = new Intent(this, MainActivity.class);
-        startActivity(inten);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         this.finish();
     }
 
+    /**
+     * Loads the RegisterActivity to allow users to register a new account.
+     */
     public void loadRegisterActivity(){
-        Intent inten = new Intent(this, RegisterActivity.class);
-        startActivity(inten);
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
         this.finish();
     }
 
+    /**
+     * Loads the PersonalActivity for the logged-in user.
+     */
     public void loadPersonalActivity(){
-        Intent inten = new Intent(this, PersonalActivity.class);
-        startActivity(inten);
+        Intent intent = new Intent(this, PersonalActivity.class);
+        startActivity(intent);
         this.finish();
     }
 
+    /**
+     * Gives the Up Button in the App Bar its functionality.<br>
+     * Because of this button being built into the AppBar it does not need its own menu to appear on it.<br>
+     * By adding getSupportActionBar().setDisplayHomeAsUpEnabled(true); into {@link #onCreate}, it automatically appears on the AppBar.
+     *
+     * @param item The menu item that was selected.
+     *
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             loadMainActivityUp();
-        } return true;
+        }
+        return true;
     }
 
+    /**
+     * If the Login Button is pressed, it will call {@link #login} to handle the states of being logged in.<br>
+     * The Email (user.username in database) gets saved into SharedPreferences for use in the Personal Activity.<br>
+     * <br>
+     * If the Register button is pressed, the Register Activity will be called.
+     * @see PersonalActivity
+     * @see RegisterActivity
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnLogin){
             login(editEmailLogIn.getText().toString(), editPasswordLogin.getText().toString());
-            //Save Username using shared Preferences
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+            // Save Username using shared Preferences
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(KEY_EMAIL_USER, editEmailLogIn.getText().toString());
             editor.apply();
         } else if(view.getId() == R.id.btnLoginRegister) {
-                loadRegisterActivity();
+            loadRegisterActivity();
         }
     }
-
-
 }

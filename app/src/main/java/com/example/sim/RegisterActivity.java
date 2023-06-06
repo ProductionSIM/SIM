@@ -14,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-
-//This Class will create an Account if the inserted Email isn't already in use
+/**
+ * The RegisterActivity class handles the user registration process.
+ * It allows users to create a new account by providing their personal details and credentials.
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     EditText emailRegister, pwRegister, pwConfRegister, editFirstname, editLastname;
 
@@ -25,33 +27,37 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
-    // Method tells what is happening while creating this Class
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        emailRegister = (EditText) findViewById(R.id.emailRegister);
-        pwRegister = (EditText) findViewById(R.id.pwRegister);
-        pwConfRegister = (EditText) findViewById(R.id.pwConfRegister);
-        editFirstname = (EditText) findViewById(R.id.editFirstname);
-        editLastname = (EditText) findViewById(R.id.editLastname);
+        // Initialize UI elements
+        emailRegister = findViewById(R.id.emailRegister);
+        pwRegister = findViewById(R.id.pwRegister);
+        pwConfRegister = findViewById(R.id.pwConfRegister);
+        editFirstname = findViewById(R.id.editFirstname);
+        editLastname = findViewById(R.id.editLastname);
 
-        register = (Button) findViewById(R.id.register);
+        register = findViewById(R.id.register);
         register.setOnClickListener(this);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
     }
 
+    /**
+     * Handles the registration process.
+     *
+     * @param firstname The user's first name.
+     * @param lastname  The user's last name.
+     * @param username  The chosen username for the account.
+     * @param password  The chosen password for the account.
+     * @param passwordC The password confirmation entered by the user.
+     */
     public void registration(String firstname, String lastname, String username, String password, String passwordC) {
         if (checkUserNameIsOkay(username) && passwordConfirmation(password, passwordC)) {
             createAccount(firstname, lastname, username, password);
-            //preferenceManager.setFirstname(editFirstname.getText().toString());
-            //preferenceManager.setLastname(editLastname.getText().toString());
-            //preferenceManager.setEmail(emailRegister.getText().toString());
-            //preferenceManager.setPassword(pwRegister.getText().toString());
-            //createAccount(firstname, lastname, username, hashPassword());
         } else if (checkUserNameIsOkay(username)) {
             Toast.makeText(getApplicationContext(), "Der Benutzername ist schon vergeben!", Toast.LENGTH_SHORT).show();
         } else if (passwordConfirmation(password, passwordC)) {
@@ -64,21 +70,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editLastname.setText("");
     }
 
-    // Method for hashing the Password
-    public String hashPassword (){
+    /**
+     * Hashes the password using BCrypt.
+     *
+     * @return The hashed password.
+     */
+    public String hashPassword() {
         String hashedPassword = BCrypt.hashpw(pwRegister.getText().toString(), BCrypt.gensalt());
         return hashedPassword;
     }
 
-    // Method for checking if username is already registered
+    /**
+     * Checks if the chosen username is available.
+     *
+     * @param username The username to check.
+     * @return True if the username is available, false otherwise.
+     */
     public boolean checkUserNameIsOkay(String username) {
         boolean okay = false;
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursorUser = databaseUser.rawQuery("SELECT COUNT (*) FROM user WHERE username = '" + username +"'", null);
+        Cursor cursorUser = databaseUser.rawQuery("SELECT COUNT (*) FROM user WHERE username = '" + username + "'", null);
         cursorUser.moveToFirst();
         if (cursorUser.getInt(0) == 0) {
             okay = true;
-        } else{
+        } else {
             return false;
         }
         cursorUser.close();
@@ -86,7 +101,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return okay;
     }
 
-    // Method for checking if password is equal to password confirmation
+    /**
+     * Checks if the password matches the password confirmation.
+     *
+     * @param password  The password entered by the user.
+     * @param passwordC The password confirmation entered by the user.
+     * @return True if the passwords match, false otherwise.
+     */
     public boolean passwordConfirmation(String password, String passwordC) {
         boolean confirm = false;
         if (password.equals(passwordC)) {
@@ -95,30 +116,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return confirm;
     }
 
-    // Method for creating account and Inserting Values into database
+    /**
+     * Creates a new account and inserts the user's details into the database.
+     *
+     * @param firstname The user's first name.
+     * @param lastname  The user's last name.
+     * @param username  The chosen username for the account.
+     * @param password  The chosen password for the account.
+     */
     public void createAccount(String firstname, String lastname, String username, String password) {
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseUser.execSQL("INSERT INTO user (firstname, lastname, username, password) VALUES ('" + firstname + "','" + lastname + "','" + username + "','" + password + "')");
         databaseUser.close();
     }
 
-    // Method for loading Login Activity
-    public void loadLoginActivity(){
+    /**
+     * Loads the Login Activity.
+     */
+    public void loadLoginActivity() {
         Intent inten = new Intent(this, LoginActivity.class);
         startActivity(inten);
         this.finish();
     }
 
-    // Method for AppBar Buttons
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             loadLoginActivity();
-        } return true;
+        }
+        return true;
     }
 
-    // Method for clicking on Buttons
+    /**
+     * Calls {@link #registration} and returns to the Login Activity.
+     * @param view The view that was clicked.
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.register) {

@@ -12,7 +12,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PersonalActivity extends AppCompatActivity implements View.OnClickListener{
+/**
+ * The PersonalActivity class represents the activity that displays personal information of the user.
+ * It retrieves and displays the user's username, password, first name, and last name from the database.
+ * It also provides an option to log out and navigate back to the main activity.
+ */
+public class PersonalActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView showInfosUsername, showInfosPassword, showInfosFirstname, showInfosLastname;
 
@@ -47,8 +52,8 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
-        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
+        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        getUsername = sharedPreferences.getString(KEY_EMAIL_USER, "");
 
         databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseHelper = new DatabaseHelper(getApplicationContext());
@@ -61,7 +66,7 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         dataLastname = new StringBuilder();
         dataPassword = new StringBuilder();
 
-        while(cursorUserFirstname.moveToNext() && cursorUserLastname.moveToNext() && cursorUserPassword.moveToNext()){
+        while (cursorUserFirstname.moveToNext() && cursorUserLastname.moveToNext() && cursorUserPassword.moveToNext()) {
             valueFirstname = cursorUserFirstname.getString(cursorUserFirstname.getColumnIndexOrThrow("firstname"));
             valueLastname = cursorUserLastname.getString(cursorUserLastname.getColumnIndexOrThrow("lastname"));
             valuePassword = cursorUserPassword.getString(cursorUserPassword.getColumnIndexOrThrow("password"));
@@ -80,29 +85,39 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         int id = item.getItemId();
         if (id == android.R.id.home) {
             loadMainActivity();
-        } return true;
+        }
+        return true;
     }
 
-    public void loadMainActivity(){
+    /**
+     * Loads the main activity.
+     */
+    public void loadMainActivity() {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
     }
 
-    public void loadLoginActivity(){
+    /**
+     * Loads the login activity.
+     */
+    public void loadLoginActivity() {
         Intent inten = new Intent(this, LoginActivity.class);
         startActivity(inten);
         this.finish();
     }
 
-    private void showUsername(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+    /**
+     * Retrieves and displays the user's username.
+     */
+    private void showUsername() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
         showInfosUsername.setText(sharedPreferences.getString(KEY_EMAIL_USER, ""));
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnLogOut){
+        if (view.getId() == R.id.btnLogOut) {
             preferenceManager.setLoggedIn(false);
             preferenceManager.setMomentLoggedIn(false);
             loadLoginActivity();

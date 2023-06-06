@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sim.ui.dashboard.DashboardFragment;
-
+/**
+ * The ProductActivity class represents the activity for creating a new product.
+ * It allows the user to enter information about the product and creates it in the database.
+ */
 public class ProductActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText editBrand, editProductTitle, editExpireDate, editPieceNumber;
@@ -37,8 +39,16 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         btnCreateProduct.setOnClickListener(this);
     }
 
-    public void addProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl){
-        if(checkProduct(marke, bezeichnung, ablaufdatum)){
+    /**
+     * Adds a new product to the database.
+     *
+     * @param marke        The brand of the product.
+     * @param bezeichnung  The title of the product.
+     * @param ablaufdatum  The expiration date of the product.
+     * @param stückzahl    The number of pieces of the product.
+     */
+    public void addProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl) {
+        if (checkProduct(marke, bezeichnung, ablaufdatum)) {
             createProduct(marke, bezeichnung, ablaufdatum, stückzahl);
         } else {
             Toast.makeText(getApplicationContext(), "Dieses Produkt Exisiert bereits!", Toast.LENGTH_SHORT).show();
@@ -50,12 +60,20 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         editPieceNumber.setText("");
     }
 
-    public boolean checkProduct(String marke, String bezeichnung, String ablaufdatum){
+    /**
+     * Checks if a product with the given brand, title, and expiration date already exists in the database.
+     *
+     * @param marke        The brand of the product.
+     * @param bezeichnung  The title of the product.
+     * @param ablaufdatum  The expiration date of the product.
+     * @return True if the product does not exist in the database, false otherwise.
+     */
+    public boolean checkProduct(String marke, String bezeichnung, String ablaufdatum) {
         boolean okay = false;
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursorProduct = databaseProduct.rawQuery("SELECT COUNT (*) FROM product WHERE marke = '"+marke+"' AND produktbezeichnung ='"+bezeichnung+"' AND ablaufdatum = '"+ablaufdatum+"'",null );
+        Cursor cursorProduct = databaseProduct.rawQuery("SELECT COUNT (*) FROM product WHERE marke = '" + marke + "' AND produktbezeichnung ='" + bezeichnung + "' AND ablaufdatum = '" + ablaufdatum + "'", null);
         cursorProduct.moveToFirst();
-        if(cursorProduct.getInt(0) == 0){
+        if (cursorProduct.getInt(0) == 0) {
             okay = true;
         }
         cursorProduct.close();
@@ -63,13 +81,24 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         return okay;
     }
 
-    public void createProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl){
+    /**
+     * Creates a new product in the database.
+     *
+     * @param marke        The brand of the product.
+     * @param bezeichnung  The title of the product.
+     * @param ablaufdatum  The expiration date of the product.
+     * @param stückzahl    The number of pieces of the product.
+     */
+    public void createProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl) {
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseProduct.execSQL("INSERT INTO product (marke, produktbezeichnung, ablaufdatum, stückzahl) VALUES ('" + marke + "','" + bezeichnung + "','" + ablaufdatum + "','" + stückzahl + "')");
         databaseProduct.close();
     }
 
-    public void loadMainActivity(){
+    /**
+     * Loads the main activity.
+     */
+    public void loadMainActivity() {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
@@ -78,16 +107,16 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == android.R.id.home) {
             loadMainActivity();
-        } return true;
+        }
+        return true;
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnCreateProduct) {
-            addProduct(editBrand.getText().toString(), editProductTitle.getText().toString(),editExpireDate.getText().toString(),editPieceNumber.getText().toString());
+            addProduct(editBrand.getText().toString(), editProductTitle.getText().toString(), editExpireDate.getText().toString(), editPieceNumber.getText().toString());
             loadMainActivity();
         }
     }
