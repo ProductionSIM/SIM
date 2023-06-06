@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,12 +20,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLoginRegister, btnLogin;
-    CheckBox cBstayLoggedIn;
     EditText editEmailLogIn, editPasswordLogin;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
     PreferenceManager preferenceManager;
     public static final String SHARED_PREF = "MyPreferences";
-    public static final String SHARED_PREFER="MomentLogged";
     public static final String KEY_EMAIL_USER = "emailUser";
 
     @Override
@@ -42,8 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(this);
 
-        cBstayLoggedIn = findViewById(R.id.cBstayLoggedIn);
-
         btnLoginRegister = findViewById(R.id.btnLoginRegister);
         btnLoginRegister.setOnClickListener(this);
 
@@ -52,17 +47,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * Handles the login process.<br>
-     * It sets flags using shared preferences to know if you logged in, and if you checked the CheckBox to stay logged in.
+     * It sets flags using shared preferences to know if you logged in.
      *
      * @param username The username entered by the user.
      * @param password The password entered by the user.
      */
     public void login(String username, String password) {
         if (checkLogIn(username, password)) {
-            if (cBstayLoggedIn.isChecked()) {
-                preferenceManager.setLoggedIn(true);
-            }
-            preferenceManager.setMomentLoggedIn(true);
+            preferenceManager.setLoggedIn(true);
             loadPersonalActivity();
         } else {
             Toast.makeText(getApplicationContext(), "Benutzername oder Passwort sind falsch!", Toast.LENGTH_SHORT).show();

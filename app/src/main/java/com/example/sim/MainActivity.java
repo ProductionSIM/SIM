@@ -199,15 +199,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.action_profile) {
-           if(preferenceManager.isLoggedIn() == false && preferenceManager.isMomentLoggedIn() == false){
+           if(preferenceManager.isLoggedIn() == false){
                // User is already logged in, display user data
                loadLoginActivity();
-           } else if(preferenceManager.isLoggedIn() == true && preferenceManager.isMomentLoggedIn() == true){
+           } else if(preferenceManager.isLoggedIn() == true){
                // simulate login process
-               loadPersonalActivity();
-           } else if(preferenceManager.isMomentLoggedIn() == false && preferenceManager.isLoggedIn() == true){
-               loadPersonalActivity();
-           } else if(preferenceManager.isMomentLoggedIn() == true && preferenceManager.isLoggedIn() == false){
                loadPersonalActivity();
            }
         }
