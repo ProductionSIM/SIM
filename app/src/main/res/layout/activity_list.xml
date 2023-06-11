@@ -24,13 +24,16 @@
 
         <EditText
             android:id="@+id/editCreationDate"
-            android:layout_width="317dp"
+            android:layout_width="219dp"
             android:layout_height="49dp"
             android:layout_marginTop="40dp"
+            android:editable="false"
             android:ems="10"
+            android:focusable="false"
             android:hint="@string/prompt_creation_date"
-            android:inputType="text"
+            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.244"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editListName" />
 
@@ -48,9 +51,20 @@
             app:layout_constraintTop_toBottomOf="@+id/editCreationDate" />
 
         <Button
+            android:id="@+id/dateButton"
+            android:layout_width="99dp"
+            android:layout_height="57dp"
+            android:text="Datum"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/editCreationDate"
+            app:layout_constraintStart_toEndOf="@+id/editCreationDate"
+            app:layout_constraintTop_toTopOf="@+id/editCreationDate"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
             android:id="@+id/btnCreateList"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
+            android:layout_width="317dp"
+            android:layout_height="71dp"
             android:layout_marginBottom="100dp"
             android:text="@string/action_create_list"
             app:layout_constraintBottom_toBottomOf="parent"
