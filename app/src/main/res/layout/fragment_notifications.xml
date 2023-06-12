@@ -9,10 +9,13 @@
 
     <ListView
         android:id="@+id/productViewItems"
-        android:layout_width="378dp"
-        android:layout_height="715dp"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:layout_marginBottom="81dp"
         android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
