@@ -11,7 +11,7 @@
     <string name="title_new_list">Neue Liste</string>
     <string name="title_new_product">Neues Produkt</string>
     <string name="action_profile">Profil</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_search">Suche</string>
     <string name="action_stay_logged_in">Eingeloggt bleiben</string>
     <string name="action_create_product">Produkt erstellen</string>
     <string name="action_create_list">Liste erstellen</string>

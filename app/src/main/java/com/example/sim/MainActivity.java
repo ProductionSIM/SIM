@@ -173,6 +173,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Loads the Search activity.
+     */
+    public void loadSearchActivity(){
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    /**
      * Inflate the menu; this adds items to the action bar if it is present.
      *
      * @param menu The options menu in which you place your items.
@@ -206,6 +215,8 @@ public class MainActivity extends AppCompatActivity {
                // simulate login process
                loadPersonalActivity();
            }
+        } else if(item.getItemId() == R.id.action_search){
+            loadSearchActivity();
         }
         return true;
     }
