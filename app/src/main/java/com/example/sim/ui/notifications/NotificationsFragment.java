@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -41,6 +42,21 @@ public class NotificationsFragment extends Fragment {
 
         databaseHelper = new DatabaseHelper(requireContext());
         updateItemList();
+
+        listViewItems.setOnScrollListener(
+                new AbsListView.OnScrollListener() {
+                    private int lastFirstVisibleItem = 0;
+                    @Override
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                    }
+                    @Override
+                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                        // Update the first visible item
+                        lastFirstVisibleItem = firstVisibleItem;
+                    }
+                }
+        );
 
         return view;
     }
