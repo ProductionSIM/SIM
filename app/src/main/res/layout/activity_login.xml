@@ -69,12 +69,13 @@
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="175dp"
-        android:layout_height="48dp"
+        android:layout_width="317dp"
+        android:layout_height="71dp"
         android:layout_marginStart="110dp"
         android:layout_marginEnd="110dp"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="224dp"
         android:text="@string/action_sign_in"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,23 +97,23 @@
 
     <TextView
         android:id="@+id/registerLoginTV"
-        android:layout_width="200dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="273dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="28dp"
         android:text="@string/questionRegister"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <Button
         android:id="@+id/btnLoginRegister"
-        android:layout_width="150dp"
-        android:layout_height="48dp"
+        android:layout_width="205dp"
+        android:layout_height="64dp"
         android:layout_marginTop="24dp"
         android:text="@string/registration"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
