@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -25,6 +27,10 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
     EditText editListName, editCreationDate, editStorageLocation;
     Button btnCreateList, dateButton;
+
+    Date currentDate;
+    String formattedDate;
+    SimpleDateFormat dateFormat;
 
     // Get the current date
     Calendar calendar = Calendar.getInstance();
@@ -48,6 +54,11 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         btnCreateList = (Button) findViewById(R.id.btnCreateList);
         btnCreateList.setOnClickListener(this);
         dateButton = (Button) findViewById(R.id.dateButton);
+
+        currentDate = new Date();
+        dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        formattedDate = dateFormat.format(currentDate);
+        editCreationDate.setText(formattedDate);
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

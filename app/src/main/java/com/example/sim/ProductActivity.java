@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -25,6 +27,9 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
 
     EditText editBrand, editProductTitle, editExpireDate, editPieceNumber;
     Button btnCreateProduct, dateButton;
+    Date currentDate;
+    String formattedDate;
+    SimpleDateFormat dateFormat;
 
     // Get the current date
     Calendar calendar = Calendar.getInstance();
@@ -49,6 +54,12 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         btnCreateProduct = (Button) findViewById(R.id.btnCreateProduct);
         btnCreateProduct.setOnClickListener(this);
         dateButton = (Button) findViewById(R.id.dateButton);
+
+        currentDate = new Date();
+        dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        formattedDate = dateFormat.format(currentDate);
+        editExpireDate.setText(formattedDate);
+
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
