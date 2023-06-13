@@ -48,7 +48,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Profil");
 
-        btnUpdateProduct = (Button) findViewById(R.id.btnUpdateList);
+        btnUpdateProduct = (Button) findViewById(R.id.btnUpdateProduct);
         btnUpdateProduct.setOnClickListener(this);
 
         btnDeleteProduct = (Button) findViewById(R.id.btnDeleteProduct);
@@ -150,7 +150,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnUpdateList){
+        if (view.getId() == R.id.btnUpdateProduct){
             updateProduct();
             loadMainActivityUp();
         } else if(view.getId() == R.id.btnDeleteProduct){
