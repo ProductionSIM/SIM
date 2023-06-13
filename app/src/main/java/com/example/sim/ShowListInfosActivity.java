@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class ShowListInfosActivity extends AppCompatActivity implements View.OnClickListener{
 
-    EditText EditListName, listCreationDate, listStorageLocation;
+    EditText EditListName, listCreationDate, EditStorageLocation;
 
     Button btnUpdateList, dateButton, btnDeleteList;
 
@@ -77,7 +77,7 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         EditListName = (EditText) findViewById(R.id.EditListname);
         //showUsername();
         listCreationDate = (EditText) findViewById(R.id.listCreationDate);
-        listStorageLocation = (EditText) findViewById(R.id.listStorageLocation);
+        EditStorageLocation = (EditText) findViewById(R.id.EditStorageLocation);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
@@ -107,7 +107,7 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         }
         EditListName.setText(dataListname.toString());
         listCreationDate.setText(dataCreationDate.toString());
-        listStorageLocation.setText(dataStorage.toString());
+        EditStorageLocation.setText(dataStorage.toString());
     }
 
     public void loadMainActivityUp(){
@@ -127,7 +127,7 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
     public void updateList(){
         String listName = EditListName.getText().toString();
         String creationDate = listCreationDate.getText().toString();
-        String storageLocation = listStorageLocation.getText().toString();
+        String storageLocation = EditStorageLocation.getText().toString();
 
         SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseList.execSQL("Update list SET listenname = '"+ listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation +"' WHERE rowid = '" + getIdFromPreference +"' ");

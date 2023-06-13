@@ -114,12 +114,12 @@
         android:id="@+id/btnLogOut"
         android:layout_width="364dp"
         android:layout_height="76dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="52dp"
         android:text="Abmelden"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

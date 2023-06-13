@@ -74,11 +74,11 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
             }
         });
 
-        showProductBrand = (EditText) findViewById(R.id.EditListname);
+        showProductBrand = (EditText) findViewById(R.id.EditProductBrand);
         //showUsername();
-        showProductName = (EditText) findViewById(R.id.productName);
-        showProductExpireDate = (EditText) findViewById(R.id.listCreationDate);
-        showProductCount = (EditText) findViewById(R.id.listStorageLocation);
+        showProductName = (EditText) findViewById(R.id.EditProductName);
+        showProductExpireDate = (EditText) findViewById(R.id.EditExpirationDate);
+        showProductCount = (EditText) findViewById(R.id.EditAmount);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
