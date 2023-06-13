@@ -1,12 +1,17 @@
 package com.example.sim.ui.dashboard;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -14,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sim.DatabaseHelper;
 import com.example.sim.R;
+import com.example.sim.ShowProductInfosActivity;
 import com.example.sim.databinding.FragmentDashboardBinding;
 
 import java.util.ArrayList;
@@ -26,6 +32,9 @@ public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
     private ListView listViewItems;
+
+    public static final String SHARED_PREF = "MyPreferences";
+    public static final String KEY_PRODUCT_ID = "productid";
 
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
@@ -56,6 +65,21 @@ public class DashboardFragment extends Fragment {
                     }
                 }
         );
+
+        listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                long itemId = id+1;
+
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(KEY_PRODUCT_ID, String.valueOf(itemId));
+                editor.apply();
+
+                Intent intent = new Intent(getActivity(), ShowProductInfosActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

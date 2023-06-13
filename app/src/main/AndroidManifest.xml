@@ -37,6 +37,14 @@
             android:exported="true"
             android:label="@string/app_name"/>
         <activity
+            android:name=".ShowProductInfosActivity"
+            android:exported="true"
+            android:label="@string/app_name"/>
+        <activity
+            android:name=".ShowListInfosActivity"
+            android:exported="true"
+            android:label="@string/app_name"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">

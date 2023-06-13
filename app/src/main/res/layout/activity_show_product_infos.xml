@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonalActivity">
+
+    <TextView
+        android:id="@+id/listInfos"
+        android:layout_width="290dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="56dp"
+        android:text="Produkt Daten"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/LabelListName"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="24dp"
+        android:text="Marke"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/EditListname"
+        app:layout_constraintStart_toStartOf="@+id/EditListname" />
+
+    <EditText
+        android:id="@+id/EditListname"
+        android:layout_width="370dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="87dp"
+        android:text="Marke"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listInfos" />
+
+    <TextView
+        android:id="@+id/LabelName"
+        android:layout_width="200dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="24dp"
+        android:text="Produktbezeichnung"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/productName"
+        app:layout_constraintStart_toStartOf="@+id/productName" />
+
+    <EditText
+        android:id="@+id/productName"
+        android:layout_width="370dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="64dp"
+        android:text="Produktbezeichnung"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/EditListname"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/EditListname"
+        app:layout_constraintTop_toBottomOf="@+id/EditListname" />
+
+    <TextView
+        android:id="@+id/labelCreationDate"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="24dp"
+        android:text="Ablaufdatum"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listCreationDate"
+        app:layout_constraintStart_toStartOf="@+id/listCreationDate" />
+
+    <EditText
+        android:id="@+id/listCreationDate"
+        android:layout_width="262dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="64dp"
+        android:text="Ablaufdatum"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/productName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/productName"
+        app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="96dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="9dp"
+        android:text="Datum"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/listCreationDate"
+        app:layout_constraintStart_toEndOf="@+id/listCreationDate"
+        app:layout_constraintTop_toTopOf="@+id/listCreationDate" />
+
+    <TextView
+        android:id="@+id/labelStorageLocation"
+        android:layout_width="115dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="24dp"
+        android:text="Stückzahl"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listStorageLocation"
+        app:layout_constraintStart_toStartOf="@+id/listStorageLocation" />
+
+    <EditText
+        android:id="@+id/listStorageLocation"
+        android:layout_width="370dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="64dp"
+        android:text="Stückzahl"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/listCreationDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/listCreationDate"
+        app:layout_constraintTop_toBottomOf="@+id/listCreationDate" />
+
+    <Button
+        android:id="@+id/btnUpdateProduct"
+        android:layout_width="364dp"
+        android:layout_height="76dp"
+        android:layout_marginBottom="32dp"
+        android:text="Produkt Aktualisieren"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
