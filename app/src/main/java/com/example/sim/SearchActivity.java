@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,15 +17,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
     private DatabaseHelper databaseHelper;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
-
-    SearchView searchView;
+    // SearchView searchView;
     ListView listViewSearch;
 
     @Override
@@ -39,26 +41,35 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         listViewSearch.setAdapter(itemAdapter);
         databaseHelper = new DatabaseHelper(this);
 
-        searchView = findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflate = getMenuInflater();
+        inflate.inflate(R.menu.menu_search, menu);
+        MenuItem searchViewitem = menu.findItem(R.id.appbar_search);
+        SearchView searchView = (SearchView) searchViewitem.getActionView();
+        searchView.setQueryHint("Suchen");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query){
+            public boolean onQueryTextSubmit(String query) {
                 performSearch(query);
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText){
+            public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private void performSearch(String query){
+    public void performSearch(String query) {
         itemList.clear();
         boolean okay = false;
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursor = databaseProduct.rawQuery("SELECT * FROM product WHERE marke LIKE '"+'%' + query +'%'+ "' OR produktbezeichnung LIKE '"+'%' + query +'%'+ "' OR ablaufdatum LIKE '"+'%' + query +'%'+ "'OR stückzahl LIKE '"+'%' + query +'%'+ "'", null);
+        Cursor cursor = databaseProduct.rawQuery("SELECT * FROM product WHERE marke LIKE '" + '%' + query + '%' + "' OR produktbezeichnung LIKE '" + '%' + query + '%' + "' OR ablaufdatum LIKE '" + '%' + query + '%' + "'OR stückzahl LIKE '" + '%' + query + '%' + "'", null);
         cursor.moveToFirst();
 
         if (cursor.getCount() > 0) {
@@ -67,8 +78,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
 
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 @SuppressLint("Range") Integer rowid = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID_PRODUCT));
                 @SuppressLint("Range") String brand = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_BRAND_PRODUCT));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_PRODUCT));
@@ -84,7 +95,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         itemAdapter.notifyDataSetChanged();
     }
 
-    public void loadMainActivity(){
+    public void loadMainActivity() {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
@@ -96,7 +107,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (id == android.R.id.home) {
             loadMainActivity();
-        } return true;
+        }
+        return true;
     }
 
     @Override
