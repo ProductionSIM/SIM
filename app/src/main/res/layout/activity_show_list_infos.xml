@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalActivity">
+    tools:context=".ShowListInfosActivity">
 
     <TextView
         android:id="@+id/listInfos"
@@ -99,7 +100,7 @@
         app:layout_constraintTop_toTopOf="@+id/listCreationDate" />
 
     <Button
-        android:id="@+id/btnUpdateProduct"
+        android:id="@+id/btnUpdateList"
         android:layout_width="364dp"
         android:layout_height="76dp"
         android:layout_marginBottom="32dp"
@@ -108,6 +109,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnDeleteList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/btnUpdateList"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

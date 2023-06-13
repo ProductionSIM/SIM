@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +22,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
 
     EditText showProductBrand, showProductName, showProductExpireDate, showProductCount;
 
-    Button btnUpdateProduct, dateButton;
+    Button btnUpdateProduct, dateButton, btnDeleteProduct;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
     PreferenceManager preferenceManager;
@@ -47,8 +48,11 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Profil");
 
-        btnUpdateProduct = (Button) findViewById(R.id.btnUpdateProduct);
+        btnUpdateProduct = (Button) findViewById(R.id.btnUpdateList);
         btnUpdateProduct.setOnClickListener(this);
+
+        btnDeleteProduct = (Button) findViewById(R.id.btnDeleteProduct);
+        btnDeleteProduct.setOnClickListener(this);
 
         dateButton = (Button) findViewById(R.id.dateButton);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -137,10 +141,20 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         databaseProduct.close();
     }
 
+    public void deleteProduct(){
+        SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        databaseProduct.execSQL("DELETE FROM product WHERE rowid = '" + getIdFromPreference + "'");
+        databaseProduct.close();
+        Toast.makeText(this, "Produkt gelöscht!", Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnUpdateProduct){
+        if (view.getId() == R.id.btnUpdateList){
             updateProduct();
+            loadMainActivityUp();
+        } else if(view.getId() == R.id.btnDeleteProduct){
+            deleteProduct();
             loadMainActivityUp();
         }
     }

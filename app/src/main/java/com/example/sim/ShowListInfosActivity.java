@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +22,7 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
 
     EditText EditListName, listCreationDate, listStorageLocation;
 
-    Button btnUpdateProduct, dateButton;
+    Button btnUpdateList, dateButton, btnDeleteList;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
     PreferenceManager preferenceManager;
@@ -47,8 +48,11 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Profil");
 
-        btnUpdateProduct = (Button) findViewById(R.id.btnUpdateProduct);
-        btnUpdateProduct.setOnClickListener(this);
+        btnUpdateList = (Button) findViewById(R.id.btnUpdateList);
+        btnUpdateList.setOnClickListener(this);
+
+        btnDeleteList = (Button) findViewById(R.id.btnDeleteList);
+        btnDeleteList.setOnClickListener(this);
 
         dateButton = (Button) findViewById(R.id.dateButton);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -125,15 +129,26 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         String creationDate = listCreationDate.getText().toString();
         String storageLocation = listStorageLocation.getText().toString();
 
-        SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("Update list SET listenname = '"+ listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation +"' WHERE rowid = '" + getIdFromPreference +"' ");
-        databaseProduct.close();
+        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        databaseList.execSQL("Update list SET listenname = '"+ listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation +"' WHERE rowid = '" + getIdFromPreference +"' ");
+        databaseList.close();
+        Toast.makeText(this, "Liste aktualisiert!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteList(){
+        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        databaseList.execSQL("DELETE FROM list WHERE rowid = '" + getIdFromPreference + "'");
+        databaseList.close();
+        Toast.makeText(this, "Liste gelöscht!", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnUpdateProduct){
+        if (view.getId() == R.id.btnUpdateList){
             updateList();
+            loadMainActivityUp();
+        } else if(view.getId() == R.id.btnDeleteList){
+            deleteList();
             loadMainActivityUp();
         }
     }
