@@ -22,25 +22,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_FIRSTNAME = "firstname";
     public static final String COLUMN_LASTNAME = "lastname";
 
-    //listen
+    //user has lists
+    private static final String TABLE_NAME_USER_HAS_LISTS = "userHasLists";
+    public static final String COLUMN_ID_USER_LIST = "userId";
+    public static final String COLUMN_ID_LIST_USER = "listId";
+
+    //lists
     public static final String TABLE_NAME_LIST = "list";
     public static final String COLUMN_ID_LIST = "rowid";
     public static final String COLUMN_NAME_LIST = "listenname";
     public static final String COLUMN_CREATION_LIST = "erstelldatum";
     public static final String COLUMN_STORAGE_LIST = "lagerort";
 
-    //produkte
+    public static final String COLUMN_LISTEN_ID_USER = "listen_benutzerid";
+
+    //listen has products
+    private static final String TABLE_NAME_LIST_HAS_PRODUCTS = "listenHasProducts";
+    public static final String COLUMN_ID_LIST_PRODUCTS = "listId";
+    public static final String COLUMN_ID_PRODUCTS_LIST = "productId";
+
+    //products
     public static final String TABLE_NAME_PRODUCT = "product";
     public static final String COLUMN_ID_PRODUCT = "rowid";
     public static final String COLUMN_BRAND_PRODUCT = "marke";
     public static final String COLUMN_NAME_PRODUCT = "produktbezeichnung";
     public static final String COLUMN_EXPIRE_DATE_PRODUCT = "ablaufdatum";
     public static final String COLUMN_COUNT_PRODUCT = "stückzahl";
+    public static final String COLUMN_PRODUKTE_BENUTZERID = "produkte_benutzerid";
+    public static final String COLUMN_LISTEN_LISTENID = "listen_listenid";
+    public static final String COLUMN_KATEGORIE_KATEGORIEID = "kategorie_kategorieid";
 
     // Mengeneinheiten
     public static final String TABLE_NAME_MEASURE_UNITS = "mengeneinheiten";
     public static final String COLUMN_ID_MEASURE_UNITS = "rowid";
     public static final String COLUMN_MEASURE_UNITS = "mengeneinheiten";
+    public static final String COLUMN__MEASURE_PRODUKTE_PRODUKTEID = "produkte_produkteid";
 
     // Kategorien
     public static final String TABLE_NAME_CATEGORY = "kategorien";
@@ -54,25 +70,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_USERNAME + " TEXT,"
             + COLUMN_PASSWORD + " TEXT)";
 
+    private static final String CREATE_TABLE_NAME_USER_HAS_LISTS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER_HAS_LISTS + "("
+            + COLUMN_ID_USER_LIST + " INTEGER,"
+            + COLUMN_ID_LIST_USER + " INTEGER)";
+
     private static final String CREATE_TABLE_LIST = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_LIST + "("
             + COLUMN_ID_LIST + " INTEGER PRIMARY KEY,"
             + COLUMN_NAME_LIST + " TEXT,"
             + COLUMN_CREATION_LIST + " TEXT,"
-            + COLUMN_STORAGE_LIST + " TEXT)";
+            + COLUMN_STORAGE_LIST + " TEXT,"
+            + COLUMN_LISTEN_ID_USER + " INTEGER REFERENCES benutzer(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+
+    private static final String CREATE_TABLE_NAME_LISTS_HAVE_PRODUCT = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_LIST_HAS_PRODUCTS + "("
+            + COLUMN_ID_LIST_PRODUCTS + " INTEGER,"
+            + COLUMN_ID_PRODUCTS_LIST + " INTEGER)";
 
     private static final String CREATE_TABLE_PRODUCT = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_PRODUCT + "("
             + COLUMN_ID_PRODUCT + " INTEGER PRIMARY KEY,"
             + COLUMN_BRAND_PRODUCT + " TEXT,"
             + COLUMN_NAME_PRODUCT + " TEXT,"
             + COLUMN_EXPIRE_DATE_PRODUCT + " TEXT,"
-            + COLUMN_COUNT_PRODUCT + " TEXT)";
+            + COLUMN_COUNT_PRODUCT + " TEXT,"
+            + COLUMN_PRODUKTE_BENUTZERID + " INTEGER REFERENCES benutzer(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+            + COLUMN_LISTEN_LISTENID + " INTEGER REFERENCES listen(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION,"
+            + COLUMN_KATEGORIE_KATEGORIEID + " INTEGER REFERENCES kategorie(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
     private static final String CREATE_TABLE_MEASURE_UNITS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_MEASURE_UNITS + "("
-            // + COLUMN_ID_MEASURE_UNITS + " INTEGER PRIMARY KEY,"
-            + COLUMN_MEASURE_UNITS + " TEXT)";
+            //+ COLUMN_ID_MEASURE_UNITS + " INTEGER PRIMARY KEY,"
+            + COLUMN_MEASURE_UNITS + " TEXT,"
+            + COLUMN__MEASURE_PRODUKTE_PRODUKTEID + " INTEGER REFERENCES produkte(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
     private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_CATEGORY + "("
-            // + COLUMN_ID_CATEGORY + " INTEGER PRIMARY KEY,"
+            //+ COLUMN_ID_CATEGORY + " INTEGER PRIMARY KEY,"
             + COLUMN_CATEGORY_NAME + " TEXT)";
 
     /**
@@ -91,6 +120,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_MEASURE_UNITS);
         db.execSQL(CREATE_TABLE_CATEGORY);
+        db.execSQL(CREATE_TABLE_NAME_USER_HAS_LISTS);
+        db.execSQL(CREATE_TABLE_NAME_LISTS_HAVE_PRODUCT);
     }
 
     @Override
@@ -100,33 +131,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MEASURE_UNITS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CATEGORY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LIST_HAS_PRODUCTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER_HAS_LISTS);
         onCreate(db);
-    }
-
-    /**
-     * Deletes a specific row from the list table.
-     *
-     * @param id The ID of the row to be deleted.
-     * @return The number of rows deleted.
-     */
-    public int deleteDataList(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int i = db.delete(TABLE_NAME_LIST, "ID =" + id, null);
-        db.close();
-        return i;
-    }
-
-    /**
-     * Deletes a specific row from the product table.
-     *
-     * @param id The ID of the row to be deleted.
-     * @return The number of rows deleted.
-     */
-    public int deleteDataProduct(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int i = db.delete(TABLE_NAME_PRODUCT, "ID =" + id, null);
-        db.close();
-        return i;
     }
 
     /**
@@ -158,5 +165,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(TABLE_NAME_USER, null, null, null, null, null, null);
     }
-
 }

@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,21 +37,24 @@ public class NotificationsFragment extends Fragment {
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "listid";
 
+    final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
+
+
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
     private DatabaseHelper databaseHelper;
+    private ArrayList<Integer> integerList;
+    private ArrayAdapter<Integer> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         listViewItems = view.findViewById(R.id.productViewItems);
-        itemList = new ArrayList<>();
-        itemAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
-        listViewItems.setAdapter(itemAdapter);
 
-        databaseHelper = new DatabaseHelper(requireContext());
-        updateItemList();
+        integerList = retrieveIntegerValuesFromDatabase();
+
+
 
         listViewItems.setOnScrollListener(
                 new AbsListView.OnScrollListener() {
@@ -70,11 +74,11 @@ public class NotificationsFragment extends Fragment {
         listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long itemId = id+1;
+                int selectedValue = integerList.set(position, integerList.size());
 
                 SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(KEY_PRODUCT_ID, String.valueOf(itemId));
+                editor.putString(KEY_PRODUCT_ID, String.valueOf(selectedValue));
                 editor.apply();
 
                 Intent intent = new Intent(getActivity(), ShowListInfosActivity.class);
@@ -82,7 +86,35 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
+        itemList = new ArrayList<>();
+        itemAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, itemList);
+        adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, integerList);
+        listViewItems.setAdapter(adapter);
+        listViewItems.setAdapter(itemAdapter);
+        databaseHelper = new DatabaseHelper(requireContext());
+        updateItemList();
+
         return view;
+    }
+
+    private ArrayList<Integer> retrieveIntegerValuesFromDatabase() {
+        ArrayList<Integer> values = new ArrayList<>();
+
+        // Replace with your own code to retrieve values from the database
+        SQLiteDatabase db = requireContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        Cursor cursor = db.rawQuery("SELECT rowid FROM list", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int value = cursor.getInt(cursor.getColumnIndex("rowid"));
+                values.add(value);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return values;
     }
 
     /**
