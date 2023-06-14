@@ -1,7 +1,9 @@
 package com.example.sim;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -28,8 +30,16 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     EditText editBrand, editProductTitle, editExpireDate, editPieceNumber;
     Button btnCreateProduct, dateButton;
     Date currentDate;
-    String formattedDate;
     SimpleDateFormat dateFormat;
+
+    String getUsername, getProduktName, valueProductId, formattedDate;
+    public static final String SHARED_PREF = "MyPreferences";
+    public static final String KEY_EMAIL_USER = "emailUser";
+    public static final String KEY_PRODUCT_NAME = "produktbezeichnung";
+    Cursor cursorProductId;
+    SharedPreferences sharedPreferences;
+    StringBuilder datarowid;
+    DatabaseHelper databaseHelper;
 
     // Get the current date
     Calendar calendar = Calendar.getInstance();
@@ -91,6 +101,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     public void addProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl) {
         if (checkProduct(marke, bezeichnung, ablaufdatum)) {
             createProduct(marke, bezeichnung, ablaufdatum, stückzahl);
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_PRODUCT_NAME, editProductTitle.getText().toString());
+            editor.apply();
         } else {
             Toast.makeText(getApplicationContext(), "Dieses Produkt Exisiert bereits!", Toast.LENGTH_SHORT).show();
         }
@@ -145,6 +159,29 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         this.finish();
     }
 
+    @SuppressLint("Range")
+    public void getProductId(){
+        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
+        getProduktName = sharedPreferences.getString(KEY_PRODUCT_NAME,"");
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        cursorProductId = databaseList.rawQuery("SELECT rowid FROM product WHERE produktbezeichnung = '" + getProduktName +"'", null);
+        datarowid = new StringBuilder();
+
+        Toast.makeText(this, "Der Produktname lautet " + getProduktName, Toast.LENGTH_SHORT).show();
+
+        while(cursorProductId.moveToNext()){
+            valueProductId = cursorProductId.getString(cursorProductId.getColumnIndex("rowid"));
+
+            datarowid.append(valueProductId);
+        }
+        String id = datarowid.toString();
+
+        databaseList.execSQL("INSERT INTO userHasProducts (userid, productId) VALUES ('" + getUsername +"','" + id +"')");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -159,6 +196,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         if (view.getId() == R.id.btnCreateProduct) {
             addProduct(editBrand.getText().toString(), editProductTitle.getText().toString(), editExpireDate.getText().toString(), editPieceNumber.getText().toString());
             loadMainActivity();
+            getProductId();
         }
     }
 }

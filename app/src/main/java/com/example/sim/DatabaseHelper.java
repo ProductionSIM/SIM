@@ -27,6 +27,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID_USER_LIST = "userId";
     public static final String COLUMN_ID_LIST_USER = "listId";
 
+    //user has products
+    private static final String TABLE_NAME_USER_HAS_PRODUCTS = "userHasProducts";
+    public static final String COLUMN_ID_USER_PRODUCT = "userId";
+    public static final String COLUMN_ID_PRODUCT_USER = "productId";
+
     //lists
     public static final String TABLE_NAME_LIST = "list";
     public static final String COLUMN_ID_LIST = "rowid";
@@ -73,6 +78,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_NAME_USER_HAS_LISTS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER_HAS_LISTS + "("
             + COLUMN_ID_USER_LIST + " INTEGER,"
             + COLUMN_ID_LIST_USER + " INTEGER)";
+
+    private static final String CREATE_TABLE_NAME_USER_HAS_PRODUCTS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER_HAS_PRODUCTS + "("
+            + COLUMN_ID_USER_PRODUCT + " INTEGER,"
+            + COLUMN_ID_PRODUCT_USER + " INTEGER)";
 
     private static final String CREATE_TABLE_LIST = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_LIST + "("
             + COLUMN_ID_LIST + " INTEGER PRIMARY KEY,"
@@ -122,6 +131,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CATEGORY);
         db.execSQL(CREATE_TABLE_NAME_USER_HAS_LISTS);
         db.execSQL(CREATE_TABLE_NAME_LISTS_HAVE_PRODUCT);
+        db.execSQL(CREATE_TABLE_NAME_USER_HAS_PRODUCTS);
+
     }
 
     @Override
@@ -133,6 +144,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LIST_HAS_PRODUCTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER_HAS_LISTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER_HAS_PRODUCTS);
         onCreate(db);
     }
 
