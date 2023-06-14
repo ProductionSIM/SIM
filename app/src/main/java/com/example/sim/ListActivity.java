@@ -1,7 +1,9 @@
 package com.example.sim;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,8 +31,16 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     Button btnCreateList, dateButton;
 
     Date currentDate;
-    String formattedDate;
+    String formattedDate, getUsername, getListName, valueListid;;
     SimpleDateFormat dateFormat;
+    public static final String SHARED_PREF = "MyPreferences";
+    public static final String KEY_EMAIL_USER = "emailUser";
+    public static final String KEY_LIST_NAME = "listenname";
+
+    Cursor cursorListId;
+    SharedPreferences sharedPreferences;
+    StringBuilder datarowid;
+    DatabaseHelper databaseHelper;
 
     // Get the current date
     Calendar calendar = Calendar.getInstance();
@@ -89,6 +99,10 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     public void addList(String listenname, String erstelldatum, String lagerort) {
         if (checkList(listenname, lagerort)) {
             createList(listenname, erstelldatum, lagerort);
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(KEY_LIST_NAME, editListName.getText().toString());
+            editor.apply();
         } else {
             Toast.makeText(getApplicationContext(), "Diese Liste existiert bereits!", Toast.LENGTH_SHORT).show();
         }
@@ -140,6 +154,29 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         this.finish();
     }
 
+    @SuppressLint("Range")
+    public void getListId(){
+        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
+        getListName = sharedPreferences.getString(KEY_LIST_NAME,"");
+
+        databaseHelper = new DatabaseHelper(getApplicationContext());
+        cursorListId = databaseList.rawQuery("SELECT rowid FROM list WHERE listenname = '" + getListName +"'", null);
+        datarowid = new StringBuilder();
+
+        Toast.makeText(this, "Der Listenname lautet " + getListName, Toast.LENGTH_SHORT).show();
+
+        while(cursorListId.moveToNext()){
+            valueListid = cursorListId.getString(cursorListId.getColumnIndex("rowid"));
+
+            datarowid.append(valueListid);
+        }
+        String id = datarowid.toString();
+
+        databaseList.execSQL("INSERT INTO userHasLists (userid, listId) VALUES ('" + getUsername +"','" + id +"')");
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -155,6 +192,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.btnCreateList) {
             addList(editListName.getText().toString(), editCreationDate.getText().toString(), editStorageLocation.getText().toString());
             loadMainActivity();
+            getListId();
         }
     }
 }
