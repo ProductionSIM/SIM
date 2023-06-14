@@ -17,20 +17,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //user
     private static final String TABLE_NAME_USER = "user";
     public static final String COLUMN_ID_USER = "rowid";
-    public static final String COLUMN_USERNAME = "username";
-    public static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_EMAIL = "email";
     public static final String COLUMN_FIRSTNAME = "firstname";
     public static final String COLUMN_LASTNAME = "lastname";
-
-    //user has lists
-    private static final String TABLE_NAME_USER_HAS_LISTS = "userHasLists";
-    public static final String COLUMN_ID_USER_LIST = "userId";
-    public static final String COLUMN_ID_LIST_USER = "listId";
-
-    //user has products
-    private static final String TABLE_NAME_USER_HAS_PRODUCTS = "userHasProducts";
-    public static final String COLUMN_ID_USER_PRODUCT = "userId";
-    public static final String COLUMN_ID_PRODUCT_USER = "productId";
+    public static final String COLUMN_PASSWORD = "password";
 
     //lists
     public static final String TABLE_NAME_LIST = "list";
@@ -38,8 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_LIST = "listenname";
     public static final String COLUMN_CREATION_LIST = "erstelldatum";
     public static final String COLUMN_STORAGE_LIST = "lagerort";
-
-    public static final String COLUMN_LISTEN_ID_USER = "listen_benutzerid";
+    public static final String COLUMN_LIST_USER_ID = "benutzername";
 
     //listen has products
     private static final String TABLE_NAME_LIST_HAS_PRODUCTS = "listenHasProducts";
@@ -53,9 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_PRODUCT = "produktbezeichnung";
     public static final String COLUMN_EXPIRE_DATE_PRODUCT = "ablaufdatum";
     public static final String COLUMN_COUNT_PRODUCT = "stückzahl";
-    public static final String COLUMN_PRODUKTE_BENUTZERID = "produkte_benutzerid";
-    public static final String COLUMN_LISTEN_LISTENID = "listen_listenid";
-    public static final String COLUMN_KATEGORIE_KATEGORIEID = "kategorie_kategorieid";
+    public static final String COLUMN_PRODUCT_USER_ID = "benutzername";
+
 
     // Mengeneinheiten
     public static final String TABLE_NAME_MEASURE_UNITS = "mengeneinheiten";
@@ -72,23 +60,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_ID_USER + " INTEGER PRIMARY KEY,"
             + COLUMN_FIRSTNAME + " TEXT,"
             + COLUMN_LASTNAME + " TEXT,"
-            + COLUMN_USERNAME + " TEXT,"
+            + COLUMN_EMAIL + " TEXT,"
             + COLUMN_PASSWORD + " TEXT)";
-
-    private static final String CREATE_TABLE_NAME_USER_HAS_LISTS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER_HAS_LISTS + "("
-            + COLUMN_ID_USER_LIST + " INTEGER,"
-            + COLUMN_ID_LIST_USER + " INTEGER)";
-
-    private static final String CREATE_TABLE_NAME_USER_HAS_PRODUCTS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER_HAS_PRODUCTS + "("
-            + COLUMN_ID_USER_PRODUCT + " INTEGER,"
-            + COLUMN_ID_PRODUCT_USER + " INTEGER)";
 
     private static final String CREATE_TABLE_LIST = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_LIST + "("
             + COLUMN_ID_LIST + " INTEGER PRIMARY KEY,"
             + COLUMN_NAME_LIST + " TEXT,"
             + COLUMN_CREATION_LIST + " TEXT,"
             + COLUMN_STORAGE_LIST + " TEXT,"
-            + COLUMN_LISTEN_ID_USER + " INTEGER REFERENCES benutzer(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+            + COLUMN_PRODUCT_USER_ID + " TEXT)";
 
     private static final String CREATE_TABLE_NAME_LISTS_HAVE_PRODUCT = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_LIST_HAS_PRODUCTS + "("
             + COLUMN_ID_LIST_PRODUCTS + " INTEGER,"
@@ -100,9 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_NAME_PRODUCT + " TEXT,"
             + COLUMN_EXPIRE_DATE_PRODUCT + " TEXT,"
             + COLUMN_COUNT_PRODUCT + " TEXT,"
-            + COLUMN_PRODUKTE_BENUTZERID + " INTEGER REFERENCES benutzer(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-            + COLUMN_LISTEN_LISTENID + " INTEGER REFERENCES listen(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION,"
-            + COLUMN_KATEGORIE_KATEGORIEID + " INTEGER REFERENCES kategorie(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+            + COLUMN_PRODUCT_USER_ID + " TEXT)";
 
     private static final String CREATE_TABLE_MEASURE_UNITS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_MEASURE_UNITS + "("
             //+ COLUMN_ID_MEASURE_UNITS + " INTEGER PRIMARY KEY,"
@@ -129,9 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_MEASURE_UNITS);
         db.execSQL(CREATE_TABLE_CATEGORY);
-        db.execSQL(CREATE_TABLE_NAME_USER_HAS_LISTS);
         db.execSQL(CREATE_TABLE_NAME_LISTS_HAVE_PRODUCT);
-        db.execSQL(CREATE_TABLE_NAME_USER_HAS_PRODUCTS);
 
     }
 
@@ -143,8 +119,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MEASURE_UNITS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_LIST_HAS_PRODUCTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER_HAS_LISTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER_HAS_PRODUCTS);
         onCreate(db);
     }
 

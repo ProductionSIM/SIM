@@ -36,7 +36,10 @@ public class NotificationsFragment extends Fragment {
 
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "listid";
+    public static final String KEY_EMAIL_USER = "emailUser";
 
+    String getUsername;
+    SharedPreferences sharedPreferences;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
 
@@ -99,10 +102,12 @@ public class NotificationsFragment extends Fragment {
 
     private ArrayList<Integer> retrieveIntegerValuesFromDatabase() {
         ArrayList<Integer> values = new ArrayList<>();
+        sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
 
         // Replace with your own code to retrieve values from the database
         SQLiteDatabase db = requireContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("SELECT rowid FROM list", null);
+        Cursor cursor = db.rawQuery("SELECT rowid FROM list WHERE benutzername = '" + getUsername +"'", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -123,15 +128,19 @@ public class NotificationsFragment extends Fragment {
     private void updateItemList() {
         itemList.clear();
 
-        Cursor cursor = databaseHelper.getAllDataList();
+        sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
+
+        SQLiteDatabase databaseProduct = getContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        Cursor cursor = databaseProduct.rawQuery("SELECT listenname, erstelldatum, lagerort FROM list WHERE benutzername = '" + getUsername + "'", null);
+
         if (cursor.moveToFirst()) {
             do {
-                @SuppressLint("Range") Integer rowid = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID_LIST));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_LIST));
                 @SuppressLint("Range") String creation = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_CREATION_LIST));
                 @SuppressLint("Range") String storage = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_STORAGE_LIST));
 
-                itemList.add(rowid + " - " + name + " - " + creation + " - " + storage);
+                itemList.add(name + " - " + creation + " - " + storage);
             } while (cursor.moveToNext());
         }
 

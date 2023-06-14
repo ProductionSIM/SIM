@@ -29,7 +29,8 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
     DatabaseHelper databaseHelper;
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "productid";
-    String valueMarke, valueProduktbezeichnung, valueAblaufdatum, valueStückzahl, getIdFromPreference;
+    public static final String KEY_EMAIL_USER = "emailUser";
+    String valueMarke, valueProduktbezeichnung, valueAblaufdatum, valueStückzahl, getIdFromPreference, getUsernameFromPreference;
     StringBuilder dataMarke, dataProduktbezeichnung, dataAblaufdatum, dataStückzahl;
     Cursor cursorUserMarke, cursorUserProduktbezeichnung, cursorUserAblaufdatum, cursorUserStückzahl;
     SQLiteDatabase databaseUser;
@@ -84,6 +85,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
 
         sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
         getIdFromPreference =  sharedPreferences.getString(KEY_PRODUCT_ID, "");
+        getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER,"");
 
         databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseHelper = new DatabaseHelper(getApplicationContext());
@@ -137,13 +139,13 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         String anzahl = showProductCount.getText().toString();
 
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("Update product SET marke = '"+ brand + "', produktbezeichnung = '" + name + "', ablaufdatum = '" + ablauf + "', stückzahl = '" + anzahl +"' WHERE rowid = '" + getIdFromPreference +"' ");
+        databaseProduct.execSQL("Update product SET marke = '"+ brand + "', produktbezeichnung = '" + name + "', ablaufdatum = '" + ablauf + "', stückzahl = '" + anzahl +"' WHERE rowid = '" + getIdFromPreference +"' AND benutzername = '" + getUsernameFromPreference +"'");
         databaseProduct.close();
     }
 
     public void deleteProduct(){
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("DELETE FROM product WHERE rowid = '" + getIdFromPreference + "'");
+        databaseProduct.execSQL("DELETE FROM product WHERE rowid = '" + getIdFromPreference + "' AND benutzername = '" + getUsernameFromPreference +"'");
         databaseProduct.close();
         Toast.makeText(this, "Produkt gelöscht!", Toast.LENGTH_LONG).show();
     }

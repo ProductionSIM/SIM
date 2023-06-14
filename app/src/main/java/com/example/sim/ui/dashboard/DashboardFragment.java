@@ -36,8 +36,12 @@ public class DashboardFragment extends Fragment {
 
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "productid";
+    public static final String KEY_EMAIL_USER = "emailUser";
+
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
+    String getUsername;
+    SharedPreferences sharedPreferences;
 
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
@@ -94,10 +98,12 @@ public class DashboardFragment extends Fragment {
 
     private ArrayList<Integer> retrieveIntegerValuesFromDatabase() {
         ArrayList<Integer> values = new ArrayList<>();
+        sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
 
         // Replace with your own code to retrieve values from the database
         SQLiteDatabase db = requireContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("SELECT rowid FROM product", null);
+        Cursor cursor = db.rawQuery("SELECT rowid FROM product WHERE benutzername = '" + getUsername +"'", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -118,7 +124,12 @@ public class DashboardFragment extends Fragment {
     private void updateItemList() {
         itemList.clear();
 
-        Cursor cursor = databaseHelper.getAllDataProduct();
+        sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
+
+        SQLiteDatabase databaseProduct = getContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
+        Cursor cursor = databaseProduct.rawQuery("SELECT marke, produktbezeichnung, ablaufdatum, stückzahl FROM product WHERE benutzername = '" + getUsername + "'", null);
+
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range") String brand = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_BRAND_PRODUCT));

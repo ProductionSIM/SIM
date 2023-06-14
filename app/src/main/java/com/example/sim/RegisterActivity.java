@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public boolean checkUserNameIsOkay(String username) {
         boolean okay = false;
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursorUser = databaseUser.rawQuery("SELECT COUNT (*) FROM user WHERE username = '" + username + "'", null);
+        Cursor cursorUser = databaseUser.rawQuery("SELECT COUNT (*) FROM user WHERE email = '" + username + "'", null);
         cursorUser.moveToFirst();
         if (cursorUser.getInt(0) == 0) {
             okay = true;
@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     public void createAccount(String firstname, String lastname, String username, String password) {
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseUser.execSQL("INSERT INTO user (firstname, lastname, username, password) VALUES ('" + firstname + "','" + lastname + "','" + username + "','" + password + "')");
+        databaseUser.execSQL("INSERT INTO user (firstname, lastname, email, password) VALUES ('" + firstname + "','" + lastname + "','" + username + "','" + password + "')");
         databaseUser.close();
     }
 

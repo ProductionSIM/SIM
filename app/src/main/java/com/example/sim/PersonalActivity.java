@@ -58,9 +58,9 @@ public class PersonalActivity extends AppCompatActivity implements View.OnClickL
         databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseHelper = new DatabaseHelper(getApplicationContext());
 
-        cursorUserFirstname = databaseUser.rawQuery("SELECT firstname FROM user WHERE username = '" + getUsername + "'", null);
-        cursorUserLastname = databaseUser.rawQuery("SELECT lastname FROM user WHERE username = '" + getUsername + "'", null);
-        cursorUserPassword = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + getUsername + "'", null);
+        cursorUserFirstname = databaseUser.rawQuery("SELECT firstname FROM user WHERE email = '" + getUsername + "'", null);
+        cursorUserLastname = databaseUser.rawQuery("SELECT lastname FROM user WHERE email = '" + getUsername + "'", null);
+        cursorUserPassword = databaseUser.rawQuery("SELECT password FROM user WHERE email = '" + getUsername + "'", null);
 
         dataFirstname = new StringBuilder();
         dataLastname = new StringBuilder();

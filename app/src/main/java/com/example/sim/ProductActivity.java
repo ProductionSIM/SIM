@@ -1,6 +1,5 @@
 package com.example.sim;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -124,9 +123,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
      * @return True if the product does not exist in the database, false otherwise.
      */
     public boolean checkProduct(String marke, String bezeichnung, String ablaufdatum) {
+        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
+        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
         boolean okay = false;
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursorProduct = databaseProduct.rawQuery("SELECT COUNT (*) FROM product WHERE marke = '" + marke + "' AND produktbezeichnung ='" + bezeichnung + "' AND ablaufdatum = '" + ablaufdatum + "'", null);
+        Cursor cursorProduct = databaseProduct.rawQuery("SELECT COUNT (*) FROM product WHERE marke = '" + marke + "' AND produktbezeichnung ='" + bezeichnung + "' AND ablaufdatum = '" + ablaufdatum + "'AND benutzername = '" + getUsername +"'", null);
         cursorProduct.moveToFirst();
         if (cursorProduct.getInt(0) == 0) {
             okay = true;
@@ -146,7 +147,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
      */
     public void createProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl) {
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("INSERT INTO product (marke, produktbezeichnung, ablaufdatum, stückzahl) VALUES ('" + marke + "','" + bezeichnung + "','" + ablaufdatum + "','" + stückzahl + "')");
+        databaseProduct.execSQL("INSERT INTO product (marke, produktbezeichnung, ablaufdatum, stückzahl, benutzername) VALUES ('" + marke + "','" + bezeichnung + "','" + ablaufdatum + "','" + stückzahl + "','" + getUsername +"')");
         databaseProduct.close();
     }
 
@@ -158,30 +159,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(inten);
         this.finish();
     }
-
-    @SuppressLint("Range")
-    public void getProductId(){
-        SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
-        getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
-        getProduktName = sharedPreferences.getString(KEY_PRODUCT_NAME,"");
-
-        databaseHelper = new DatabaseHelper(getApplicationContext());
-        cursorProductId = databaseList.rawQuery("SELECT rowid FROM product WHERE produktbezeichnung = '" + getProduktName +"'", null);
-        datarowid = new StringBuilder();
-
-        Toast.makeText(this, "Der Produktname lautet " + getProduktName, Toast.LENGTH_SHORT).show();
-
-        while(cursorProductId.moveToNext()){
-            valueProductId = cursorProductId.getString(cursorProductId.getColumnIndex("rowid"));
-
-            datarowid.append(valueProductId);
-        }
-        String id = datarowid.toString();
-
-        databaseList.execSQL("INSERT INTO userHasProducts (userid, productId) VALUES ('" + getUsername +"','" + id +"')");
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -196,7 +173,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         if (view.getId() == R.id.btnCreateProduct) {
             addProduct(editBrand.getText().toString(), editProductTitle.getText().toString(), editExpireDate.getText().toString(), editPieceNumber.getText().toString());
             loadMainActivity();
-            getProductId();
         }
     }
 }

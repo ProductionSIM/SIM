@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         Cursor cursor = databaseHelper.getAllDataUser();
         if (cursor.moveToFirst()){
             do{
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_USERNAME));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_EMAIL));
                 @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_PASSWORD));
 
                 itemListHome.add(name + " - " + password);

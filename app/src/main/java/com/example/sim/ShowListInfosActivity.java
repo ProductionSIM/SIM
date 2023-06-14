@@ -29,7 +29,8 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
     DatabaseHelper databaseHelper;
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_LIST_ID = "listid";
-    String valueListname, valueCreationDate, valueStorage, getIdFromPreference;
+    public static final String KEY_EMAIL_USER = "emailUser";
+    String valueListname, valueCreationDate, valueStorage, getIdFromPreference, getUsernameFromPreference;
     StringBuilder dataListname, dataCreationDate, dataStorage;
     Cursor cursorUserListname, cursorUserCreationDate, cursorUserStorage;
     SQLiteDatabase databaseUser;
@@ -83,6 +84,7 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
 
         sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
         getIdFromPreference =  sharedPreferences.getString(KEY_LIST_ID, "");
+        getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER,"");
 
         databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseHelper = new DatabaseHelper(getApplicationContext());
@@ -130,14 +132,14 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         String storageLocation = EditStorageLocation.getText().toString();
 
         SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseList.execSQL("Update list SET listenname = '"+ listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation +"' WHERE rowid = '" + getIdFromPreference +"' ");
+        databaseList.execSQL("Update list SET listenname = '"+ listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation +"' WHERE rowid = '" + getIdFromPreference +"' AND benutzername = '" + getUsernameFromPreference +"'");
         databaseList.close();
         Toast.makeText(this, "Liste aktualisiert!", Toast.LENGTH_SHORT).show();
     }
 
     public void deleteList(){
         SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseList.execSQL("DELETE FROM list WHERE rowid = '" + getIdFromPreference + "'");
+        databaseList.execSQL("DELETE FROM list WHERE rowid = '" + getIdFromPreference + "'AND benutzername = '" + getUsernameFromPreference +"'");
         databaseList.close();
         Toast.makeText(this, "Liste gelöscht!", Toast.LENGTH_LONG).show();
     }

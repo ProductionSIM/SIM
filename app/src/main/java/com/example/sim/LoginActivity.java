@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         boolean okay = false;
 
         SQLiteDatabase databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursorUser = databaseUser.rawQuery("SELECT password FROM user WHERE username = '" + username + "'", null);
+        Cursor cursorUser = databaseUser.rawQuery("SELECT password FROM user WHERE email = '" + username + "'", null);
         cursorUser.moveToFirst();
 
         if (cursorUser.getCount() > 0) {
