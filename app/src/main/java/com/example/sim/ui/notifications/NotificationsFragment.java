@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -38,11 +39,11 @@ public class NotificationsFragment extends Fragment {
     public static final String KEY_PRODUCT_ID = "listid";
     public static final String KEY_EMAIL_USER = "emailUser";
 
-    String getUsername;
-    SharedPreferences sharedPreferences;
+    private String getUsername;
+    private SharedPreferences sharedPreferences;
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
-
+    private TextView noLists;
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
     private DatabaseHelper databaseHelper;
@@ -57,7 +58,7 @@ public class NotificationsFragment extends Fragment {
 
         integerList = retrieveIntegerValuesFromDatabase();
 
-
+        noLists = view.findViewById(R.id.noLists);
 
         listViewItems.setOnScrollListener(
                 new AbsListView.OnScrollListener() {
@@ -142,6 +143,14 @@ public class NotificationsFragment extends Fragment {
 
                 itemList.add(name + " - " + creation + " - " + storage);
             } while (cursor.moveToNext());
+        }
+
+        if(integerList.size() == 0){
+            listViewItems.setVisibility(View.GONE);
+            noLists.setVisibility(View.VISIBLE);
+        } else if(integerList.size() >= 1){
+            listViewItems.setVisibility(View.VISIBLE);
+            noLists.setVisibility(View.GONE);
         }
 
         cursor.close();

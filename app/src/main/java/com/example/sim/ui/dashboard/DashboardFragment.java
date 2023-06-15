@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -33,6 +34,7 @@ public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
     private ListView listViewItems;
+    private TextView noProducts;
 
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "productid";
@@ -40,8 +42,8 @@ public class DashboardFragment extends Fragment {
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
-    String getUsername;
-    SharedPreferences sharedPreferences;
+    private String getUsername;
+    private SharedPreferences sharedPreferences;
 
     private ArrayList<String> itemList;
     private ArrayAdapter<String> itemAdapter;
@@ -54,6 +56,7 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
         listViewItems = view.findViewById(R.id.productViewItems);
+        noProducts = view.findViewById(R.id.noProducts);
         integerList = retrieveIntegerValuesFromDatabase();
         listViewItems.setOnScrollListener(
                 new AbsListView.OnScrollListener() {
@@ -139,6 +142,14 @@ public class DashboardFragment extends Fragment {
 
                 itemList.add(brand + " - " + name + " - " + expireDate + " - " + count);
             } while (cursor.moveToNext());
+        }
+
+        if(integerList.size() == 0){
+            listViewItems.setVisibility(View.GONE);
+            noProducts.setVisibility(View.VISIBLE);
+        } else if(integerList.size() >= 1){
+            listViewItems.setVisibility(View.VISIBLE);
+            noProducts.setVisibility(View.GONE);
         }
 
         cursor.close();
