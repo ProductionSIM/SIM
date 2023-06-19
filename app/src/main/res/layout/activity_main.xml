@@ -49,6 +49,8 @@
             android:layout_height="wrap_content"
             android:background="#2E2E2E"
             android:backgroundTintMode="add"
+            app:itemIconTint="@drawable/bottom_navview_selector"
+            app:itemTextColor="@drawable/bottom_navview_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -68,7 +70,7 @@
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/add_fab"
             app:layout_constraintEnd_toEndOf="@+id/add_fab"
-            app:srcCompat="@drawable/ic_format_list_bulleted_black_24" />
+            app:srcCompat="@drawable/ic_playlist_add_black_24dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_product_fab"
@@ -89,7 +91,6 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:layout_marginEnd="10dp"
-            android:background="#3C000000"
             android:text="Produkt Hinzufügen"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/add_product_fab"
@@ -102,7 +103,6 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:layout_marginEnd="10dp"
-            android:background="#3C000000"
             android:text="Liste Hinzufügen"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="@+id/add_list_fab"

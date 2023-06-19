@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="151dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="204dp"
+        android:layout_height="204dp"
+        android:layout_marginTop="48dp"
         android:elevation="10dp"
-        android:src="@mipmap/ic_sim_launcher"
+        android:src="@mipmap/ic_sim_logo_big_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,11 +22,26 @@
         android:id="@+id/listviewHome"
         android:layout_width="422dp"
         android:layout_height="489dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="295dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="58dp"
+        android:fontFamily="@font/space_mono"
+        android:text="Wilkommen bei SIM dem Smart Inventory Manager!"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

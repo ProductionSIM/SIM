@@ -23,7 +23,7 @@
         android:id="@+id/noLists"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="keine Listen vorhanden"
+        android:text="Keine Listen vorhanden"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
