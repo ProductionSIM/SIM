@@ -42,4 +42,24 @@
         android:name="com.example.sim.LoginActivity"
         android:label="@string/title_Login"
         tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/personalActivity"
+        android:name="com.example.sim.PersonalActivity"
+        android:label="activity_personal_infos"
+        tools:layout="@layout/activity_personal_infos" />
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.example.sim.SearchActivity"
+        android:label="activity_search"
+        tools:layout="@layout/activity_search" />
+    <activity
+        android:id="@+id/showListInfosActivity"
+        android:name="com.example.sim.ShowListInfosActivity"
+        android:label="activity_show_list_infos"
+        tools:layout="@layout/activity_show_list_infos" />
+    <activity
+        android:id="@+id/showProductInfosActivity"
+        android:name="com.example.sim.ShowProductInfosActivity"
+        android:label="activity_show_product_infos"
+        tools:layout="@layout/activity_show_product_infos" />
 </navigation>
