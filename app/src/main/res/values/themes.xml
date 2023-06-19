@@ -1,17 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SIM" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SIM" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/backdrop_grey_day</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/purple_500</item>
         <item name="colorSecondaryVariant">@color/purple_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item> -->
+        <item name="android:colorBackground">@color/backdrop_grey_day</item>
+        <item name="android:textColorPrimary">@color/day_text</item>
+        <item name="android:textColorSecondary"> @color/day_text</item>
+        <item name="android:textColorTertiary"> @color/day_text</item>
+        <item name="android:textColorHint"> @color/day_text</item>
+        <item name="android:iconTint">@color/day_text</item>
 
+        <!-- Customize your theme here. -->
     </style>
+
 </resources>
