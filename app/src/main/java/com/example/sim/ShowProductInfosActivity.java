@@ -47,7 +47,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_product_infos);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Profil");
+        getSupportActionBar().setTitle(" ");
 
         btnUpdateProduct = (Button) findViewById(R.id.btnUpdateProduct);
         btnUpdateProduct.setOnClickListener(this);
