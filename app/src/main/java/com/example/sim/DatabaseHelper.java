@@ -1,9 +1,12 @@
 package com.example.sim;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.List;
 
 /**
  * The DatabaseHelper class handles the creation and management of the SQLite database used in the app.
@@ -48,13 +51,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Mengeneinheiten
     public static final String TABLE_NAME_MEASURE_UNITS = "mengeneinheiten";
     public static final String COLUMN_ID_MEASURE_UNITS = "rowid";
-    public static final String COLUMN_MEASURE_UNITS = "mengeneinheiten";
-    public static final String COLUMN__MEASURE_PRODUKTE_PRODUKTEID = "produkte_produkteid";
+    public static final String COLUMN_MEASURE_UNITS = "mengeneinheit";
 
     // Kategorien
     public static final String TABLE_NAME_CATEGORY = "kategorien";
     public static final String COLUMN_ID_CATEGORY = "rowid";
-    public static final String COLUMN_CATEGORY_NAME = "kategoriename";
+    public static final String COLUMN_CATEGORY_NAME = "kategorie";
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER + "("
             + COLUMN_ID_USER + " INTEGER PRIMARY KEY,"
@@ -83,12 +85,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_PRODUCT_USER_ID + " TEXT)";
 
     private static final String CREATE_TABLE_MEASURE_UNITS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_MEASURE_UNITS + "("
-            //+ COLUMN_ID_MEASURE_UNITS + " INTEGER PRIMARY KEY,"
-            + COLUMN_MEASURE_UNITS + " TEXT,"
-            + COLUMN__MEASURE_PRODUKTE_PRODUKTEID + " INTEGER REFERENCES produkte(rowid) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+            + COLUMN_ID_MEASURE_UNITS + " INTEGER PRIMARY KEY,"
+            + COLUMN_MEASURE_UNITS + " TEXT)";
 
     private static final String CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_CATEGORY + "("
-            //+ COLUMN_ID_CATEGORY + " INTEGER PRIMARY KEY,"
+            + COLUMN_ID_CATEGORY + " INTEGER PRIMARY KEY,"
             + COLUMN_CATEGORY_NAME + " TEXT)";
 
     /**
@@ -122,24 +123,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /**
-     * Retrieves all data from the list table.
-     *
-     * @return A Cursor containing the query result.
-     */
-    public Cursor getAllDataList() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query(TABLE_NAME_LIST, null, null, null, null, null, null);
+    public void insertMeasureUnits(List<String> measureUnits){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for (String measure : measureUnits){
+            values.clear();
+            values.put("mengeneinheit", measure);
+            db.insert("mengeneinheiten", null, values);
+        }
+        db.close();
     }
 
-    /**
-     * Retrieves all data from the product table.
-     *
-     * @return A Cursor containing the query result.
-     */
-    public Cursor getAllDataProduct() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.query(TABLE_NAME_PRODUCT, null, null, null, null, null, null);
+    public void insertCategory(List<String> categories){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues Categoryvalues = new ContentValues();
+
+        for (String category : categories){
+            Categoryvalues.clear();
+            Categoryvalues.put("kategorie", category);
+            db.insert("kategorien", null, Categoryvalues);
+        }
+        db.close();
     }
 
     /**
@@ -150,5 +155,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllDataUser() {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(TABLE_NAME_USER, null, null, null, null, null, null);
+    }
+
+    public Cursor getAllMeasureUnits(){
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query(TABLE_NAME_MEASURE_UNITS, null, null, null, null, null, null);
+    }
+
+    public Cursor getAllCategories(){
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query(TABLE_NAME_CATEGORY, null, null, null, null, null, null);
     }
 }

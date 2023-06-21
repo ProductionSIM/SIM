@@ -18,6 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The main activity of the Smart Inventory Manager app.
  */
@@ -31,12 +34,6 @@ public class MainActivity extends AppCompatActivity {
     Boolean isAllFabsVisible;
 
     PreferenceManager preferenceManager;
-    public static final String SHARED_PREF = "MyPreferences";
-    public static final String SHARED_PREFER = "MomentLogged";
-    // for checkbox (set false if button Abmelden was clicked)
-    private static final String KEY_LOGGED_IN = "isLoggedIn";
-    // while using app (set false when app was closed)
-    private static final String KEY_STAY_LOGGED_IN = "momentLoggedIn";
 
     /**
      *
@@ -53,6 +50,75 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         preferenceManager = new PreferenceManager(getApplicationContext());
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        List<String> measure = new ArrayList<>();
+        if (dbHelper.getAllMeasureUnits().getCount() == 0) {
+            measure.add("kg");
+            measure.add("liter");
+            measure.add("stückzahl");
+
+            dbHelper.insertMeasureUnits(measure);
+        }
+
+        DatabaseHelper dbHelper1 = new DatabaseHelper(this);
+        List<String> category = new ArrayList<>();
+
+        if (dbHelper1.getAllCategories().getCount() == 0) {
+            for (String kategorie : category) {
+                kategorie.equals(category);
+            }
+            //Nahrung und Haushalt
+            category.add("Obst & Gemüse");
+            category.add("Brot & Gebäck");
+            category.add("Getränke");
+            category.add("Kühlwaren");
+            category.add("Tiefkühl");
+            category.add("Grundnahrungsmittel");
+            category.add("Süßes & Salziges");
+            category.add("Pflege");
+            category.add("Haushalt");
+            category.add("Haustier");
+
+            // Sport und Fitness
+            category.add("Sportbekleidung");
+            category.add("Sportschuhe");
+            category.add("Fitnessgeräte");
+            category.add("Sportzubehör");
+            category.add("Trainingsausrüstung");
+
+            // Schönheit und Pflege
+            category.add("Hautpflege");
+            category.add("Haarpflege");
+            category.add("Make-Up");
+            category.add("Parfums");
+            category.add("Rasierbedarf");
+            category.add("Zahnpflege");
+            category.add("Körperpflege");
+
+            // Blackout
+            category.add("Taschenlampen");
+            category.add("Batterien");
+            category.add("Kerzen");
+            category.add("Streichhölzer");
+            category.add("Powerbanks");
+            category.add("Verbandsmaterial");
+            category.add("Desinfektionsmittel");
+            category.add("Medikamente");
+            category.add("Handwärmer");
+            category.add("Wärmepacks");
+            category.add("Feuchttücher");
+            category.add("Toilettenpapier");
+            category.add("Feuerzeug");
+            category.add("Dosenöffner");
+            category.add("Feuerlöscher");
+            category.add("Rauchmelder");
+            category.add("Notfallplan");
+            category.add("Sicherheitsdecke");
+            category.add("Spiele");
+
+            dbHelper1.insertCategory(category);
+        }
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
