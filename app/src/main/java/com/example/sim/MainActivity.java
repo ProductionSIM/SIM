@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         if (dbHelper.getAllMeasureUnits().getCount() == 0) {
             measure.add("kg");
             measure.add("liter");
-            measure.add("stückzahl");
+            measure.add("stück");
 
             dbHelper.insertMeasureUnits(measure);
         }
@@ -116,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
             category.add("Notfallplan");
             category.add("Sicherheitsdecke");
             category.add("Spiele");
+
+            // sonstige
+            category.add("Tabak & Trafik");
 
             dbHelper1.insertCategory(category);
         }

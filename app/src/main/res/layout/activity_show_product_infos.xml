@@ -115,18 +115,18 @@
         app:layout_constraintStart_toStartOf="@+id/EditAmount" />
 
     <TextView
-        android:id="@+id/labelStorageLocation2"
+        android:id="@+id/labelCategory"
         android:layout_width="74dp"
         android:layout_height="18dp"
         android:layout_marginEnd="255dp"
         android:layout_marginBottom="8dp"
-        android:text="Stückzahl"
+        android:text="Kategorie"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/spinner2"
-        app:layout_constraintEnd_toEndOf="@+id/spinner2"
+        app:layout_constraintBottom_toTopOf="@+id/editCategorySpinner"
+        app:layout_constraintEnd_toEndOf="@+id/editCategorySpinner"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/spinner2" />
+        app:layout_constraintStart_toStartOf="@+id/editCategorySpinner" />
 
     <EditText
         android:id="@+id/EditAmount"
@@ -173,15 +173,17 @@
         android:layout_width="149dp"
         android:layout_height="49dp"
         android:layout_marginStart="6dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/EditAmount"
         app:layout_constraintStart_toEndOf="@+id/EditAmount"
         app:layout_constraintTop_toTopOf="@+id/EditAmount" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/editCategorySpinner"
         android:layout_width="370dp"
         android:layout_height="49dp"
         android:layout_marginTop="32dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/EditAmount"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/EditAmount"

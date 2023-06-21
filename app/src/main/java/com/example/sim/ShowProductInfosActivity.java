@@ -1,5 +1,6 @@
 package com.example.sim;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,11 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sim.ui.CustomSpinnerAdapter;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class ShowProductInfosActivity extends AppCompatActivity implements View.OnClickListener{
@@ -23,6 +29,8 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
     EditText showProductBrand, showProductName, showProductExpireDate, showProductCount;
 
     Button btnUpdateProduct, dateButton, btnDeleteProduct;
+
+    Spinner editAmountUnits, editCategorySpinner;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
     PreferenceManager preferenceManager;
@@ -83,6 +91,40 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+        editAmountUnits = (Spinner) findViewById(R.id.editAmountUnits);
+        editCategorySpinner = (Spinner) findViewById(R.id.editCategorySpinner);
+
+        // MeasureUnits
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        Cursor cursor = dbHelper.getMeasureUnitsFromDatabase();
+        List<String> dataList = new ArrayList<>();
+
+        if(cursor.moveToFirst()){
+            do{
+                @SuppressLint("Range") String value = cursor.getString(cursor.getColumnIndex("mengeneinheit"));
+                dataList.add(value);
+            } while (cursor.moveToNext());
+        }
+
+        CustomSpinnerAdapter adapter1 = new CustomSpinnerAdapter(this, dataList);
+        editAmountUnits.setAdapter(adapter1);
+
+        // Category
+
+        Cursor cursor1 = dbHelper.getCategoriesFromDatabase();
+        List<String> dataList1 = new ArrayList<>();
+
+        if(cursor1.moveToFirst()){
+            do{
+                @SuppressLint("Range") String value = cursor1.getString(cursor1.getColumnIndex("kategorie"));
+                dataList1.add(value);
+            } while (cursor1.moveToNext());
+        }
+
+        CustomSpinnerAdapter adapter2 = new CustomSpinnerAdapter(this, dataList1);
+        editCategorySpinner.setAdapter(adapter2);
+
         sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
         getIdFromPreference =  sharedPreferences.getString(KEY_PRODUCT_ID, "");
         getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER,"");
@@ -105,7 +147,6 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
             valueProduktbezeichnung = cursorUserProduktbezeichnung.getString(cursorUserProduktbezeichnung.getColumnIndexOrThrow("produktbezeichnung"));
             valueAblaufdatum = cursorUserAblaufdatum.getString(cursorUserAblaufdatum.getColumnIndexOrThrow("ablaufdatum"));
             valueStückzahl = cursorUserStückzahl.getString(cursorUserStückzahl.getColumnIndexOrThrow("stückzahl"));
-
 
             dataMarke.append(valueMarke);
             dataProduktbezeichnung.append(valueProduktbezeichnung);

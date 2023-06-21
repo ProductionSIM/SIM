@@ -46,6 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_EXPIRE_DATE_PRODUCT = "ablaufdatum";
     public static final String COLUMN_COUNT_PRODUCT = "stückzahl";
     public static final String COLUMN_PRODUCT_USER_ID = "benutzername";
+    public static final String COLUMN_MEASURE_UNIT_PRODUCT = "mengeneinheit";
+    public static final String COLUMN_CATEGORY_PRODUCT = "kategorie";
 
 
     // Mengeneinheiten
@@ -82,6 +84,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_NAME_PRODUCT + " TEXT,"
             + COLUMN_EXPIRE_DATE_PRODUCT + " TEXT,"
             + COLUMN_COUNT_PRODUCT + " TEXT,"
+            + COLUMN_MEASURE_UNIT_PRODUCT + " TEXT,"
+            + COLUMN_CATEGORY_PRODUCT + " TEXT,"
             + COLUMN_PRODUCT_USER_ID + " TEXT)";
 
     private static final String CREATE_TABLE_MEASURE_UNITS = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_MEASURE_UNITS + "("
@@ -165,5 +169,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllCategories(){
         SQLiteDatabase db = getReadableDatabase();
         return db.query(TABLE_NAME_CATEGORY, null, null, null, null, null, null);
+    }
+
+    public Cursor getCategoriesFromDatabase(){
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {"kategorie"};
+        String tableName = "kategorien";
+        Cursor cursor = db.query(tableName, columns,null, null, null, null,null);
+        return cursor;
+    }
+
+    public Cursor getMeasureUnitsFromDatabase(){
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {"mengeneinheit"};
+        String tableName = "mengeneinheiten";
+        Cursor cursor = db.query(tableName, columns,null, null, null, null,null);
+        return cursor;
     }
 }
