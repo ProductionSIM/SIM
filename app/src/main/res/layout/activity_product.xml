@@ -14,7 +14,9 @@
             android:id="@+id/editBrand"
             android:layout_width="317dp"
             android:layout_height="49dp"
+            android:layout_marginStart="39dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="37dp"
             android:ems="10"
             android:hint="Marke"
             android:inputType="text"
@@ -26,7 +28,9 @@
             android:id="@+id/editProductTitle"
             android:layout_width="317dp"
             android:layout_height="49dp"
-            android:layout_marginTop="110dp"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="37dp"
             android:ems="10"
             android:hint="Produktbezeichnung"
             android:inputType="text"
@@ -38,26 +42,28 @@
             android:id="@+id/editExpireDate"
             android:layout_width="219dp"
             android:layout_height="49dp"
+            android:layout_marginStart="39dp"
             android:layout_marginTop="40dp"
             android:editable="false"
             android:ems="10"
             android:focusable="false"
             android:hint="Ablaufdatum"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.244"
+            app:layout_constraintEnd_toStartOf="@+id/dateButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editBrand" />
 
         <EditText
             android:id="@+id/editPieceNumber"
-            android:layout_width="317dp"
+            android:layout_width="194dp"
             android:layout_height="49dp"
+            android:layout_marginStart="39dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="9dp"
             android:ems="10"
             android:hint="Menge"
             android:inputType="numberSigned"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editAmountUnit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editExpireDate" />
 
@@ -76,18 +82,35 @@
             android:id="@+id/btnCreateProduct"
             android:layout_width="317dp"
             android:layout_height="71dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="40dp"
             android:focusable="auto"
             android:focusableInTouchMode="false"
             android:text="@string/action_create_product"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/editAmountUnit"
+            android:layout_width="117dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="9dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editPieceNumber"
+            app:layout_constraintStart_toEndOf="@+id/editPieceNumber"
+            app:layout_constraintTop_toTopOf="@+id/editPieceNumber"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="317dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="37dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editPieceNumber"
-            app:layout_constraintVertical_bias="0.102" />
+            app:layout_constraintTop_toBottomOf="@+id/editPieceNumber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
