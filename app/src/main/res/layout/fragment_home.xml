@@ -36,7 +36,7 @@
         android:layout_height="135dp"
         android:layout_marginTop="58dp"
         android:fontFamily="@font/space_mono"
-        android:text="Wilkommen bei SIM dem Smart Inventory Manager!"
+        android:text="Willkommen bei SIM dem Smart Inventory Manager!"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

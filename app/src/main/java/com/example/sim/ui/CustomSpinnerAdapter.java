@@ -22,6 +22,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView view = (TextView) super.getView(position, convertView, parent);
+        view.setTextSize(22);
         view.setTextColor(Color.WHITE); // Set the desired text color
         return view;
     }
@@ -29,6 +30,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         TextView view = (TextView) super.getDropDownView(position, convertView, parent);
+        view.setTextSize(22);
         view.setTextColor(Color.WHITE); // Set the desired text color
         return view;
     }
