@@ -53,6 +53,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     int month = calendar.get(Calendar.MONTH);
     int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
     DatabaseHelper dbHelper;
+    String selectedValues;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 
@@ -129,7 +130,10 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 datePickerDialog.show();
             }
         });
+
     }
+
+
 
     /**
      * Adds a new product to the database.
@@ -141,6 +145,8 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
      */
     public void addProduct(String marke, String bezeichnung, String ablaufdatum, String stückzahl, String mengeneinheit, String kategorie) {
         if (checkProduct(marke, bezeichnung, ablaufdatum)) {
+            mengeneinheit = editAmountUnits.getSelectedItem().toString();
+            kategorie = editCategorySpin.getSelectedItem().toString();
             createProduct(marke, bezeichnung, ablaufdatum, stückzahl, mengeneinheit, kategorie);
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
