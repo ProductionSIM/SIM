@@ -18,7 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ShowListInfosActivity extends AppCompatActivity implements View.OnClickListener{
+/**
+ * This activity displays and allows the user to edit the information of a specific list.
+ */
+public class ShowListInfosActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText EditListName, listCreationDate, EditStorageLocation;
 
@@ -59,7 +62,7 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //     Get the current selected date from the spinner
+                // Get the current selected date from the spinner
                 // Create a DatePickerDialog to choose a new date
                 // Set initial date values
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ShowListInfosActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -76,15 +79,14 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         });
 
         EditListName = (EditText) findViewById(R.id.EditListname);
-        //showUsername();
         listCreationDate = (EditText) findViewById(R.id.listCreationDate);
         EditStorageLocation = (EditText) findViewById(R.id.EditStorageLocation);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
-        getIdFromPreference =  sharedPreferences.getString(KEY_LIST_ID, "");
-        getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER,"");
+        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        getIdFromPreference = sharedPreferences.getString(KEY_LIST_ID, "");
+        getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER, "");
 
         databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseHelper = new DatabaseHelper(getApplicationContext());
@@ -97,11 +99,10 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         dataCreationDate = new StringBuilder();
         dataStorage = new StringBuilder();
 
-        while(cursorUserListname.moveToNext() && cursorUserCreationDate.moveToNext() && cursorUserStorage.moveToNext()){
+        while (cursorUserListname.moveToNext() && cursorUserCreationDate.moveToNext() && cursorUserStorage.moveToNext()) {
             valueListname = cursorUserListname.getString(cursorUserListname.getColumnIndexOrThrow("listenname"));
             valueCreationDate = cursorUserCreationDate.getString(cursorUserCreationDate.getColumnIndexOrThrow("erstelldatum"));
             valueStorage = cursorUserStorage.getString(cursorUserStorage.getColumnIndexOrThrow("lagerort"));
-
 
             dataListname.append(valueListname);
             dataCreationDate.append(valueCreationDate);
@@ -112,7 +113,10 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         EditStorageLocation.setText(dataStorage.toString());
     }
 
-    public void loadMainActivityUp(){
+    /**
+     * Loads the MainActivity.
+     */
+    public void loadMainActivityUp() {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
@@ -123,36 +127,42 @@ public class ShowListInfosActivity extends AppCompatActivity implements View.OnC
         int id = item.getItemId();
         if (id == android.R.id.home) {
             loadMainActivityUp();
-        } return true;
+        }
+        return true;
     }
 
-    public void updateList(){
+    /**
+     * Updates the list in the database with the entered information.
+     */
+    public void updateList() {
         String listName = EditListName.getText().toString();
         String creationDate = listCreationDate.getText().toString();
         String storageLocation = EditStorageLocation.getText().toString();
 
         SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseList.execSQL("Update list SET listenname = '"+ listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation +"' WHERE rowid = '" + getIdFromPreference +"' AND benutzername = '" + getUsernameFromPreference +"'");
+        databaseList.execSQL("Update list SET listenname = '" + listName + "', erstelldatum = '" + creationDate + "', lagerort = '" + storageLocation + "' WHERE rowid = '" + getIdFromPreference + "' AND benutzername = '" + getUsernameFromPreference + "'");
         databaseList.close();
         Toast.makeText(this, "Liste aktualisiert!", Toast.LENGTH_SHORT).show();
     }
 
-    public void deleteList(){
+    /**
+     * Deletes the list from the database.
+     */
+    public void deleteList() {
         SQLiteDatabase databaseList = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseList.execSQL("DELETE FROM list WHERE rowid = '" + getIdFromPreference + "'AND benutzername = '" + getUsernameFromPreference +"'");
+        databaseList.execSQL("DELETE FROM list WHERE rowid = '" + getIdFromPreference + "'AND benutzername = '" + getUsernameFromPreference + "'");
         databaseList.close();
         Toast.makeText(this, "Liste gelöscht!", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnUpdateList){
+        if (view.getId() == R.id.btnUpdateList) {
             updateList();
             loadMainActivityUp();
-        } else if(view.getId() == R.id.btnDeleteList){
+        } else if (view.getId() == R.id.btnDeleteList) {
             deleteList();
             loadMainActivityUp();
         }
     }
 }
-

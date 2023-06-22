@@ -19,6 +19,10 @@ import com.example.sim.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 
+/**
+ * The HomeFragment class represents the fragment for the Home screen.
+ * It displays a list of user data retrieved from the database.
+ */
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
@@ -29,6 +33,7 @@ public class HomeFragment extends Fragment {
 
     private DatabaseHelper databaseHelper;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -49,12 +54,15 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void updateItemList(){
+    /**
+     * Updates the list of items displayed in the Home Fragment.
+     */
+    private void updateItemList() {
         itemListHome.clear();
 
         Cursor cursor = databaseHelper.getAllDataUser();
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_EMAIL));
                 @SuppressLint("Range") String password = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_PASSWORD));
 

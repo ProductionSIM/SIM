@@ -99,6 +99,11 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Retrieves the integer values from the database.
+     *
+     * @return The list of integer values retrieved from the database.
+     */
     private ArrayList<Integer> retrieveIntegerValuesFromDatabase() {
         ArrayList<Integer> values = new ArrayList<>();
         sharedPreferences = requireContext().getSharedPreferences(SHARED_PREF,MODE_PRIVATE);

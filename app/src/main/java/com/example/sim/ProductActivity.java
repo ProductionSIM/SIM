@@ -111,7 +111,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //     Get the current selected date from the spinner
+                // Get the current selected date from the spinner
                 // Create a DatePickerDialog to choose a new date
                 // Set initial date values
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ProductActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -126,10 +126,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
                 datePickerDialog.show();
             }
         });
-
     }
-
-
 
     /**
      * Adds a new product to the database.
@@ -203,6 +200,7 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(inten);
         this.finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

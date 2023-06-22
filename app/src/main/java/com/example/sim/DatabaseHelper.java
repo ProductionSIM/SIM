@@ -13,11 +13,11 @@ import java.util.List;
  * It provides methods for creating tables, performing CRUD operations, and retrieving data from the database.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+    // Database information
     private static final String DATABASE_NAME = "SIM.db";
-
     private static final int DATABASE_VERSION = 1;
 
-    //user
+    // User table
     private static final String TABLE_NAME_USER = "user";
     public static final String COLUMN_ID_USER = "rowid";
     public static final String COLUMN_EMAIL = "email";
@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LASTNAME = "lastname";
     public static final String COLUMN_PASSWORD = "password";
 
-    //lists
+    // Lists table
     public static final String TABLE_NAME_LIST = "list";
     public static final String COLUMN_ID_LIST = "rowid";
     public static final String COLUMN_NAME_LIST = "listenname";
@@ -33,12 +33,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_STORAGE_LIST = "lagerort";
     public static final String COLUMN_LIST_USER_ID = "benutzername";
 
-    //listen has products
+    // List has products table
     private static final String TABLE_NAME_LIST_HAS_PRODUCTS = "listenHasProducts";
     public static final String COLUMN_ID_LIST_PRODUCTS = "listId";
     public static final String COLUMN_ID_PRODUCTS_LIST = "productId";
 
-    //products
+    // Products table
     public static final String TABLE_NAME_PRODUCT = "product";
     public static final String COLUMN_ID_PRODUCT = "rowid";
     public static final String COLUMN_BRAND_PRODUCT = "marke";
@@ -49,17 +49,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_MEASURE_UNIT_PRODUCT = "mengeneinheit";
     public static final String COLUMN_CATEGORY_PRODUCT = "kategorie";
 
-
-    // Mengeneinheiten
+    // Measure units table
     public static final String TABLE_NAME_MEASURE_UNITS = "mengeneinheiten";
     public static final String COLUMN_ID_MEASURE_UNITS = "rowid";
     public static final String COLUMN_MEASURE_UNITS = "mengeneinheit";
 
-    // Kategorien
+    // Categories table
     public static final String TABLE_NAME_CATEGORY = "kategorien";
     public static final String COLUMN_ID_CATEGORY = "rowid";
     public static final String COLUMN_CATEGORY_NAME = "kategorie";
 
+    // SQL statements to create tables
     private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_USER + "("
             + COLUMN_ID_USER + " INTEGER PRIMARY KEY,"
             + COLUMN_FIRSTNAME + " TEXT,"
@@ -113,7 +113,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_MEASURE_UNITS);
         db.execSQL(CREATE_TABLE_CATEGORY);
         db.execSQL(CREATE_TABLE_NAME_LISTS_HAVE_PRODUCT);
-
     }
 
     @Override
@@ -127,11 +126,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertMeasureUnits(List<String> measureUnits){
+    /**
+     * Inserts the provided measure units into the database.
+     *
+     * @param measureUnits The list of measure units to insert.
+     */
+    public void insertMeasureUnits(List<String> measureUnits) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        for (String measure : measureUnits){
+        for (String measure : measureUnits) {
             values.clear();
             values.put("mengeneinheit", measure);
             db.insert("mengeneinheiten", null, values);
@@ -139,14 +143,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertCategory(List<String> categories){
+    /**
+     * Inserts the provided categories into the database.
+     *
+     * @param categories The list of categories to insert.
+     */
+    public void insertCategory(List<String> categories) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues Categoryvalues = new ContentValues();
+        ContentValues categoryValues = new ContentValues();
 
-        for (String category : categories){
-            Categoryvalues.clear();
-            Categoryvalues.put("kategorie", category);
-            db.insert("kategorien", null, Categoryvalues);
+        for (String category : categories) {
+            categoryValues.clear();
+            categoryValues.put("kategorie", category);
+            db.insert("kategorien", null, categoryValues);
         }
         db.close();
     }
@@ -161,29 +170,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.query(TABLE_NAME_USER, null, null, null, null, null, null);
     }
 
-    public Cursor getAllMeasureUnits(){
+    /**
+     * Retrieves all measure units from the database.
+     *
+     * @return A Cursor containing the query result.
+     */
+    public Cursor getAllMeasureUnits() {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(TABLE_NAME_MEASURE_UNITS, null, null, null, null, null, null);
     }
 
-    public Cursor getAllCategories(){
+    /**
+     * Retrieves all categories from the database.
+     *
+     * @return A Cursor containing the query result.
+     */
+    public Cursor getAllCategories() {
         SQLiteDatabase db = getReadableDatabase();
         return db.query(TABLE_NAME_CATEGORY, null, null, null, null, null, null);
     }
 
-    public Cursor getCategoriesFromDatabase(){
+    /**
+     * Retrieves categories from the database.
+     *
+     * @return A Cursor containing the query result.
+     */
+    public Cursor getCategoriesFromDatabase() {
         SQLiteDatabase db = getReadableDatabase();
         String[] columns = {"kategorie"};
         String tableName = "kategorien";
-        Cursor cursor = db.query(tableName, columns,null, null, null, null,null);
+        Cursor cursor = db.query(tableName, columns, null, null, null, null, null);
         return cursor;
     }
 
-    public Cursor getMeasureUnitsFromDatabase(){
+    /**
+     * Retrieves measure units from the database.
+     *
+     * @return A Cursor containing the query result.
+     */
+    public Cursor getMeasureUnitsFromDatabase() {
         SQLiteDatabase db = getReadableDatabase();
         String[] columns = {"mengeneinheit"};
         String tableName = "mengeneinheiten";
-        Cursor cursor = db.query(tableName, columns,null, null, null, null,null);
+        Cursor cursor = db.query(tableName, columns, null, null, null, null, null);
         return cursor;
     }
 }

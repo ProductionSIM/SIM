@@ -180,14 +180,17 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+    /**
+     * Creates an ArrayList containing the Measureunits and Categories for the Product pages
+     */
     public void CreateSpinnerData(){
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         List<String> measure = new ArrayList<>();
         if (dbHelper.getAllMeasureUnits().getCount() == 0) {
             measure.add(" - ");
             measure.add("kg");
-            measure.add("liter");
-            measure.add("stück");
+            measure.add("Liter");
+            measure.add("Stück");
 
             dbHelper.insertMeasureUnits(measure);
         }

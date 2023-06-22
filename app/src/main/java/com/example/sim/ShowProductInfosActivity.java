@@ -24,7 +24,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class ShowProductInfosActivity extends AppCompatActivity implements View.OnClickListener{
+/**
+ * Activity to show and update product information.
+ */
+public class ShowProductInfosActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText showProductBrand, showProductName, showProductExpireDate, showProductCount;
 
@@ -67,7 +70,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //     Get the current selected date from the spinner
+                // Get the current selected date from the spinner
                 // Create a DatePickerDialog to choose a new date
                 // Set initial date values
                 DatePickerDialog datePickerDialog = new DatePickerDialog(ShowProductInfosActivity.this, new DatePickerDialog.OnDateSetListener() {
@@ -84,7 +87,6 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         });
 
         showProductBrand = (EditText) findViewById(R.id.EditProductBrand);
-        //showUsername();
         showProductName = (EditText) findViewById(R.id.EditProductName);
         showProductExpireDate = (EditText) findViewById(R.id.EditExpirationDate);
         showProductCount = (EditText) findViewById(R.id.EditAmount);
@@ -99,8 +101,8 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         Cursor cursor = dbHelper.getMeasureUnitsFromDatabase();
         List<String> dataList = new ArrayList<>();
 
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 @SuppressLint("Range") String value = cursor.getString(cursor.getColumnIndex("mengeneinheit"));
                 dataList.add(value);
             } while (cursor.moveToNext());
@@ -113,8 +115,8 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         Cursor cursor1 = dbHelper.getCategoriesFromDatabase();
         List<String> dataList1 = new ArrayList<>();
 
-        if(cursor1.moveToFirst()){
-            do{
+        if (cursor1.moveToFirst()) {
+            do {
                 @SuppressLint("Range") String value = cursor1.getString(cursor1.getColumnIndex("kategorie"));
                 dataList1.add(value);
             } while (cursor1.moveToNext());
@@ -123,9 +125,9 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         CustomSpinnerAdapter adapter2 = new CustomSpinnerAdapter(this, dataList1);
         editCategorySpinner.setAdapter(adapter2);
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF,MODE_PRIVATE);
-        getIdFromPreference =  sharedPreferences.getString(KEY_PRODUCT_ID, "");
-        getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER,"");
+        sharedPreferences = getSharedPreferences(SHARED_PREF, MODE_PRIVATE);
+        getIdFromPreference = sharedPreferences.getString(KEY_PRODUCT_ID, "");
+        getUsernameFromPreference = sharedPreferences.getString(KEY_EMAIL_USER, "");
 
         databaseUser = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
         databaseHelper = new DatabaseHelper(getApplicationContext());
@@ -134,8 +136,8 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         cursorUserProduktbezeichnung = databaseUser.rawQuery("SELECT produktbezeichnung FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
         cursorUserAblaufdatum = databaseUser.rawQuery("SELECT ablaufdatum FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
         cursorUserStückzahl = databaseUser.rawQuery("SELECT stückzahl FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
-        cursorUserMengeneinheit = databaseUser.rawQuery("SELECT mengeneinheit FROM product WHERE rowid ='" + getIdFromPreference +"'", null);
-        cursorUserKategorie = databaseUser.rawQuery("SELECT kategorie FROM product WHERE rowid = '" + getIdFromPreference +"'", null);
+        cursorUserMengeneinheit = databaseUser.rawQuery("SELECT mengeneinheit FROM product WHERE rowid ='" + getIdFromPreference + "'", null);
+        cursorUserKategorie = databaseUser.rawQuery("SELECT kategorie FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
 
         dataMarke = new StringBuilder();
         dataProduktbezeichnung = new StringBuilder();
@@ -144,7 +146,7 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         dataMengeneinheit = new StringBuilder();
         dataKategorie = new StringBuilder();
 
-        while(cursorUserMarke.moveToNext() && cursorUserProduktbezeichnung.moveToNext() && cursorUserAblaufdatum.moveToNext() && cursorUserStückzahl.moveToNext() && cursorUserMengeneinheit.moveToNext() && cursorUserKategorie.moveToNext()){
+        while (cursorUserMarke.moveToNext() && cursorUserProduktbezeichnung.moveToNext() && cursorUserAblaufdatum.moveToNext() && cursorUserStückzahl.moveToNext() && cursorUserMengeneinheit.moveToNext() && cursorUserKategorie.moveToNext()) {
             valueMarke = cursorUserMarke.getString(cursorUserMarke.getColumnIndexOrThrow("marke"));
             valueProduktbezeichnung = cursorUserProduktbezeichnung.getString(cursorUserProduktbezeichnung.getColumnIndexOrThrow("produktbezeichnung"));
             valueAblaufdatum = cursorUserAblaufdatum.getString(cursorUserAblaufdatum.getColumnIndexOrThrow("ablaufdatum"));
@@ -168,31 +170,34 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         String retrievedCategory = dataKategorie.toString();
 
         int position = -1;
-        for (int i = 0; i < dataList.size(); i++){
-            if(dataList.get(i).equals(retrievedMeasureUnit)){
+        for (int i = 0; i < dataList.size(); i++) {
+            if (dataList.get(i).equals(retrievedMeasureUnit)) {
                 position = i;
                 break;
             }
         }
 
         int positio = -1;
-        for(int i = 0; i < dataList1.size(); i++){
-            if(dataList1.get(i).equals(retrievedCategory)){
+        for (int i = 0; i < dataList1.size(); i++) {
+            if (dataList1.get(i).equals(retrievedCategory)) {
                 positio = i;
                 break;
             }
         }
 
-        if(position != -1){
+        if (position != -1) {
             editAmountUnits.setSelection(position);
         }
 
-        if(positio != -1){
+        if (positio != -1) {
             editCategorySpinner.setSelection(positio);
         }
     }
 
-    public void loadMainActivityUp(){
+    /**
+     * Loads the MainActivity.
+     */
+    public void loadMainActivityUp() {
         Intent inten = new Intent(this, MainActivity.class);
         startActivity(inten);
         this.finish();
@@ -203,10 +208,14 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         int id = item.getItemId();
         if (id == android.R.id.home) {
             loadMainActivityUp();
-        } return true;
+        }
+        return true;
     }
 
-    public void updateProduct(){
+    /**
+     * Updates the product in the database with the entered information.
+     */
+    public void updateProduct() {
         String brand = showProductBrand.getText().toString();
         String name = showProductName.getText().toString();
         String ablauf = showProductExpireDate.getText().toString();
@@ -215,26 +224,28 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         String category = editCategorySpinner.getSelectedItem().toString();
 
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("Update product SET marke = '"+ brand + "', produktbezeichnung = '" + name + "', ablaufdatum = '" + ablauf + "', stückzahl = '" + anzahl +"', mengeneinheit = '" + measure +"', kategorie = '" + category +"' WHERE rowid = '" + getIdFromPreference +"' AND benutzername = '" + getUsernameFromPreference +"'");
+        databaseProduct.execSQL("Update product SET marke = '" + brand + "', produktbezeichnung = '" + name + "', ablaufdatum = '" + ablauf + "', stückzahl = '" + anzahl + "', mengeneinheit = '" + measure + "', kategorie = '" + category + "' WHERE rowid = '" + getIdFromPreference + "' AND benutzername = '" + getUsernameFromPreference + "'");
         databaseProduct.close();
     }
 
-    public void deleteProduct(){
+    /**
+     * Deletes the product from the database.
+     */
+    public void deleteProduct() {
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("DELETE FROM product WHERE rowid = '" + getIdFromPreference + "' AND benutzername = '" + getUsernameFromPreference +"'");
+        databaseProduct.execSQL("DELETE FROM product WHERE rowid = '" + getIdFromPreference + "' AND benutzername = '" + getUsernameFromPreference + "'");
         databaseProduct.close();
         Toast.makeText(this, "Produkt gelöscht!", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btnUpdateProduct){
+        if (view.getId() == R.id.btnUpdateProduct) {
             updateProduct();
             loadMainActivityUp();
-        } else if(view.getId() == R.id.btnDeleteProduct){
+        } else if (view.getId() == R.id.btnDeleteProduct) {
             deleteProduct();
             loadMainActivityUp();
         }
     }
 }
-
