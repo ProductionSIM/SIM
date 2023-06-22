@@ -12,21 +12,19 @@
 
         <EditText
             android:id="@+id/editBrand"
-            android:layout_width="317dp"
+            android:layout_width="370dp"
             android:layout_height="49dp"
-            android:layout_marginStart="39dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="37dp"
             android:ems="10"
             android:hint="Marke"
             android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editProductTitle"
+            app:layout_constraintStart_toStartOf="@+id/editProductTitle"
             app:layout_constraintTop_toBottomOf="@+id/editProductTitle" />
 
         <EditText
             android:id="@+id/editProductTitle"
-            android:layout_width="317dp"
+            android:layout_width="370dp"
             android:layout_height="49dp"
             android:layout_marginStart="39dp"
             android:layout_marginTop="72dp"
@@ -40,31 +38,31 @@
 
         <EditText
             android:id="@+id/editExpireDate"
-            android:layout_width="219dp"
+            android:layout_width="275dp"
             android:layout_height="49dp"
-            android:layout_marginStart="39dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="95dp"
             android:editable="false"
             android:ems="10"
             android:focusable="false"
             android:hint="Ablaufdatum"
             android:inputType="date"
-            app:layout_constraintEnd_toStartOf="@+id/dateButton"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editBrand"
+            app:layout_constraintStart_toStartOf="@+id/editBrand"
             app:layout_constraintTop_toBottomOf="@+id/editBrand" />
 
         <EditText
             android:id="@+id/editPieceNumber"
-            android:layout_width="194dp"
+            android:layout_width="225dp"
             android:layout_height="49dp"
-            android:layout_marginStart="39dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="9dp"
+            android:layout_marginEnd="25dp"
             android:ems="10"
             android:hint="Menge"
             android:inputType="numberSigned"
-            app:layout_constraintEnd_toStartOf="@+id/editAmountUnit"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editExpireDate"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editExpireDate"
             app:layout_constraintTop_toBottomOf="@+id/editExpireDate" />
 
         <Button
@@ -93,25 +91,26 @@
 
         <Spinner
             android:id="@+id/editAmountUnit"
-            android:layout_width="117dp"
+            android:layout_width="133dp"
             android:layout_height="49dp"
             android:layout_marginStart="9dp"
+            android:layout_marginEnd="17dp"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/editPieceNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toEndOf="@+id/editPieceNumber"
-            app:layout_constraintTop_toTopOf="@+id/editPieceNumber"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/editPieceNumber" />
 
         <Spinner
             android:id="@+id/editCategorySpin"
-            android:layout_width="317dp"
+            android:layout_width="370dp"
             android:layout_height="49dp"
-            android:layout_marginStart="39dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="37dp"
+            android:layout_marginTop="44dp"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editPieceNumber"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editPieceNumber"
             app:layout_constraintTop_toBottomOf="@+id/editPieceNumber" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

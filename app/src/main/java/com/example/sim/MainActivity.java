@@ -51,80 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(getApplicationContext());
 
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        List<String> measure = new ArrayList<>();
-        if (dbHelper.getAllMeasureUnits().getCount() == 0) {
-            measure.add(" - ");
-            measure.add("kg");
-            measure.add("liter");
-            measure.add("stück");
-
-            dbHelper.insertMeasureUnits(measure);
-        }
-
-        DatabaseHelper dbHelper1 = new DatabaseHelper(this);
-        List<String> category = new ArrayList<>();
-
-        if (dbHelper1.getAllCategories().getCount() == 0) {
-            for (String kategorie : category) {
-                kategorie.equals(category);
-            }
-            //Nahrung und Haushalt
-            category.add(" - ");
-            category.add("Obst & Gemüse");
-            category.add("Brot & Gebäck");
-            category.add("Getränke");
-            category.add("Kühlwaren");
-            category.add("Tiefkühl");
-            category.add("Grundnahrungsmittel");
-            category.add("Süßes & Salziges");
-            category.add("Pflege");
-            category.add("Haushalt");
-            category.add("Haustier");
-
-            // Sport und Fitness
-            category.add("Sportbekleidung");
-            category.add("Sportschuhe");
-            category.add("Fitnessgeräte");
-            category.add("Sportzubehör");
-            category.add("Trainingsausrüstung");
-
-            // Schönheit und Pflege
-            category.add("Hautpflege");
-            category.add("Haarpflege");
-            category.add("Make-Up");
-            category.add("Parfums");
-            category.add("Rasierbedarf");
-            category.add("Zahnpflege");
-            category.add("Körperpflege");
-
-            // Blackout
-            category.add("Taschenlampen");
-            category.add("Batterien");
-            category.add("Kerzen");
-            category.add("Streichhölzer");
-            category.add("Powerbanks");
-            category.add("Verbandsmaterial");
-            category.add("Desinfektionsmittel");
-            category.add("Medikamente");
-            category.add("Handwärmer");
-            category.add("Wärmepacks");
-            category.add("Feuchttücher");
-            category.add("Toilettenpapier");
-            category.add("Feuerzeug");
-            category.add("Dosenöffner");
-            category.add("Feuerlöscher");
-            category.add("Rauchmelder");
-            category.add("Notfallplan");
-            category.add("Sicherheitsdecke");
-            category.add("Spiele");
-
-            // sonstige
-            category.add("Tabak & Trafik");
-
-            dbHelper1.insertCategory(category);
-        }
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -133,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        CreateSpinnerData();
 
         CreateExtendedFAB();
     }
@@ -250,6 +178,75 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    public void CreateSpinnerData(){
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        List<String> measure = new ArrayList<>();
+        if (dbHelper.getAllMeasureUnits().getCount() == 0) {
+            measure.add(" - ");
+            measure.add("kg");
+            measure.add("liter");
+            measure.add("stück");
+
+            dbHelper.insertMeasureUnits(measure);
+        }
+
+        DatabaseHelper dbHelper1 = new DatabaseHelper(this);
+        List<String> category = new ArrayList<>();
+
+        if (dbHelper1.getAllCategories().getCount() == 0) {
+            for (String kategorie : category) {
+                kategorie.equals(category);
+            }
+            //Nahrung und Haushalt
+            category.add(" - ");
+            category.add("Fleischware");
+            category.add("Obst & Gemüse");
+            category.add("Brot & Gebäck");
+            category.add("Fisch & Meeresfrüchte");
+            category.add("Getränke");
+            category.add("Alkoholische Getränke");
+            category.add("Kühlwaren");
+            category.add("Tiefkühlwaren");
+            category.add("Süßes & Knabbereien");
+            category.add("Vegan/Vegetarisch");
+            category.add("Gewürze");
+            category.add("Wasch-, Putz- & Reinigunsmittel");
+            category.add("Tierware");
+            category.add("Tabak & Trafik");
+            category.add("Zubehör");
+
+            //Technik
+            category.add("Haushaltsgeräte");
+            category.add("Entertainment");
+            category.add("Smartphone & Co");
+            category.add("Computer & Software");
+
+            // Sport und Fitness
+            category.add("Sportbekleidung");
+            category.add("Sportschuhe");
+            category.add("Fitnessgeräte");
+            category.add("Sportzubehör");
+            category.add("Trainingsausrüstung");
+
+            // Schönheit und Pflege
+            category.add("Hautpflege");
+            category.add("Haarpflege");
+            category.add("Körperpflege");
+            category.add("Make-Up");
+            category.add("Parfums");
+            category.add("Rasierbedarf");
+            category.add("Zahnpflege");
+
+            // Blackout
+            category.add("Batterien");
+            category.add("Medikamente");
+
+            // sonstige
+
+            dbHelper1.insertCategory(category);
+        }
     }
 
     /**

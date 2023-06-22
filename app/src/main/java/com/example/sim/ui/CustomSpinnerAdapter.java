@@ -22,7 +22,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView view = (TextView) super.getView(position, convertView, parent);
-        view.setTextSize(22);
+        view.setTextSize(20);
         view.setTextColor(Color.WHITE); // Set the desired text color
         return view;
     }
