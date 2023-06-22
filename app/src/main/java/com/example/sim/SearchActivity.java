@@ -32,10 +32,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "productid";
 
-    private SharedPreferences sharedPreferences;
 
     private ArrayList<Integer> integerList;
-    private ArrayAdapter<Integer> adapter;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
     ListView listViewSearch;
@@ -127,7 +125,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         itemList.clear();
         boolean okay = false;
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursor = databaseProduct.rawQuery("SELECT * FROM product WHERE marke LIKE '" + '%' + query + '%' + "' OR produktbezeichnung LIKE '" + '%' + query + '%' + "' OR ablaufdatum LIKE '" + '%' + query + '%' + "'OR stückzahl LIKE '" + '%' + query + '%' + "'", null);
+        Cursor cursor = databaseProduct.rawQuery("SELECT * FROM product WHERE marke LIKE '" + '%' + query + '%' + "' OR produktbezeichnung LIKE '" + '%' + query + '%' + "' OR ablaufdatum LIKE '" + '%' + query + '%' + "'OR stückzahl LIKE '" + '%' + query + '%' + "'OR mengeneinheit LIKE '" + '%' + query + '%' + "'OR kategorie LIKE '" + '%' + query + '%' + "'", null);
         cursor.moveToFirst();
 
         if (cursor.getCount() > 0) {

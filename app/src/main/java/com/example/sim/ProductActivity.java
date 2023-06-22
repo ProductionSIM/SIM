@@ -37,14 +37,11 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     Date currentDate;
     SimpleDateFormat dateFormat;
 
-    String getUsername, getProduktName, valueProductId, formattedDate;
+    String getUsername, formattedDate;
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_EMAIL_USER = "emailUser";
     public static final String KEY_PRODUCT_NAME = "produktbezeichnung";
-    Cursor cursorProductId;
     SharedPreferences sharedPreferences;
-    StringBuilder datarowid;
-    DatabaseHelper databaseHelper;
     private Spinner editAmountUnits, editCategorySpin;
 
     // Get the current date
@@ -53,7 +50,6 @@ public class ProductActivity extends AppCompatActivity implements View.OnClickLi
     int month = calendar.get(Calendar.MONTH);
     int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
     DatabaseHelper dbHelper;
-    String selectedValues;
 
     final String databaseName = "/data/data/com.example.sim/databases/SIM.db";
 

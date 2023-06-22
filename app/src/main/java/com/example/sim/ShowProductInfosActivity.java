@@ -38,9 +38,9 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
     public static final String SHARED_PREF = "MyPreferences";
     public static final String KEY_PRODUCT_ID = "productid";
     public static final String KEY_EMAIL_USER = "emailUser";
-    String valueMarke, valueProduktbezeichnung, valueAblaufdatum, valueStückzahl, getIdFromPreference, getUsernameFromPreference;
-    StringBuilder dataMarke, dataProduktbezeichnung, dataAblaufdatum, dataStückzahl;
-    Cursor cursorUserMarke, cursorUserProduktbezeichnung, cursorUserAblaufdatum, cursorUserStückzahl;
+    String valueMarke, valueProduktbezeichnung, valueAblaufdatum, valueStückzahl, valueMengeneinheit, valueKategorie, getIdFromPreference, getUsernameFromPreference;
+    StringBuilder dataMarke, dataProduktbezeichnung, dataAblaufdatum, dataStückzahl, dataMengeneinheit, dataKategorie;
+    Cursor cursorUserMarke, cursorUserProduktbezeichnung, cursorUserAblaufdatum, cursorUserStückzahl, cursorUserMengeneinheit, cursorUserKategorie;
     SQLiteDatabase databaseUser;
     SharedPreferences sharedPreferences;
 
@@ -95,7 +95,6 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         editCategorySpinner = (Spinner) findViewById(R.id.editCategorySpinner);
 
         // MeasureUnits
-
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         Cursor cursor = dbHelper.getMeasureUnitsFromDatabase();
         List<String> dataList = new ArrayList<>();
@@ -111,7 +110,6 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         editAmountUnits.setAdapter(adapter1);
 
         // Category
-
         Cursor cursor1 = dbHelper.getCategoriesFromDatabase();
         List<String> dataList1 = new ArrayList<>();
 
@@ -136,27 +134,62 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         cursorUserProduktbezeichnung = databaseUser.rawQuery("SELECT produktbezeichnung FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
         cursorUserAblaufdatum = databaseUser.rawQuery("SELECT ablaufdatum FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
         cursorUserStückzahl = databaseUser.rawQuery("SELECT stückzahl FROM product WHERE rowid = '" + getIdFromPreference + "'", null);
+        cursorUserMengeneinheit = databaseUser.rawQuery("SELECT mengeneinheit FROM product WHERE rowid ='" + getIdFromPreference +"'", null);
+        cursorUserKategorie = databaseUser.rawQuery("SELECT kategorie FROM product WHERE rowid = '" + getIdFromPreference +"'", null);
 
         dataMarke = new StringBuilder();
         dataProduktbezeichnung = new StringBuilder();
         dataAblaufdatum = new StringBuilder();
         dataStückzahl = new StringBuilder();
+        dataMengeneinheit = new StringBuilder();
+        dataKategorie = new StringBuilder();
 
-        while(cursorUserMarke.moveToNext() && cursorUserProduktbezeichnung.moveToNext() && cursorUserAblaufdatum.moveToNext() && cursorUserStückzahl.moveToNext()){
+        while(cursorUserMarke.moveToNext() && cursorUserProduktbezeichnung.moveToNext() && cursorUserAblaufdatum.moveToNext() && cursorUserStückzahl.moveToNext() && cursorUserMengeneinheit.moveToNext() && cursorUserKategorie.moveToNext()){
             valueMarke = cursorUserMarke.getString(cursorUserMarke.getColumnIndexOrThrow("marke"));
             valueProduktbezeichnung = cursorUserProduktbezeichnung.getString(cursorUserProduktbezeichnung.getColumnIndexOrThrow("produktbezeichnung"));
             valueAblaufdatum = cursorUserAblaufdatum.getString(cursorUserAblaufdatum.getColumnIndexOrThrow("ablaufdatum"));
             valueStückzahl = cursorUserStückzahl.getString(cursorUserStückzahl.getColumnIndexOrThrow("stückzahl"));
+            valueMengeneinheit = cursorUserMengeneinheit.getString(cursorUserMengeneinheit.getColumnIndexOrThrow("mengeneinheit"));
+            valueKategorie = cursorUserKategorie.getString(cursorUserKategorie.getColumnIndexOrThrow("kategorie"));
 
             dataMarke.append(valueMarke);
             dataProduktbezeichnung.append(valueProduktbezeichnung);
             dataAblaufdatum.append(valueAblaufdatum);
             dataStückzahl.append(valueStückzahl);
+            dataMengeneinheit.append(valueMengeneinheit);
+            dataKategorie.append(valueKategorie);
         }
         showProductBrand.setText(dataMarke.toString());
         showProductName.setText(dataProduktbezeichnung.toString());
         showProductExpireDate.setText(dataAblaufdatum.toString());
         showProductCount.setText(dataStückzahl.toString());
+
+        String retrievedMeasureUnit = dataMengeneinheit.toString();
+        String retrievedCategory = dataKategorie.toString();
+
+        int position = -1;
+        for (int i = 0; i < dataList.size(); i++){
+            if(dataList.get(i).equals(retrievedMeasureUnit)){
+                position = i;
+                break;
+            }
+        }
+
+        int positio = -1;
+        for(int i = 0; i < dataList1.size(); i++){
+            if(dataList1.get(i).equals(retrievedCategory)){
+                positio = i;
+                break;
+            }
+        }
+
+        if(position != -1){
+            editAmountUnits.setSelection(position);
+        }
+
+        if(positio != -1){
+            editCategorySpinner.setSelection(positio);
+        }
     }
 
     public void loadMainActivityUp(){
@@ -178,9 +211,11 @@ public class ShowProductInfosActivity extends AppCompatActivity implements View.
         String name = showProductName.getText().toString();
         String ablauf = showProductExpireDate.getText().toString();
         String anzahl = showProductCount.getText().toString();
+        String measure = editAmountUnits.getSelectedItem().toString();
+        String category = editCategorySpinner.getSelectedItem().toString();
 
         SQLiteDatabase databaseProduct = getBaseContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        databaseProduct.execSQL("Update product SET marke = '"+ brand + "', produktbezeichnung = '" + name + "', ablaufdatum = '" + ablauf + "', stückzahl = '" + anzahl +"' WHERE rowid = '" + getIdFromPreference +"' AND benutzername = '" + getUsernameFromPreference +"'");
+        databaseProduct.execSQL("Update product SET marke = '"+ brand + "', produktbezeichnung = '" + name + "', ablaufdatum = '" + ablauf + "', stückzahl = '" + anzahl +"', mengeneinheit = '" + measure +"', kategorie = '" + category +"' WHERE rowid = '" + getIdFromPreference +"' AND benutzername = '" + getUsernameFromPreference +"'");
         databaseProduct.close();
     }
 

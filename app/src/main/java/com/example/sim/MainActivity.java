@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         List<String> measure = new ArrayList<>();
         if (dbHelper.getAllMeasureUnits().getCount() == 0) {
+            measure.add(" - ");
             measure.add("kg");
             measure.add("liter");
             measure.add("stück");
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 kategorie.equals(category);
             }
             //Nahrung und Haushalt
+            category.add(" - ");
             category.add("Obst & Gemüse");
             category.add("Brot & Gebäck");
             category.add("Getränke");
