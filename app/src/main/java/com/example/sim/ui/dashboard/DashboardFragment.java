@@ -136,7 +136,7 @@ public class DashboardFragment extends Fragment {
         getUsername =  sharedPreferences.getString(KEY_EMAIL_USER, "");
 
         SQLiteDatabase databaseProduct = getContext().openOrCreateDatabase(databaseName, MODE_PRIVATE, null);
-        Cursor cursor = databaseProduct.rawQuery("SELECT marke, produktbezeichnung, ablaufdatum, stückzahl FROM product WHERE benutzername = '" + getUsername + "'", null);
+        Cursor cursor = databaseProduct.rawQuery("SELECT marke, produktbezeichnung, ablaufdatum, stückzahl, mengeneinheit FROM product WHERE benutzername = '" + getUsername + "'", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -144,8 +144,9 @@ public class DashboardFragment extends Fragment {
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME_PRODUCT));
                 @SuppressLint("Range") String expireDate = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_EXPIRE_DATE_PRODUCT));
                 @SuppressLint("Range") String count = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_COUNT_PRODUCT));
+                @SuppressLint("Range") String measureunit = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_MEASURE_UNIT_PRODUCT));
 
-                itemList.add(brand + " - " + name + " - " + expireDate + " - " + count);
+                itemList.add(brand + " - " + name + " - " + expireDate + " - " + count + " " + measureunit);
             } while (cursor.moveToNext());
         }
 

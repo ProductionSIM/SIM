@@ -188,7 +188,9 @@ public class MainActivity extends AppCompatActivity {
         List<String> measure = new ArrayList<>();
         if (dbHelper.getAllMeasureUnits().getCount() == 0) {
             measure.add(" - ");
+            measure.add("g");
             measure.add("kg");
+            measure.add("ml");
             measure.add("Liter");
             measure.add("Stück");
 
