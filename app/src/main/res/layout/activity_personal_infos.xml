@@ -103,6 +103,7 @@
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginTop="52dp"
+        android:inputType="textPassword"
         android:text="testUserPassword"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/showInfosUsername"
